@@ -22,7 +22,7 @@
         # Reference: https://nix-community.github.io/nixvim/user-guide/install.html#standalone-usage
         nvim = inputs.nixvim.legacyPackages.${system}.makeNixvimWithModule {
           # `makeNixvimWithModule` accept `pkgs`, `extraSpecialArgs`, `module`
-          module = import ./config.nix;
+          module = import ./config;
         };
       in {
         default = nvim;
