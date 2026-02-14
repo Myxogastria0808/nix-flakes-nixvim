@@ -15,6 +15,11 @@
     # icon
     web-devicons.enable = true;
     #* lsp *#
-    # nix
+    lsp = {
+      inlayHints.enable = true;
+      servers = {
+        nixd.enable = true;
+      };
+    };
   };
 }
