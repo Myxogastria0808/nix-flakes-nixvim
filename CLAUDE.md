@@ -20,9 +20,6 @@ nix develop
 
 # Update all flake dependencies
 nix flake update
-
-# Show flake outputs
-nix flake show
 ```
 
 Direnv is configured (`.envrc` with `use flake`), so `direnv allow` will auto-load the dev shell.

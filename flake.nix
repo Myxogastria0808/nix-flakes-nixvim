@@ -6,7 +6,7 @@
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
+       };
   };
 
   outputs =
@@ -20,12 +20,12 @@
         system = systems;
         # `makeNixvimWithModule` is used to create a standalone Neovim package that includes my custom configuration module.
         # Reference: https://nix-community.github.io/nixvim/user-guide/install.html#standalone-usage
-        nvim = inputs.nixvim.legacyPackages.${system}.makeNixvimWithModule {
+        nixvimConfig = inputs.nixvim.legacyPackages.${system}.makeNixvimWithModule {
           # `makeNixvimWithModule` accept `pkgs`, `extraSpecialArgs`, `module`
           module = import ./config;
         };
       in {
-        default = nvim;
+        default = nixvimConfig;
       };
 
     devShells.x86_64-linux =
