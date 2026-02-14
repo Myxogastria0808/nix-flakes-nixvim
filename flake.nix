@@ -30,12 +30,11 @@
 
     devShells.x86_64-linux =
       let
-        system = systems;
-        pkgs = inputs.nixpkgs.legacyPackages.${system};
+        pkgs = inputs.nixpkgs.legacyPackages.${systems};
       in {
         default =  pkgs.mkShell {
             packages = [
-              inputs.self.packages.${system}.default
+              inputs.self.packages.${systems}.default
             ];
         };
       };
