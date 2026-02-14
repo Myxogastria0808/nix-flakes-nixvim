@@ -12,25 +12,32 @@
   outputs =
     inputs:
     let
-      system = "x86_64-linux";
+      systems = "x86_64-linux";
     in
     {
-    packages.x86_64-linux.default =
+    packages.x86_64-linux =
       let
-        system = system;
+        system = systems;
+        # `makeNixvimWithModule` is used to create a standalone Neovim package that includes my custom configuration module.
+        # Reference: https://nix-community.github.io/nixvim/user-guide/install.html#standalone-usage
         nvim = inputs.nixvim.legacyPackages.${system}.makeNixvimWithModule {
+          # `makeNixvimWithModule` accept `pkgs`, `extraSpecialArgs`, `module`
           module = import ./config.nix;
         };
-      in nvim;
+      in {
+        default = nvim;
+      };
 
-    devShells.x86_64-linux.default =
+    devShells.x86_64-linux =
       let
-        system = system;
+        system = systems;
         pkgs = inputs.nixpkgs.legacyPackages.${system};
-      in pkgs.mkShell {
-          packages = [
-            inputs.self.packages.${system}.default
-          ];
+      in {
+        default =  pkgs.mkShell {
+            packages = [
+              inputs.self.packages.${system}.default
+            ];
+        };
       };
   };
 }
