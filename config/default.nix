@@ -18,6 +18,13 @@
     settings.style = "night";
   };
 
+  globals = {
+    # set <leader> to space
+    mapleader = " ";
+    # set <LocalLeader> to space
+    maplocalleader = " ";
+  };
+
   opts = {
     # show numer of lines
     number = true;
