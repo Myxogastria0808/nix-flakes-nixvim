@@ -12,7 +12,9 @@
   # theme: tokyonight, night
   colorschemes.tokyonight = {
     enable = true;
-    settings.style = "moon";
+    # style has `moon`, `storm`, `night` and `day`.
+    # darker variant is night.
+    settings.style = "night";
   };
 
   opts = {

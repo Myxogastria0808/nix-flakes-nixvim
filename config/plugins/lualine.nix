@@ -1,12 +1,14 @@
 {
   plugins.lualine = {
     enable = true;
+    # hide a line in the file tree area
+    settings.options.disabled_filetypes.statusline = [ "neo-tree" ];
     settings.sections =
       let
         notNeoTree.__raw = "function() return vim.bo.filetype ~= 'neo-tree' end";
       in
       {
-        # Left side line option
+        # left side line option
         lualine_a = [ "mode" ];
         lualine_b = [ "branch" ];
         lualine_c = [
@@ -15,7 +17,7 @@
             cond = notNeoTree;
           }
         ];
-        # Right side line option
+        # right side line option
         lualine_x = [
           {
             "__unkeyed-1" = "encoding";
