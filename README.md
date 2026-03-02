@@ -7,25 +7,77 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | Category         | Details                                                                                                                                                                 |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Color scheme** | [tokyonight](https://github.com/folke/tokyonight.nvim) (night style)                                                                                                    |
-| **File tree**    | [neo-tree](https://github.com/nvim-neo-tree/neo-tree.nvim) with git status icons and devicons                                                                           |
-| **Statusline**   | [lualine](https://github.com/nvim-lualine/lualine.nvim) (hidden in neo-tree windows)                                                                                    |
+| **File tree**    | [neo-tree](https://github.com/nvim-neo-tree/neo-tree.nvim) with git status icons, auto-close on last window, follow current file                                        |
+| **Icons**        | [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) with custom icons for `.lean` (∀), `lean-toolchain` (∃), `.envrc` ($)                               |
+| **Statusline**   | [lualine](https://github.com/nvim-lualine/lualine.nvim) (components hidden when neo-tree is focused)                                                                    |
 | **LSP**          | [nil](https://github.com/oxalica/nil) (Nix), [marksman](https://github.com/artempyanykh/marksman) (Markdown), [lean.nvim](https://github.com/Julian/lean.nvim) (Lean 4) |
-| **Formatting**   | [conform.nvim](https://github.com/stevearc/conform.nvim) — `nixfmt` for Nix, `prettier` for Markdown (format-on-save)                                                   |
+| **Formatting**   | [conform.nvim](https://github.com/stevearc/conform.nvim) — `nixfmt` for Nix, `prettier` for Markdown (format-on-save, 500ms timeout)                                    |
 | **Git**          | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)                                                                                                             |
 | **AI**           | [copilot.lua](https://github.com/zbirenbaum/copilot.lua) with auto-trigger suggestions                                                                                  |
-| **Utilities**    | [todo-comments.nvim](https://github.com/folke/todo-comments.nvim) (highlight TODO, NOTE, FIX, etc.)                                                                     |
+| **Utilities**    | [todo-comments.nvim](https://github.com/folke/todo-comments.nvim) (highlight TODO, NOTE, FIX, HACK, WARN, PERF, etc.)                                                   |
 
 ### Key Bindings
 
-| Key               | Mode                     | Action                             |
-| ----------------- | ------------------------ | ---------------------------------- |
-| `Ctrl+S`          | Normal / Insert / Visual | Save file                          |
-| `Space e`         | Normal                   | Toggle neo-tree                    |
-| `Tab`             | Insert                   | Accept Copilot suggestion          |
-| `Alt+]` / `Alt+[` | Insert                   | Next / Previous Copilot suggestion |
-| `Ctrl+]`          | Insert                   | Dismiss Copilot suggestion         |
+> Leader key and LocalLeader are both set to `Space`.
 
-> Leader key is set to `Space`.
+#### General
+
+| Key               | Mode                     | Action                                           |
+| ----------------- | ------------------------ | ------------------------------------------------ |
+| `Ctrl+S`          | Normal / Insert / Visual | Save file                                        |
+| `Space e`         | Normal                   | Toggle neo-tree                                  |
+
+#### Copilot
+
+| Key               | Mode   | Action                                           |
+| ----------------- | ------ | ------------------------------------------------ |
+| `Tab`             | Insert | Accept Copilot suggestion (fallback: insert tab) |
+| `Alt+]` / `Alt+[` | Insert | Next / Previous Copilot suggestion               |
+| `Ctrl+]`          | Insert | Dismiss Copilot suggestion                       |
+
+#### Lean (active in `.lean` buffers, `Space` = LocalLeader)
+
+| Key                    | Mode   | Action                                        |
+| ---------------------- | ------ | --------------------------------------------- |
+| `Space i`              | Normal | Toggle infoview                               |
+| `Space p`              | Normal | Pause infoview                                |
+| `Space r`              | Normal | Restart Lean server                           |
+| `Space v`              | Normal | Configure infoview options                    |
+| `Space x`              | Normal | Place infoview pin                            |
+| `Space c`              | Normal | Clear all infoview pins                       |
+| `Space dx`             | Normal | Place infoview diff pin                       |
+| `Space dc`             | Normal | Clear infoview diff pin                       |
+| `Space dd`             | Normal | Toggle auto diff pin mode                     |
+| `Space dt`             | Normal | Toggle auto diff pin (keep diff pin)          |
+| `Space Tab`            | Normal | Jump between lean file and infoview           |
+| `Space \`              | Normal | Show abbreviation for symbol under cursor     |
+
+#### Lean Infoview
+
+| Key                    | Action                                        |
+| ---------------------- | --------------------------------------------- |
+| `Enter` / `K`         | Click a widget or interactive area             |
+| `gK`                   | Select a widget (shift+click)                  |
+| `Tab` / `J`           | Jump into a tooltip                            |
+| `Shift+Tab`            | Jump out of a tooltip                          |
+| `Esc` / `C`           | Clear all open tooltips                        |
+| `gd`                   | Go to definition                               |
+| `gD`                   | Go to declaration                              |
+| `gy`                   | Go to type                                     |
+
+### Neo-tree Git Status Symbols
+
+| Symbol | Meaning   |
+| ------ | --------- |
+| `+`    | Added     |
+| `m`    | Modified  |
+| `x`    | Deleted   |
+| `r`    | Renamed   |
+| `?`    | Untracked |
+| `i`    | Ignored   |
+| `u`    | Unstaged  |
+| `s`    | Staged    |
+| `!`    | Conflict  |
 
 ## Prerequisites
 
@@ -109,14 +161,14 @@ If you want to use GitHub Copilot, run `:Copilot auth` inside Neovim after the f
 ├── flake.lock
 ├── config/
 │   ├── default.nix        # Root NixVim module (colorscheme, globals, opts)
-│   ├── keymaps.nix        # Key bindings
+│   ├── keymaps.nix        # Global key bindings (save, neo-tree toggle)
 │   └── plugins/
-│       ├── copilot.nix    # GitHub Copilot
+│       ├── copilot.nix    # GitHub Copilot (config & Tab accept keymap)
 │       ├── format.nix     # conform.nvim (format-on-save)
 │       ├── gitsigns.nix   # Git gutter signs
-│       ├── lsp.nix        # LSP servers & lean.nvim
-│       ├── lualine.nix    # Statusline
-│       ├── tree.nix       # Neo-tree file explorer & devicons
+│       ├── lsp.nix        # LSP servers (nil, marksman) & lean.nvim
+│       ├── lualine.nix    # Statusline (hidden in neo-tree windows)
+│       ├── tree.nix       # Neo-tree file explorer & custom devicons
 │       └── utils.nix      # Miscellaneous plugins (todo-comments, etc.)
 ├── .envrc                 # direnv integration
 └── .gitignore
