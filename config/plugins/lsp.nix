@@ -4,11 +4,10 @@
       enable = true;
       servers = {
         # nix
-        nil_ls = {
-          enable = true;
-          settings.nix.flake.autoArchive = true;
-        };
+        # reference: https://github.com/oxalica/nil
+        nil_ls.enable = true;
         # markdown
+        # reference: https://github.com/artempyanykh/marksman
         marksman.enable = true;
       };
     };
