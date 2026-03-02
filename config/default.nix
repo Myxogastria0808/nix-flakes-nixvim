@@ -4,6 +4,7 @@
     ./plugins/format.nix
     ./plugins/lsp.nix
     ./plugins/gitsigns.nix
+    ./plugins/lualine.nix
     ./keymaps.nix
   ];
 
