@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  extraPackages = [ pkgs.prettier ];
+  extraPackages = [
+    # require: markdown
+    pkgs.prettier
+  ];
   plugins.conform-nvim = {
     enable = true;
     settings = {
