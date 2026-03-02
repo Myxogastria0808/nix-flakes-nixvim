@@ -13,6 +13,7 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | **Formatting**   | [conform.nvim](https://github.com/stevearc/conform.nvim) — `nixfmt` for Nix, `prettier` for Markdown (format-on-save)                                                   |
 | **Git**          | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)                                                                                                             |
 | **AI**           | [copilot.lua](https://github.com/zbirenbaum/copilot.lua) with auto-trigger suggestions                                                                                  |
+| **Utilities**    | [todo-comments.nvim](https://github.com/folke/todo-comments.nvim) (highlight TODO, NOTE, FIX, etc.)                                                                     |
 
 ### Key Bindings
 
@@ -115,7 +116,8 @@ If you want to use GitHub Copilot, run `:Copilot auth` inside Neovim after the f
 │       ├── gitsigns.nix   # Git gutter signs
 │       ├── lsp.nix        # LSP servers & lean.nvim
 │       ├── lualine.nix    # Statusline
-│       └── tree.nix       # Neo-tree file explorer
+│       ├── tree.nix       # Neo-tree file explorer & devicons
+│       └── utils.nix      # Miscellaneous plugins (todo-comments, etc.)
 ├── .envrc                 # direnv integration
 └── .gitignore
 ```
