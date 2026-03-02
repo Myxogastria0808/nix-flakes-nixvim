@@ -7,6 +7,7 @@
         timeout_ms = 500;
       };
       formatters_by_ft = {
+        # nix
         nix = [ "nixfmt" ];
       };
     };

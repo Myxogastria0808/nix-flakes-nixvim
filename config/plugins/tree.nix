@@ -1,6 +1,7 @@
 {
   plugins.neo-tree = {
     enable = true;
+    # git status
     gitStatusAsync = true;
     settings = {
       close_if_last_window = true;

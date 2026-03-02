@@ -8,10 +8,17 @@
     ./keymaps.nix
   ];
 
-  colorschemes.tokyonight.enable = true;
+  # set color theme
+  # theme: tokyonight, night
+  colorschemes.tokyonight = {
+    enable = true;
+    settings.style = "moon";
+  };
 
   opts = {
+    # show numer of lines
     number = true;
+    # hide `~`
     fillchars.eob = " ";
   };
 }
