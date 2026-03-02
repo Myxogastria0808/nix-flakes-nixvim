@@ -7,6 +7,7 @@
   # discord rich presence
   plugins.neocord = {
     enable = true;
+    lazyLoad.settings.event = ["VeryLazy"];
     settings = {
       logo = "auto";
       main_image = "logo";
