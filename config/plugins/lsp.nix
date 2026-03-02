@@ -13,6 +13,9 @@
       };
     };
     # lean
-    lean.enable = true;
+    lean = {
+      enable = true;
+      settings.infoview.width = 0.2;
+    };
   };
 }
