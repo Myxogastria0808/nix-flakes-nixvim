@@ -21,7 +21,7 @@
   opts = {
     # show numer of lines
     number = true;
-    # hide `~`
+    # hide `~` at the end of buffer
     fillchars.eob = " ";
   };
 }
