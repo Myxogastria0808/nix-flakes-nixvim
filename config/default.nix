@@ -5,6 +5,7 @@
     ./plugins/lsp.nix
     ./plugins/gitsigns.nix
     ./plugins/lualine.nix
+    ./plugins/copilot.nix
     ./keymaps.nix
   ];
 
