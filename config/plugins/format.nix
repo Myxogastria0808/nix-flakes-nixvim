@@ -9,6 +9,8 @@
       formatters_by_ft = {
         # nix
         nix = [ "nixfmt" ];
+        # markdown
+        markdown = [ "prettier" ];
       };
     };
   };

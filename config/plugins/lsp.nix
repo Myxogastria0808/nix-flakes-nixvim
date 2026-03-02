@@ -7,6 +7,8 @@
         enable = true;
         settings.nix.flake.autoArchive = true;
       };
+      # markdown
+      marksman.enable = true;
     };
   };
 }
