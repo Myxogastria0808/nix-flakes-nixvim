@@ -28,5 +28,12 @@
   };
 
   # icon
-  plugins.web-devicons.enable = true;
+  plugins.web-devicons = {
+    enable = true;
+    settings.override_by_extension.lean = {
+      icon = "∀";
+      color = "#3b82f6";
+      name = "Lean";
+    };
+  };
 }
