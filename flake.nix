@@ -36,7 +36,7 @@
             packages = [
               inputs.self.packages.${systems}.default
             ];
-        };
+            };
       };
   };
 }
