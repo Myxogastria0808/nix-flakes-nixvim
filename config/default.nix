@@ -8,6 +8,8 @@
     ./keymaps.nix
   ];
 
+  colorschemes.tokyonight.enable = true;
+
   opts = {
     number = true;
     fillchars.eob = " ";

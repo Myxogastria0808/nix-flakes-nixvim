@@ -2,7 +2,7 @@
   globals.mapleader = " ";
   keymaps = [
     # Save file
-    # keybind: Ctrl+S
+    # keybind: Ctrl + S
     {
       mode = [
         "n"
