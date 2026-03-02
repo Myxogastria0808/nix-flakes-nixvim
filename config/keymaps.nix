@@ -1,7 +1,8 @@
 {
   globals.mapleader = " ";
   keymaps = [
-    # Ctrl+S で保存
+    # Save file
+    # keybind: Ctrl+S
     {
       mode = [
         "n"
@@ -12,10 +13,11 @@
       action = "<cmd>w<CR>";
       options.desc = "Save file";
     }
-    # Ctrl+N で neo-tree の開閉
+    # Open / Close file tree
+    # keybind: Space -> E
     {
       mode = "n";
-      key = "<C-n>";
+      key = "<leader>e";
       action = "<cmd>Neotree toggle<CR>";
       options.desc = "Toggle neo-tree";
     }

@@ -1,9 +1,23 @@
 {
   plugins.neo-tree = {
     enable = true;
+    gitStatusAsync = true;
     settings = {
       close_if_last_window = true;
       filesystem.follow_current_file.enabled = true;
+      default_component_configs.git_status = {
+        symbols = {
+          added = "+";
+          modified = "~";
+          deleted = "x";
+          renamed = "r";
+          untracked = "?";
+          ignored = "i";
+          unstaged = "u";
+          staged = "s";
+          conflict = "!";
+        };
+      };
       window = {
         position = "left";
         width = 30;
