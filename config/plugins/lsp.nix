@@ -19,7 +19,7 @@
       settings = {
         # infoview (proof state window) settings
         infoview = {
-          height = 1/5;
+          height = 10;
           orientation = "horizontal";
           horizontal_position = "bottom";
           indicators = "always";

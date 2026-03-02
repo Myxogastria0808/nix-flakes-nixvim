@@ -2,7 +2,7 @@
   plugins.neo-tree = {
     enable = true;
     # git status
-    gitStatusAsync = true;
+    settings.git_status_async = true;
     settings = {
       close_if_last_window = true;
       filesystem.follow_current_file.enabled = true;
