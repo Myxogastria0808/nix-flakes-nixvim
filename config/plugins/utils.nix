@@ -1,9 +1,10 @@
 {
+  # todo comments
   plugins.todo-comments = {
     enable = true;
   };
 
-  # Discord Rich Presence
+  # discord rich presence
   plugins.neocord = {
     enable = true;
     settings = {
