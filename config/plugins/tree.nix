@@ -37,7 +37,7 @@
     };
     settings.override_by_filename."lean-toolchain" = {
       icon = "∃";
-      color = "#10b981";
+      color = "#eab308";
       name = "LeanToolchain";
     };
     settings.override_by_filename.".envrc" = {
