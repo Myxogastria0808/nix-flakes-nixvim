@@ -5,10 +5,11 @@
     settings = {
       close_if_last_window = true;
       filesystem.follow_current_file.enabled = true;
+      # git status
       default_component_configs.git_status = {
         symbols = {
           added = "+";
-          modified = "~";
+          modified = "m";
           deleted = "x";
           renamed = "r";
           untracked = "?";
