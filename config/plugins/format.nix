@@ -3,6 +3,8 @@
   extraPackages = [
     # require: markdown
     pkgs.prettier
+    # require: shell script
+    pkgs.shfmt
   ];
   plugins.conform-nvim = {
     enable = true;
