@@ -10,13 +10,13 @@
       default_component_configs.git_status = {
         symbols = {
           added = "+";
-          modified = "m";
-          deleted = "x";
-          renamed = "r";
+          modified = "~";
+          deleted = "✘";
+          renamed = "»";
           untracked = "?";
-          ignored = "i";
-          unstaged = "u";
-          staged = "s";
+          ignored = "◌";
+          unstaged = "-";
+          staged = "✓";
           conflict = "!";
         };
       };
@@ -41,6 +41,16 @@
       name = "LeanToolchain";
     };
     settings.override_by_filename.".envrc" = {
+      icon = "$";
+      color = "#f59e0b";
+      name = "Envrc";
+    };
+    settings.override_by_filename.".bashrc" = {
+      icon = "$";
+      color = "#f59e0b";
+      name = "Envrc";
+    };
+    settings.override_by_filename.".zshrc" = {
       icon = "$";
       color = "#f59e0b";
       name = "Envrc";
