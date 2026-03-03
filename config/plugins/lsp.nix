@@ -9,6 +9,12 @@
         # markdown
         # reference: https://github.com/artempyanykh/marksman
         marksman.enable = true;
+        # shell script (bash, sh, zsh)
+        # reference: https://github.com/bash-lsp/bash-language-server
+        bashls = {
+          enable = true;
+          filetypes = [ "sh" "bash" "zsh" ];
+        };
       };
     };
     # lean

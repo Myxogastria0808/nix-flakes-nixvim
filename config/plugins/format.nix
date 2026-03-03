@@ -16,6 +16,10 @@
         nix = [ "nixfmt" ];
         # markdown
         markdown = [ "prettier" ];
+        # shell script
+        sh = [ "shfmt" ];
+        bash = [ "shfmt" ];
+        zsh = [ "shfmt" ];
       };
     };
   };
