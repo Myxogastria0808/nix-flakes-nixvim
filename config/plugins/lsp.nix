@@ -4,9 +4,15 @@
   #
   # Configures language servers for LSP features (diagnostics, go-to-definition, etc.).
   # Enabled servers:
-  #   nil_ls   : Nix           (reference: https://github.com/oxalica/nil)
-  #   marksman : Markdown      (reference: https://github.com/artempyanykh/marksman)
-  #   bashls   : shell scripts (reference: https://github.com/bash-lsp/bash-language-server)
+  #   nil_ls   : Nix                        (reference: https://github.com/oxalica/nil)
+  #   marksman : Markdown                   (reference: https://github.com/artempyanykh/marksman)
+  #   bashls   : shell scripts              (reference: https://github.com/bash-lsp/bash-language-server)
+  #   ts_ls    : TypeScript / JavaScript    (reference: https://github.com/typescript-language-server/typescript-language-server)
+  #   rust_analyzer : Rust                 (reference: https://github.com/rust-lang/rust-analyzer)
+  #   r_language_server : R               (reference: https://github.com/REditorSupport/languageserver)
+  #   ocamllsp          : OCaml           (reference: https://github.com/ocaml/ocaml-lsp)
+  #   hls               : Haskell         (reference: https://github.com/haskell/haskell-language-server)
+  #   tinymist          : Typst           (reference: https://github.com/Myriad-Dreamin/tinymist)
   plugins.lsp = {
     enable = true;
     servers = {
@@ -22,6 +28,22 @@
           "bash"
           "zsh"
         ];
+      };
+      # TypeScript / JavaScript language server
+      ts_ls.enable = true;
+      # R language server
+      r_language_server.enable = true;
+      # OCaml language server
+      ocamllsp.enable = true;
+      # Haskell language server
+      hls.enable = true;
+      # Typst language server
+      tinymist.enable = true;
+      # Rust language server
+      rust_analyzer = {
+        enable = true;
+        installCargo = true;
+        installRustc = true;
       };
     };
   };
