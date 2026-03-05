@@ -8,7 +8,6 @@
     ./plugins/copilot.nix
     ./plugins/tab.nix
     ./plugins/utils.nix
-    ./plugins/jumpcursor.nix
     ./keymaps.nix
   ];
 
