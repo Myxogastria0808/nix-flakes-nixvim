@@ -70,7 +70,8 @@
   extraConfigLua = ''
     vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
       callback = function()
-        vim.fn.matchadd("ZenkakuChar", "[　！-～]")
+        local pat = "[" .. vim.fn.nr2char(0x3000) .. vim.fn.nr2char(0xff01) .. "-" .. vim.fn.nr2char(0xff5e) .. "]"
+        vim.fn.matchadd("ZenkakuChar", pat)
       end,
     })
   '';
