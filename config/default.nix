@@ -11,12 +11,12 @@
     ./keymaps.nix
   ];
 
-  # set color theme
-  # theme: tokyonight, night
+  # tokyonight color scheme
+  # reference: https://github.com/folke/tokyonight.nvim
   colorschemes.tokyonight = {
     enable = true;
-    # style has `moon`, `storm`, `night` and `day`.
-    # darker variant is night.
+    # available styles: moon | storm | night | day
+    # night is the darkest variant
     settings.style = "night";
   };
 
@@ -28,9 +28,9 @@
   };
 
   opts = {
-    # show numer of lines
+    # show line numbers
     number = true;
-    # hide `~` at the end of buffer
+    # hide ~ at the end of buffer
     fillchars.eob = " ";
   };
 }

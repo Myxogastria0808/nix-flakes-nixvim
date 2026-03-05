@@ -1,11 +1,16 @@
 { pkgs, ... }:
 {
   extraPackages = [
-    # require: markdown
+    # required by markdown formatter
     pkgs.prettier
-    # require: shell script
+    # required by shell script formatter
     pkgs.shfmt
   ];
+
+  # conform-nvim
+  # reference: https://github.com/stevearc/conform.nvim
+  #
+  # Formats files automatically on save using per-filetype formatters.
   plugins.conform-nvim = {
     enable = true;
     settings = {
@@ -14,11 +19,11 @@
         timeout_ms = 500;
       };
       formatters_by_ft = {
-        # nix
+        # nix formatter
         nix = [ "nixfmt" ];
-        # markdown
+        # markdown formatter
         markdown = [ "prettier" ];
-        # shell script
+        # shell script formatter (sh, bash, zsh)
         sh = [ "shfmt" ];
         bash = [ "shfmt" ];
         zsh = [ "shfmt" ];

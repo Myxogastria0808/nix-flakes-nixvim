@@ -1,12 +1,15 @@
 {
+  # neo-tree.nvim
+  # reference: https://github.com/nvim-neo-tree/neo-tree.nvim
+  #
+  # File explorer tree shown on the left side of the editor.
   plugins.neo-tree = {
     enable = true;
-    # git status
+    # update git status asynchronously for better performance
     settings.git_status_async = true;
     settings = {
       close_if_last_window = true;
       filesystem.follow_current_file.enabled = true;
-      # git status
       default_component_configs.git_status = {
         symbols = {
           added = "+";
@@ -27,7 +30,11 @@
     };
   };
 
-  # icon
+  # nvim-web-devicons
+  # reference: https://github.com/nvim-tree/nvim-web-devicons
+  #
+  # Provides file-type icons used by neo-tree and other plugins.
+  # Custom icons added for Lean, lean-toolchain, .envrc, .bashrc, and .zshrc.
   plugins.web-devicons = {
     enable = true;
     settings.override_by_extension.lean = {

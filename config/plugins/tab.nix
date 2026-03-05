@@ -4,10 +4,10 @@
   #
   # Displays open buffers as file tabs at the top of the editor.
   #
-  # Keymaps (Normal mode):
-  # <S-l>        : go to next buffer
-  # <S-h>        : go to previous buffer
-  # <leader>bd   : close (delete) current buffer
+  # Keymaps:
+  # <A-L>        : go to next buffer     (Normal / Insert / Visual)
+  # <A-H>        : go to previous buffer (Normal / Insert / Visual)
+  # <A-D>        : close (delete) current buffer (Normal only, to avoid accidental close)
   plugins.bufferline = {
     enable = true;
     settings.options = {
@@ -26,28 +26,39 @@
   keymaps = [
     # Move to the next buffer in the bufferline.
     # Mirrors the default Neovim window navigation convention (l = right).
-    # keybind: Shift + L
+    # Enabled in Normal / Insert / Visual to allow navigation from any editing context.
+    # keybind: Shift + Alt + L
     {
-      mode = "n";
-      key = "<S-l>";
+      mode = [
+        "n"
+        "i"
+        "v"
+      ];
+      key = "<A-L>";
       action = "<cmd>BufferLineCycleNext<CR>";
       options.desc = "Next buffer";
     }
     # Move to the previous buffer in the bufferline.
     # Mirrors the default Neovim window navigation convention (h = left).
-    # keybind: Shift + H
+    # Enabled in Normal / Insert / Visual to allow navigation from any editing context.
+    # keybind: Shift + Alt + H
     {
-      mode = "n";
-      key = "<S-h>";
+      mode = [
+        "n"
+        "i"
+        "v"
+      ];
+      key = "<A-H>";
       action = "<cmd>BufferLineCyclePrev<CR>";
       options.desc = "Previous buffer";
     }
     # Delete (close) the current buffer from the buffer list.
     # Uses the built-in :bdelete command; the window remains open.
-    # keybind: Space -> B -> D
+    # Normal mode only to prevent accidental buffer close while editing or selecting.
+    # keybind: Shift + Alt + D
     {
       mode = "n";
-      key = "<leader>bd";
+      key = "<A-D>";
       action = "<cmd>bdelete<CR>";
       options.desc = "Close buffer";
     }

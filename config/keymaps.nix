@@ -1,7 +1,12 @@
 {
+  # Global keymaps independent of any specific plugin.
+  #
+  # Keymaps:
+  # <C-s>       : save file          (Normal / Insert / Visual)
+  # <leader>e   : toggle file tree   (Normal)
   globals.mapleader = " ";
   keymaps = [
-    # Save file
+    # Save the current file.
     # keybind: Ctrl + S
     {
       mode = [
@@ -13,7 +18,7 @@
       action = "<cmd>w<CR>";
       options.desc = "Save file";
     }
-    # Open / Close file tree
+    # Toggle the neo-tree file explorer open or closed.
     # keybind: Space -> E
     {
       mode = "n";

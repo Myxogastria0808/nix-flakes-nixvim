@@ -1,4 +1,9 @@
 {
+  # lualine.nvim
+  # reference: https://github.com/nvim-lualine/lualine.nvim
+  #
+  # Configures the statusline at the bottom of the editor.
+  # Statusline content is hidden when a neo-tree window is focused.
   plugins.lualine = {
     enable = true;
     # Hide the statusline in neo-tree windows.

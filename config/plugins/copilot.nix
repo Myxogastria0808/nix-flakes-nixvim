@@ -1,4 +1,14 @@
 {
+  # copilot.lua
+  # reference: https://github.com/zbirenbaum/copilot.lua
+  #
+  # Provides GitHub Copilot AI suggestions in insert mode.
+  #
+  # Keymaps (Insert mode):
+  # <Tab>   : accept suggestion or insert tab
+  # <A-]>   : next suggestion
+  # <A-[>   : previous suggestion
+  # <C-]>   : dismiss suggestion
   plugins.copilot-lua = {
     enable = true;
     settings = {
@@ -9,13 +19,10 @@
         keymap = {
           # accept is handled by custom keymap below to avoid <Ignore> insertion
           accept = false;
-          # check next suggestion
           # keybind: Alt + ]
           next = "<A-]>";
-          # check previous suggestion
           # keybind: Alt + [
           prev = "<A-[>";
-          # cancel suggestion
           # keybind: Ctrl + ]
           dismiss = "<C-]>";
         };
