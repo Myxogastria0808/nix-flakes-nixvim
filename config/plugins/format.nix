@@ -19,6 +19,8 @@
     pkgs.google-java-format
     # required by Go formatter
     pkgs.gofumpt
+    # required by TOML formatter
+    pkgs.taplo
     # required by Python formatter
     pkgs.ruff
   ];
@@ -62,6 +64,12 @@
         java = [ "google_java_format" ];
         # Go formatter
         go = [ "gofumpt" ];
+        # TOML formatter
+        toml = [ "taplo" ];
+        # JSON formatter
+        json = [ "prettier" ];
+        # YAML formatter
+        yaml = [ "prettier" ];
         # Rust formatter
         rust = [ "rustfmt" ];
         # TypeScript / JavaScript formatter

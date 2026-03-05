@@ -20,6 +20,9 @@
   #   jdtls             : Java            (reference: https://github.com/eclipse-jdtls/eclipse.jdt.ls)
   #   julials           : Julia           (reference: https://github.com/julia-vscode/LanguageServer.jl)
   #   gopls             : Go              (reference: https://github.com/golang/tools/tree/master/gopls)
+  #   taplo             : TOML           (reference: https://github.com/tamasfe/taplo)
+  #   jsonls            : JSON           (reference: https://github.com/hrsh7th/vscode-langservers-extracted)
+  #   yamlls            : YAML           (reference: https://github.com/redhat-developer/yaml-language-server)
   plugins.lsp = {
     enable = true;
     servers = {
@@ -71,6 +74,12 @@
       };
       # Go language server
       gopls.enable = true;
+      # TOML language server
+      taplo.enable = true;
+      # JSON language server (included in vscode-langservers-extracted, same as html/cssls)
+      jsonls.enable = true;
+      # YAML language server
+      yamlls.enable = true;
       # Rust language server
       rust_analyzer = {
         enable = true;
