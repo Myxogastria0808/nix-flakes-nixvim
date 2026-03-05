@@ -4,7 +4,7 @@
     ./plugins/format.nix
     ./plugins/lsp.nix
     ./plugins/gitsigns.nix
-    ./plugins/lualine.nix
+    ./plugins/bar.nix
     ./plugins/copilot.nix
     ./plugins/tab.nix
     ./plugins/utils.nix
