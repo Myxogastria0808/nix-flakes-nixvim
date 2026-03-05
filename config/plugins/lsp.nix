@@ -13,7 +13,11 @@
         # reference: https://github.com/bash-lsp/bash-language-server
         bashls = {
           enable = true;
-          filetypes = [ "sh" "bash" "zsh" ];
+          filetypes = [
+            "sh"
+            "bash"
+            "zsh"
+          ];
         };
       };
     };

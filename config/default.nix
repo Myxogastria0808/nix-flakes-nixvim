@@ -6,6 +6,7 @@
     ./plugins/gitsigns.nix
     ./plugins/lualine.nix
     ./plugins/copilot.nix
+    ./plugins/tab.nix
     ./plugins/utils.nix
     ./keymaps.nix
   ];
