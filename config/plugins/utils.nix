@@ -12,7 +12,7 @@
   # reference: https://github.com/skanehira/jumpcursor.vim
   #
   # Keymaps:
-  # <A-j> : jump cursor to any location (Normal / Insert / Visual)
+  # <A-j> : jump cursor to any location in the file (Normal)
   extraPlugins = [
     (pkgs.vimUtils.buildVimPlugin {
       name = "jumpcursor-vim";
@@ -27,11 +27,7 @@
 
   keymaps = [
     {
-      mode = [
-        "n"
-        "i"
-        "v"
-      ];
+      mode = "n";
       key = "<A-j>";
       action = "<Plug>(jumpcursor-jump)";
       options.desc = "Jump cursor";
