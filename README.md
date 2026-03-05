@@ -6,38 +6,38 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 
 | Category         | Details                                                                                                                                                          |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Color scheme** | [tokyonight](https://github.com/folke/tokyonight.nvim) (night style)                                                                                            |
+| **Color scheme** | [tokyonight](https://github.com/folke/tokyonight.nvim) (night style)                                                                                             |
 | **File tree**    | [neo-tree](https://github.com/nvim-neo-tree/neo-tree.nvim) with git status icons, auto-close on last window, follow current file                                 |
 | **Icons**        | [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) with custom icons for `.lean` (∀), `lean-toolchain` (∃), `.envrc` / `.bashrc` / `.zshrc` ($) |
-| **Statusline**   | [lualine](https://github.com/nvim-lualine/lualine.nvim) (components hidden when neo-tree is focused)                                                            |
-| **LSP**          | nvim-lspconfig via NixVim — see [Language Support](#language-support)                                                                                           |
-| **Formatting**   | [conform.nvim](https://github.com/stevearc/conform.nvim) — format-on-save (500ms timeout) — see [Language Support](#language-support)                           |
-| **Git**          | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)                                                                                                     |
-| **AI**           | [copilot.lua](https://github.com/zbirenbaum/copilot.lua) with auto-trigger suggestions                                                                          |
+| **Statusline**   | [lualine](https://github.com/nvim-lualine/lualine.nvim) (components hidden when neo-tree is focused)                                                             |
+| **LSP**          | nvim-lspconfig via NixVim — see [Language Support](#language-support)                                                                                            |
+| **Formatting**   | [conform.nvim](https://github.com/stevearc/conform.nvim) — format-on-save (500ms timeout) — see [Language Support](#language-support)                            |
+| **Git**          | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)                                                                                                      |
+| **AI**           | [copilot.lua](https://github.com/zbirenbaum/copilot.lua) with auto-trigger suggestions                                                                           |
 | **Utilities**    | [todo-comments.nvim](https://github.com/folke/todo-comments.nvim), [jumpcursor.vim](https://github.com/skanehira/jumpcursor.vim)                                 |
 
 ## Language Support
 
-| Language          | LSP                  | Formatter          | Notes                                                                                  |
-| ----------------- | -------------------- | ------------------ | -------------------------------------------------------------------------------------- |
-| Nix               | nil_ls               | nixfmt             |                                                                                        |
-| Markdown          | marksman             | prettier           |                                                                                        |
-| Shell (sh/bash/zsh) | bashls             | shfmt              |                                                                                        |
-| TypeScript        | ts_ls                | prettier           |                                                                                        |
-| JavaScript        | ts_ls                | prettier           |                                                                                        |
-| Rust              | rust_analyzer        | rustfmt            | cargo and rustc are installed automatically by NixVim                                  |
-| R                 | r_language_server    | air                | **External dependency**: requires R with `languageserver` installed in the project flake |
-| OCaml             | ocamllsp             | ocamlformat        | `ocamlformat` requires a `.ocamlformat` file in the project root (empty file is fine)  |
-| Haskell           | hls                  | fourmolu           | GHC is installed automatically by NixVim                                               |
-| Typst             | tinymist             | typstyle           |                                                                                        |
-| C                 | clangd               | clang_format       |                                                                                        |
-| Python            | basedpyright         | ruff_format        |                                                                                        |
-| HTML              | html                 | prettier           |                                                                                        |
-| CSS               | cssls                | prettier           |                                                                                        |
-| Java              | jdtls                | google_java_format |                                                                                        |
-| Julia             | julials              | LSP fallback       | **External dependency**: requires Julia with `LanguageServer.jl` installed in the Julia environment |
-| Go                | gopls                | gofumpt            |                                                                                        |
-| Lean 4            | lean.nvim            | —                  | Dedicated plugin with interactive infoview panel                                       |
+| Language            | LSP               | Formatter          | Notes                                                                                               |
+| ------------------- | ----------------- | ------------------ | --------------------------------------------------------------------------------------------------- |
+| Nix                 | nil_ls            | nixfmt             |                                                                                                     |
+| Markdown            | marksman          | prettier           |                                                                                                     |
+| Shell (sh/bash/zsh) | bashls            | shfmt              |                                                                                                     |
+| TypeScript          | ts_ls             | prettier           |                                                                                                     |
+| JavaScript          | ts_ls             | prettier           |                                                                                                     |
+| Rust                | rust_analyzer     | rustfmt            | cargo and rustc are installed automatically by NixVim                                               |
+| R                   | r_language_server | air                | **External dependency**: requires R with `languageserver` installed in the project flake            |
+| OCaml               | ocamllsp          | ocamlformat        | `ocamlformat` requires a `.ocamlformat` file in the project root (empty file is fine)               |
+| Haskell             | hls               | fourmolu           | GHC is installed automatically by NixVim                                                            |
+| Typst               | tinymist          | typstyle           |                                                                                                     |
+| C                   | clangd            | clang_format       |                                                                                                     |
+| Python              | basedpyright      | ruff_format        |                                                                                                     |
+| HTML                | html              | prettier           |                                                                                                     |
+| CSS                 | cssls             | prettier           |                                                                                                     |
+| Java                | jdtls             | google_java_format |                                                                                                     |
+| Julia               | julials           | LSP fallback       | **External dependency**: requires Julia with `LanguageServer.jl` installed in the Julia environment |
+| Go                  | gopls             | gofumpt            |                                                                                                     |
+| Lean 4              | lean.nvim         | —                  | Dedicated plugin with interactive infoview panel                                                    |
 
 ## Key Bindings
 
@@ -45,10 +45,10 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 
 #### General
 
-| Key      | Mode                     | Action            |
-| -------- | ------------------------ | ----------------- |
-| `Ctrl+S` | Normal / Insert / Visual | Save file         |
-| `Space e` | Normal                  | Toggle neo-tree   |
+| Key       | Mode                     | Action          |
+| --------- | ------------------------ | --------------- |
+| `Ctrl+S`  | Normal / Insert / Visual | Save file       |
+| `Space e` | Normal                   | Toggle neo-tree |
 
 #### Buffer (bufferline.nvim)
 
@@ -60,9 +60,9 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 
 #### Cursor
 
-| Key     | Mode   | Action                        |
-| ------- | ------ | ----------------------------- |
-| `Alt+j` | Normal | Jump cursor to any location   |
+| Key     | Mode   | Action                      |
+| ------- | ------ | --------------------------- |
+| `Alt+j` | Normal | Jump cursor to any location |
 
 #### Copilot
 
@@ -91,16 +91,16 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 
 #### Lean Infoview
 
-| Key             | Action                             |
-| --------------- | ---------------------------------- |
-| `Enter` / `K`   | Click a widget or interactive area |
-| `gK`            | Select a widget (shift+click)      |
-| `Tab` / `J`     | Jump into a tooltip                |
-| `Shift+Tab`     | Jump out of a tooltip              |
-| `Esc` / `C`     | Clear all open tooltips            |
-| `gd`            | Go to definition                   |
-| `gD`            | Go to declaration                  |
-| `gy`            | Go to type                         |
+| Key           | Action                             |
+| ------------- | ---------------------------------- |
+| `Enter` / `K` | Click a widget or interactive area |
+| `gK`          | Select a widget (shift+click)      |
+| `Tab` / `J`   | Jump into a tooltip                |
+| `Shift+Tab`   | Jump out of a tooltip              |
+| `Esc` / `C`   | Clear all open tooltips            |
+| `gd`          | Go to definition                   |
+| `gD`          | Go to declaration                  |
+| `gy`          | Go to type                         |
 
 ### Neo-tree Git Status Symbols
 
