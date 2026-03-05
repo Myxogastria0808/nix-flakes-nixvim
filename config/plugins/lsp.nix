@@ -13,6 +13,13 @@
   #   ocamllsp          : OCaml           (reference: https://github.com/ocaml/ocaml-lsp)
   #   hls               : Haskell         (reference: https://github.com/haskell/haskell-language-server)
   #   tinymist          : Typst           (reference: https://github.com/Myriad-Dreamin/tinymist)
+  #   clangd            : C               (reference: https://clangd.llvm.org)
+  #   basedpyright      : Python          (reference: https://github.com/DetachHead/basedpyright)
+  #   html              : HTML            (reference: https://github.com/hrsh7th/vscode-langservers-extracted)
+  #   cssls             : CSS             (reference: https://github.com/hrsh7th/vscode-langservers-extracted)
+  #   jdtls             : Java            (reference: https://github.com/eclipse-jdtls/eclipse.jdt.ls)
+  #   julials           : Julia           (reference: https://github.com/julia-vscode/LanguageServer.jl)
+  #   gopls             : Go              (reference: https://github.com/golang/tools/tree/master/gopls)
   plugins.lsp = {
     enable = true;
     servers = {
@@ -32,13 +39,38 @@
       # TypeScript / JavaScript language server
       ts_ls.enable = true;
       # R language server
-      r_language_server.enable = true;
+      # package = null: relies on R (with languageserver) provided by the project's R flake
+      r_language_server = {
+        enable = true;
+        package = null;
+      };
       # OCaml language server
       ocamllsp.enable = true;
       # Haskell language server
-      hls.enable = true;
+      hls = {
+        enable = true;
+        installGhc = true;
+      };
       # Typst language server
       tinymist.enable = true;
+      # C language server
+      clangd.enable = true;
+      # Python language server
+      basedpyright.enable = true;
+      # HTML language server
+      html.enable = true;
+      # CSS language server
+      cssls.enable = true;
+      # Java language server
+      jdtls.enable = true;
+      # Julia language server
+      # package = null: relies on LanguageServer.jl installed in the Julia environment
+      julials = {
+        enable = true;
+        package = null;
+      };
+      # Go language server
+      gopls.enable = true;
       # Rust language server
       rust_analyzer = {
         enable = true;

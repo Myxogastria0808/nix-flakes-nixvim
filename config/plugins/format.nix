@@ -13,6 +13,14 @@
     pkgs.haskellPackages.fourmolu
     # required by Typst formatter
     pkgs.typstyle
+    # required by C formatter (clang-format)
+    pkgs.clang-tools
+    # required by Java formatter
+    pkgs.google-java-format
+    # required by Go formatter
+    pkgs.gofumpt
+    # required by Python formatter
+    pkgs.ruff
   ];
 
   # conform-nvim
@@ -43,6 +51,17 @@
         haskell = [ "fourmolu" ];
         # Typst formatter
         typst = [ "typstyle" ];
+        # C formatter
+        c = [ "clang_format" ];
+        # Python formatter
+        python = [ "ruff_format" ];
+        # HTML / CSS formatter
+        html = [ "prettier" ];
+        css = [ "prettier" ];
+        # Java formatter
+        java = [ "google_java_format" ];
+        # Go formatter
+        go = [ "gofumpt" ];
         # Rust formatter
         rust = [ "rustfmt" ];
         # TypeScript / JavaScript formatter

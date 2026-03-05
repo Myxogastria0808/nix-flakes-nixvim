@@ -4,28 +4,65 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 
 ## Features
 
-| Category         | Details                                                                                                                                                                 |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Color scheme** | [tokyonight](https://github.com/folke/tokyonight.nvim) (night style)                                                                                                    |
-| **File tree**    | [neo-tree](https://github.com/nvim-neo-tree/neo-tree.nvim) with git status icons, auto-close on last window, follow current file                                        |
-| **Icons**        | [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) with custom icons for `.lean` (∀), `lean-toolchain` (∃), `.envrc` ($)                               |
-| **Statusline**   | [lualine](https://github.com/nvim-lualine/lualine.nvim) (components hidden when neo-tree is focused)                                                                    |
-| **LSP**          | [nil](https://github.com/oxalica/nil) (Nix), [marksman](https://github.com/artempyanykh/marksman) (Markdown), [lean.nvim](https://github.com/Julian/lean.nvim) (Lean 4) |
-| **Formatting**   | [conform.nvim](https://github.com/stevearc/conform.nvim) — `nixfmt` for Nix, `prettier` for Markdown (format-on-save, 500ms timeout)                                    |
-| **Git**          | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)                                                                                                             |
-| **AI**           | [copilot.lua](https://github.com/zbirenbaum/copilot.lua) with auto-trigger suggestions                                                                                  |
-| **Utilities**    | [todo-comments.nvim](https://github.com/folke/todo-comments.nvim) (highlight TODO, NOTE, FIX, HACK, WARN, PERF, etc.)                                                   |
+| Category         | Details                                                                                                                                                          |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Color scheme** | [tokyonight](https://github.com/folke/tokyonight.nvim) (night style)                                                                                            |
+| **File tree**    | [neo-tree](https://github.com/nvim-neo-tree/neo-tree.nvim) with git status icons, auto-close on last window, follow current file                                 |
+| **Icons**        | [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) with custom icons for `.lean` (∀), `lean-toolchain` (∃), `.envrc` / `.bashrc` / `.zshrc` ($) |
+| **Statusline**   | [lualine](https://github.com/nvim-lualine/lualine.nvim) (components hidden when neo-tree is focused)                                                            |
+| **LSP**          | nvim-lspconfig via NixVim — see [Language Support](#language-support)                                                                                           |
+| **Formatting**   | [conform.nvim](https://github.com/stevearc/conform.nvim) — format-on-save (500ms timeout) — see [Language Support](#language-support)                           |
+| **Git**          | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)                                                                                                     |
+| **AI**           | [copilot.lua](https://github.com/zbirenbaum/copilot.lua) with auto-trigger suggestions                                                                          |
+| **Utilities**    | [todo-comments.nvim](https://github.com/folke/todo-comments.nvim), [jumpcursor.vim](https://github.com/skanehira/jumpcursor.vim)                                 |
 
-### Key Bindings
+## Language Support
+
+| Language          | LSP                  | Formatter          | Notes                                                                                  |
+| ----------------- | -------------------- | ------------------ | -------------------------------------------------------------------------------------- |
+| Nix               | nil_ls               | nixfmt             |                                                                                        |
+| Markdown          | marksman             | prettier           |                                                                                        |
+| Shell (sh/bash/zsh) | bashls             | shfmt              |                                                                                        |
+| TypeScript        | ts_ls                | prettier           |                                                                                        |
+| JavaScript        | ts_ls                | prettier           |                                                                                        |
+| Rust              | rust_analyzer        | rustfmt            | cargo and rustc are installed automatically by NixVim                                  |
+| R                 | r_language_server    | air                | **External dependency**: requires R with `languageserver` installed in the project flake |
+| OCaml             | ocamllsp             | ocamlformat        | `ocamlformat` requires a `.ocamlformat` file in the project root (empty file is fine)  |
+| Haskell           | hls                  | fourmolu           | GHC is installed automatically by NixVim                                               |
+| Typst             | tinymist             | typstyle           |                                                                                        |
+| C                 | clangd               | clang_format       |                                                                                        |
+| Python            | basedpyright         | ruff_format        |                                                                                        |
+| HTML              | html                 | prettier           |                                                                                        |
+| CSS               | cssls                | prettier           |                                                                                        |
+| Java              | jdtls                | google_java_format |                                                                                        |
+| Julia             | julials              | LSP fallback       | **External dependency**: requires Julia with `LanguageServer.jl` installed in the Julia environment |
+| Go                | gopls                | gofumpt            |                                                                                        |
+| Lean 4            | lean.nvim            | —                  | Dedicated plugin with interactive infoview panel                                       |
+
+## Key Bindings
 
 > Leader key and LocalLeader are both set to `Space`.
 
 #### General
 
-| Key               | Mode                     | Action                                           |
-| ----------------- | ------------------------ | ------------------------------------------------ |
-| `Ctrl+S`          | Normal / Insert / Visual | Save file                                        |
-| `Space e`         | Normal                   | Toggle neo-tree                                  |
+| Key      | Mode                     | Action            |
+| -------- | ------------------------ | ----------------- |
+| `Ctrl+S` | Normal / Insert / Visual | Save file         |
+| `Space e` | Normal                  | Toggle neo-tree   |
+
+#### Buffer (bufferline.nvim)
+
+| Key     | Mode                     | Action                |
+| ------- | ------------------------ | --------------------- |
+| `Alt+l` | Normal / Insert / Visual | Next buffer           |
+| `Alt+h` | Normal / Insert / Visual | Previous buffer       |
+| `Alt+d` | Normal                   | Close (delete) buffer |
+
+#### Cursor
+
+| Key     | Mode   | Action                        |
+| ------- | ------ | ----------------------------- |
+| `Alt+j` | Normal | Jump cursor to any location   |
 
 #### Copilot
 
@@ -37,46 +74,46 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 
 #### Lean (active in `.lean` buffers, `Space` = LocalLeader)
 
-| Key                    | Mode   | Action                                        |
-| ---------------------- | ------ | --------------------------------------------- |
-| `Space i`              | Normal | Toggle infoview                               |
-| `Space p`              | Normal | Pause infoview                                |
-| `Space r`              | Normal | Restart Lean server                           |
-| `Space v`              | Normal | Configure infoview options                    |
-| `Space x`              | Normal | Place infoview pin                            |
-| `Space c`              | Normal | Clear all infoview pins                       |
-| `Space dx`             | Normal | Place infoview diff pin                       |
-| `Space dc`             | Normal | Clear infoview diff pin                       |
-| `Space dd`             | Normal | Toggle auto diff pin mode                     |
-| `Space dt`             | Normal | Toggle auto diff pin (keep diff pin)          |
-| `Space Tab`            | Normal | Jump between lean file and infoview           |
-| `Space \`              | Normal | Show abbreviation for symbol under cursor     |
+| Key         | Mode   | Action                                    |
+| ----------- | ------ | ----------------------------------------- |
+| `Space i`   | Normal | Toggle infoview                           |
+| `Space p`   | Normal | Pause infoview                            |
+| `Space r`   | Normal | Restart Lean server                       |
+| `Space v`   | Normal | Configure infoview options                |
+| `Space x`   | Normal | Place infoview pin                        |
+| `Space c`   | Normal | Clear all infoview pins                   |
+| `Space dx`  | Normal | Place infoview diff pin                   |
+| `Space dc`  | Normal | Clear infoview diff pin                   |
+| `Space dd`  | Normal | Toggle auto diff pin mode                 |
+| `Space dt`  | Normal | Toggle auto diff pin (keep diff pin)      |
+| `Space Tab` | Normal | Jump between lean file and infoview       |
+| `Space \`   | Normal | Show abbreviation for symbol under cursor |
 
 #### Lean Infoview
 
-| Key                    | Action                                        |
-| ---------------------- | --------------------------------------------- |
-| `Enter` / `K`         | Click a widget or interactive area             |
-| `gK`                   | Select a widget (shift+click)                  |
-| `Tab` / `J`           | Jump into a tooltip                            |
-| `Shift+Tab`            | Jump out of a tooltip                          |
-| `Esc` / `C`           | Clear all open tooltips                        |
-| `gd`                   | Go to definition                               |
-| `gD`                   | Go to declaration                              |
-| `gy`                   | Go to type                                     |
+| Key             | Action                             |
+| --------------- | ---------------------------------- |
+| `Enter` / `K`   | Click a widget or interactive area |
+| `gK`            | Select a widget (shift+click)      |
+| `Tab` / `J`     | Jump into a tooltip                |
+| `Shift+Tab`     | Jump out of a tooltip              |
+| `Esc` / `C`     | Clear all open tooltips            |
+| `gd`            | Go to definition                   |
+| `gD`            | Go to declaration                  |
+| `gy`            | Go to type                         |
 
 ### Neo-tree Git Status Symbols
 
 | Symbol | Meaning   |
 | ------ | --------- |
 | `+`    | Added     |
-| `m`    | Modified  |
-| `x`    | Deleted   |
-| `r`    | Renamed   |
+| `~`    | Modified  |
+| `✘`    | Deleted   |
+| `»`    | Renamed   |
 | `?`    | Untracked |
-| `i`    | Ignored   |
-| `u`    | Unstaged  |
-| `s`    | Staged    |
+| `◌`    | Ignored   |
+| `-`    | Unstaged  |
+| `✓`    | Staged    |
 | `!`    | Conflict  |
 
 ## Prerequisites
@@ -163,13 +200,14 @@ If you want to use GitHub Copilot, run `:Copilot auth` inside Neovim after the f
 │   ├── default.nix        # Root NixVim module (colorscheme, globals, opts)
 │   ├── keymaps.nix        # Global key bindings (save, neo-tree toggle)
 │   └── plugins/
+│       ├── bar.nix        # Statusline (lualine, hidden in neo-tree windows)
 │       ├── copilot.nix    # GitHub Copilot (config & Tab accept keymap)
 │       ├── format.nix     # conform.nvim (format-on-save)
 │       ├── gitsigns.nix   # Git gutter signs
-│       ├── lsp.nix        # LSP servers (nil, marksman) & lean.nvim
-│       ├── lualine.nix    # Statusline (hidden in neo-tree windows)
+│       ├── lsp.nix        # LSP servers & lean.nvim
+│       ├── tab.nix        # Buffer tabline (bufferline.nvim)
 │       ├── tree.nix       # Neo-tree file explorer & custom devicons
-│       └── utils.nix      # Miscellaneous plugins (todo-comments, etc.)
+│       └── utils.nix      # Miscellaneous plugins (todo-comments, jumpcursor)
 ├── .envrc                 # direnv integration
 └── .gitignore
 ```
