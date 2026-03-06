@@ -10,6 +10,6 @@
     ./libs/ui/tab.nix
     ./libs/ui/utils.nix
     ./libs/action/utils.nix
-    ./libs/keymaps.nix
+    ./libs/action/keymaps.nix
   ];
 }
