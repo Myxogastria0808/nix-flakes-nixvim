@@ -7,10 +7,8 @@
     ./plugins/bar.nix
     ./plugins/copilot.nix
     ./plugins/tab.nix
-    ./plugins/utils.nix
-    ./plugins/completion.nix
-    ./plugins/treesitter.nix
-    ./plugins/noice.nix
+    ./plugins/ui.nix
+    ./plugins/action.nix
     ./keymaps.nix
   ];
 
