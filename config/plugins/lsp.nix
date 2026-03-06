@@ -120,12 +120,17 @@
   # gy                     : go-to-type
   # <LocalLeader><Tab>     : jump to the lean file from the infoview
   #
-  # Note: lean.nvim cannot use lazyLoad.settings.ft = "lean" because
-  # Neovim does not recognize .lean files without the plugin's ftdetect loaded first.
-  # Instead, trigger on BufReadPost *.lean to avoid depending on filetype detection.
+  # ftdetect for .lean files
+  # lean.nvim provides its own ftdetect, but since it is lazy-loaded it does not run at
+  # startup. This entry registers .lean → lean filetype ahead of time so that the
+  # FileType lean event fires and triggers the lazy loader correctly.
+  extraFiles."ftdetect/lean.vim".text = ''
+    au BufNewFile,BufRead *.lean set filetype=lean
+  '';
+
   plugins.lean = {
     enable = true;
-    lazyLoad.settings.event = [{ event = "BufReadPost"; pattern = "*.lean"; }];
+    lazyLoad.settings.ft = "lean";
     settings = {
       # infoview panel settings
       infoview = {
