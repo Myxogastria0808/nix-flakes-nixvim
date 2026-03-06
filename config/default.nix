@@ -1,14 +1,20 @@
 {
   imports = [
+    # ui
     ./libs/ui/theme.nix
     ./libs/ui/tree.nix
-    ./libs/language/format.nix
-    ./libs/language/lsp.nix
-    ./libs/action/gitsigns.nix
     ./libs/ui/bar.nix
-    ./libs/action/copilot.nix
     ./libs/ui/tab.nix
+    ./libs/ui/gitsigns.nix
     ./libs/ui/utils.nix
+    # language
+    ./libs/language/lsp.nix
+    ./libs/language/format.nix
+    ./libs/language/treesitter.nix
+    # action
+    ./libs/action/copilot.nix
+    ./libs/action/completion.nix
+    ./libs/action/commentout.nix
     ./libs/action/utils.nix
     ./libs/action/keymaps.nix
   ];

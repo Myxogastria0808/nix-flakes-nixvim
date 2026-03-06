@@ -1,6 +1,4 @@
-{ pkgs, ... }:
 {
-
   opts = {
     # show line numbers
     number = true;
@@ -21,24 +19,12 @@
   # Displays indent guide lines with rainbow colors for each indent level.
   highlight = {
     # indent-blankline.nvim rainbow colors (one per indent level, muted)
-    IblIndent1 = {
-      fg = "#51303a";
-    };
-    IblIndent2 = {
-      fg = "#51402a";
-    };
-    IblIndent3 = {
-      fg = "#304830";
-    };
-    IblIndent4 = {
-      fg = "#284848";
-    };
-    IblIndent5 = {
-      fg = "#283848";
-    };
-    IblIndent6 = {
-      fg = "#3a2851";
-    };
+    IblIndent1 = { fg = "#51303a"; };
+    IblIndent2 = { fg = "#51402a"; };
+    IblIndent3 = { fg = "#304830"; };
+    IblIndent4 = { fg = "#284848"; };
+    IblIndent5 = { fg = "#283848"; };
+    IblIndent6 = { fg = "#3a2851"; };
   };
 
   plugins.indent-blankline = {
@@ -74,43 +60,4 @@
   #
   # Highlights and lists TODO, FIXME, NOTE, and other comment keywords.
   plugins.todo-comments.enable = true;
-
-  # nvim-treesitter
-  # reference: https://github.com/nvim-treesitter/nvim-treesitter
-  #
-  # Provides accurate syntax highlighting and structural code analysis
-  # using language-specific parsers.
-  plugins.treesitter = {
-    enable = true;
-    settings = {
-      highlight.enable = true;
-      indent.enable = true;
-    };
-    grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-      nix
-      bash
-      python
-      javascript
-      typescript
-      tsx
-      rust
-      c
-      go
-      java
-      haskell
-      ocaml
-      html
-      css
-      json
-      yaml
-      toml
-      markdown
-      markdown_inline
-      lua
-      vim
-      vimdoc
-      regex
-      comment
-    ];
-  };
 }
