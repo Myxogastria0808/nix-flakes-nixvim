@@ -5,8 +5,8 @@
   # Displays open buffers as file tabs at the top of the editor.
   #
   # Keymaps:
-  # <A-l>        : go to next buffer     (Normal / Insert / Visual)
-  # <A-h>        : go to previous buffer (Normal / Insert / Visual)
+  # <A-]>        : go to next buffer     (Normal / Insert / Visual)
+  # <A-[>        : go to previous buffer (Normal / Insert / Visual)
   # <A-d>        : close (delete) current buffer (Normal only, to avoid accidental close)
   plugins.bufferline = {
     enable = true;
@@ -27,28 +27,27 @@
     # Move to the next buffer in the bufferline.
     # Mirrors the default Neovim window navigation convention (l = right).
     # Enabled in Normal / Insert / Visual to allow navigation from any editing context.
-    # keybind: Alt + L
+    # keybind: Alt + ]
     {
       mode = [
         "n"
         "i"
         "v"
       ];
-      key = "<A-l>";
+      key = "<A-]>";
       action = "<cmd>BufferLineCycleNext<CR>";
       options.desc = "Next buffer";
     }
     # Move to the previous buffer in the bufferline.
-    # Mirrors the default Neovim window navigation convention (h = left).
     # Enabled in Normal / Insert / Visual to allow navigation from any editing context.
-    # keybind: Alt + H
+    # keybind: Alt + [
     {
       mode = [
         "n"
         "i"
         "v"
       ];
-      key = "<A-h>";
+      key = "<A-[>";
       action = "<cmd>BufferLineCyclePrev<CR>";
       options.desc = "Previous buffer";
     }
