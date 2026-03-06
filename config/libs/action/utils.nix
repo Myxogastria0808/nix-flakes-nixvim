@@ -28,7 +28,6 @@
       };
     };
   };
-
   # completion sources
   plugins.cmp-nvim-lsp.enable = true;
   plugins.cmp-buffer.enable = true;
@@ -90,6 +89,26 @@
     })
   ];
 
+  # toggleterm.nvim
+  # reference: https://github.com/akinsho/toggleterm.nvim
+  #
+  # Keymaps:
+  # <A-t> : toggle floating terminal (Normal / Insert / Terminal)
+  plugins.toggleterm = {
+    enable = true;
+    settings.direction = "float";
+  };
+
+  # markdown-preview.nvim
+  # reference: https://github.com/iamcco/markdown-preview.nvim
+  #
+  # Keymaps:
+  # <A-m> : toggle Markdown preview in browser (Normal)
+  plugins.markdown-preview = {
+    enable = true;
+    settings.auto_start = 0;
+  };
+
   keymaps = [
     {
       mode = "n";
@@ -116,24 +135,4 @@
       options.desc = "Toggle Markdown preview";
     }
   ];
-
-  # toggleterm.nvim
-  # reference: https://github.com/akinsho/toggleterm.nvim
-  #
-  # Keymaps:
-  # <A-t> : toggle floating terminal (Normal / Insert / Terminal)
-  plugins.toggleterm = {
-    enable = true;
-    settings.direction = "float";
-  };
-
-  # markdown-preview.nvim
-  # reference: https://github.com/iamcco/markdown-preview.nvim
-  #
-  # Keymaps:
-  # <A-m> : toggle Markdown preview in browser (Normal)
-  plugins.markdown-preview = {
-    enable = true;
-    settings.auto_start = 0;
-  };
 }

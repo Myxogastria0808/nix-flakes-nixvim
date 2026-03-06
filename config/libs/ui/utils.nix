@@ -1,5 +1,13 @@
 { pkgs, ... }:
 {
+
+  opts = {
+    # show line numbers
+    number = true;
+    # hide ~ at the end of buffer
+    fillchars.eob = " ";
+  };
+
   # noice.nvim
   # reference: https://github.com/folke/noice.nvim
   #
@@ -13,12 +21,24 @@
   # Displays indent guide lines with rainbow colors for each indent level.
   highlight = {
     # indent-blankline.nvim rainbow colors (one per indent level, muted)
-    IblIndent1 = { fg = "#51303a"; };
-    IblIndent2 = { fg = "#51402a"; };
-    IblIndent3 = { fg = "#304830"; };
-    IblIndent4 = { fg = "#284848"; };
-    IblIndent5 = { fg = "#283848"; };
-    IblIndent6 = { fg = "#3a2851"; };
+    IblIndent1 = {
+      fg = "#51303a";
+    };
+    IblIndent2 = {
+      fg = "#51402a";
+    };
+    IblIndent3 = {
+      fg = "#304830";
+    };
+    IblIndent4 = {
+      fg = "#284848";
+    };
+    IblIndent5 = {
+      fg = "#283848";
+    };
+    IblIndent6 = {
+      fg = "#3a2851";
+    };
   };
 
   plugins.indent-blankline = {
