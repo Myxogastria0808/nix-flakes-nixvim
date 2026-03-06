@@ -120,16 +120,8 @@
   # gy                     : go-to-type
   # <LocalLeader><Tab>     : jump to the lean file from the infoview
   #
-  # Register .lean → lean filetype before plugins load.
-  # lean.nvim's own ftdetect does not run when the plugin is lazy-loaded, so this
-  # ensures FileType lean fires and triggers the lazy loader correctly.
-  extraConfigLuaPre = ''
-    vim.filetype.add({ extension = { lean = "lean" } })
-  '';
-
   plugins.lean = {
     enable = true;
-    lazyLoad.settings.ft = "lean";
     settings = {
       # infoview panel settings
       infoview = {
