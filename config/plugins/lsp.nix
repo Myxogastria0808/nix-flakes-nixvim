@@ -140,4 +140,16 @@
       mappings = true;
     };
   };
+
+  # Set commentstring for Lean so Comment.nvim works correctly.
+  # Lean line comment: -- comment
+  # Lean block comment: /- comment -/
+  # ts-context-commentstring has no Lean parser, so we set it manually.
+  autoCmd = [
+    {
+      event = "FileType";
+      pattern = "lean";
+      command = "setlocal commentstring=--\\ %s";
+    }
+  ];
 }

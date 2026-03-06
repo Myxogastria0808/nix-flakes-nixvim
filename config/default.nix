@@ -8,6 +8,10 @@
     ./plugins/copilot.nix
     ./plugins/tab.nix
     ./plugins/utils.nix
+    ./plugins/completion.nix
+    ./plugins/treesitter.nix
+    ./plugins/telescope.nix
+    ./plugins/noice.nix
     ./keymaps.nix
   ];
 
