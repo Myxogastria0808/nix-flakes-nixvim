@@ -1,10 +1,17 @@
 {
+  # Global keymaps and leader keys.
+  globals = {
+    # set <leader> to space
+    mapleader = " ";
+    # set <LocalLeader> to space
+    maplocalleader = " ";
+  };
+
   # Global keymaps independent of any specific plugin.
   #
   # Keymaps:
   # <C-s>       : save file          (Normal / Insert / Visual)
   # <leader>e   : toggle file tree   (Normal)
-  globals.mapleader = " ";
   keymaps = [
     # Save the current file.
     # keybind: Ctrl + S

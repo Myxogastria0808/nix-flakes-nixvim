@@ -10,7 +10,6 @@
     ./plugins/utils.nix
     ./plugins/completion.nix
     ./plugins/treesitter.nix
-    ./plugins/telescope.nix
     ./plugins/noice.nix
     ./keymaps.nix
   ];
@@ -22,13 +21,6 @@
     # available styles: moon | storm | night | day
     # night is the darkest variant
     settings.style = "night";
-  };
-
-  globals = {
-    # set <leader> to space
-    mapleader = " ";
-    # set <LocalLeader> to space
-    maplocalleader = " ";
   };
 
   opts = {
