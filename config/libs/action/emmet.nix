@@ -21,7 +21,7 @@
     {
       mode = "i";
       key = "<A-e>";
-      action = "<plug>(emmet-expand-abbr)";
+      action = "<C-r>=emmet#expandAbbrIntelligently(\"\\<Tab>\")<CR>";
     }
   ];
 }
