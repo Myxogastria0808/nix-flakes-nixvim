@@ -23,6 +23,8 @@
     pkgs.taplo
     # required by Python formatter
     pkgs.ruff
+    # required by GitHub Actions linter
+    pkgs.actionlint
   ];
 
   # conform-nvim
@@ -70,6 +72,8 @@
         json = [ "prettier" ];
         # YAML formatter
         yaml = [ "prettier" ];
+        # GitHub Actions workflow formatter
+        "yaml.github" = [ "prettier" ];
         # Rust formatter
         rust = [ "rustfmt" ];
         # TypeScript / JavaScript formatter
@@ -78,6 +82,20 @@
         typescript = [ "prettier" ];
         typescriptreact = [ "prettier" ];
       };
+    };
+  };
+
+  # nvim-lint
+  # reference: https://github.com/mfussenegger/nvim-lint
+  #
+  # Runs linters per filetype as an async linting engine.
+  # Enabled linters:
+  #   actionlint : GitHub Actions workflows  (reference: https://github.com/rhysd/actionlint)
+  plugins.lint = {
+    enable = true;
+    lintersByFt = {
+      # GitHub Actions workflow linter
+      "yaml.github" = [ "actionlint" ];
     };
   };
 }

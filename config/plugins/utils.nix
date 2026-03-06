@@ -32,6 +32,12 @@
       action = "<Plug>(jumpcursor-jump)";
       options.desc = "Jump cursor";
     }
+    {
+      mode = "n";
+      key = "<A-m>";
+      action = "<cmd>MarkdownPreviewToggle<CR>";
+      options.desc = "Toggle Markdown preview";
+    }
   ];
 
   # indent-blankline.nvim
@@ -46,8 +52,6 @@
     IblIndent4 = { fg = "#284848"; };
     IblIndent5 = { fg = "#283848"; };
     IblIndent6 = { fg = "#3a2851"; };
-    # Full-width space (U+3000) and full-width alphanumeric/symbols (U+FF01-FF5E)
-    ZenkakuChar = { bg = "#ffff00"; };
   };
 
   plugins.indent-blankline = {
@@ -66,14 +70,14 @@
     };
   };
 
-  extraConfigLua = ''
-    vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
-      callback = function()
-        local fws = vim.fn.nr2char(0x3000)
-        local fwstart = vim.fn.nr2char(0xff01)
-        local fwend = vim.fn.nr2char(0xff5e)
-        vim.fn.matchadd("ZenkakuChar", fws .. "\\|[" .. fwstart .. "-" .. fwend .. "]")
-      end,
-    })
-  '';
+  # markdown-preview.nvim
+  # reference: https://github.com/iamcco/markdown-preview.nvim
+  #
+  # Keymaps:
+  # <A-m> : toggle Markdown preview in browser (Normal)
+  plugins.markdown-preview = {
+    enable = true;
+    settings.auto_start = 0;
+  };
+
 }

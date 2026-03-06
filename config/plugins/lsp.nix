@@ -79,7 +79,13 @@
       # JSON language server (included in vscode-langservers-extracted, same as html/cssls)
       jsonls.enable = true;
       # YAML language server
-      yamlls.enable = true;
+      yamlls = {
+        enable = true;
+        settings.yaml.schemas = {
+          # GitHub Actions workflow schema
+          "https://json.schemastore.org/github-workflow.json" = ".github/workflows/*.{yml,yaml}";
+        };
+      };
       # Rust language server
       rust_analyzer = {
         enable = true;
