@@ -121,6 +121,8 @@
   # <LocalLeader><Tab>     : jump to the lean file from the infoview
   plugins.lean = {
     enable = true;
+    # Only load lean.nvim when a .lean file is opened (~50ms startup savings)
+    lazyLoad.settings.ft = "lean";
     settings = {
       # infoview panel settings
       infoview = {
