@@ -12,8 +12,8 @@
     enable = true;
     settings = {
       mode = "i";
-      # Disable default leader key mappings
-      install_global = 0;
+      # Use <A-y> as leader to avoid nvim-cmp conflict with <C-y>
+      leader_key = "<A-y>";
     };
   };
 
@@ -21,8 +21,7 @@
     {
       mode = "i";
       key = "<A-e>";
-      action.__raw = "function() return vim.fn[\"emmet#expandAbbrIntelligently\"](\"\\t\") end";
-      options.expr = true;
+      action = "<plug>(emmet-expand-abbr)";
     }
   ];
 }
