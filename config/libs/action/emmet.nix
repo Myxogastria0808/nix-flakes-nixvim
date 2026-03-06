@@ -4,24 +4,15 @@
   # reference: https://github.com/mattn/emmet-vim
   #
   # HTML/CSS abbreviation expansion (Emmet).
-  # Usage: type abbreviation then press <A-e> to expand to HTML boilerplate.
+  # Usage: type abbreviation then press <C-y>, to expand (e.g. `!` → HTML boilerplate).
   #
-  # Keymaps (Insert mode, HTML/CSS files only):
-  # <A-e> : expand abbreviation (e.g. `!` → HTML boilerplate)
+  # Keymaps (Insert mode):
+  # <C-y>, : expand abbreviation
   plugins.emmet = {
     enable = true;
     settings = {
       mode = "i";
-      # Use <A-y> as leader to avoid nvim-cmp conflict with <C-y>
-      leader_key = "<A-y>";
+      leader_key = "<C-y>";
     };
   };
-
-  keymaps = [
-    {
-      mode = "i";
-      key = "<A-e>";
-      action = "<C-r>=emmet#expandAbbrIntelligently(\"\\<Tab>\")<CR>";
-    }
-  ];
 }

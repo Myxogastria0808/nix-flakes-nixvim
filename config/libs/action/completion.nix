@@ -20,6 +20,8 @@
         "<C-n>".__raw = "cmp.mapping.select_next_item()";
         "<C-p>".__raw = "cmp.mapping.select_prev_item()";
         "<CR>".__raw = "cmp.mapping.confirm({ select = false })";
+        # Disable <C-y> to avoid conflict with emmet-vim (<C-y>, to expand)
+        "<C-y>".__raw = "cmp.config.disable";
       };
     };
   };
