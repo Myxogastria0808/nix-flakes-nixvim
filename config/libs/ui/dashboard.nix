@@ -1,14 +1,6 @@
 {
   # alpha-nvim
   # reference: https://github.com/goolord/alpha-nvim
-  #
-  # Displays a start screen with the Nix snowflake logo and version when opened
-  # without file arguments.
-  #
-  # NixOS logo © NixOS Project contributors
-  # Licensed under CC BY 4.0 — https://creativecommons.org/licenses/by/4.0/
-  # Source: https://github.com/NixOS/branding
-  # The ASCII art below is a derivative work of the NixOS snowflake logo.
   plugins.alpha = {
     enable = true;
     settings.layout = [
@@ -17,48 +9,16 @@
         val = 1;
       }
       {
-        # Top half of the snowflake (NixOS darker blue #5277C3)
         type = "text";
-        val = [
-          "          ▗▄▄▄       ▗▄▄▄▄    ▄▄▄▖          "
-          "          ▜███▙       ▜███▙  ▟███▛           "
-          "           ▜███▙       ▜███▙▟███▛            "
-          "            ▜███▙       ▜██████▛             "
-          "     ▟█████████████████▙ ▜████▛     ▟▙       "
-          "    ▟███████████████████▙ ▜███▙    ▟██▙      "
-          "           ▄▄▄▄▖           ▜███▙  ▟███▛      "
-          "          ▟███▛             ▜██▛ ▟███▛       "
-          "         ▟███▛               ▜▛ ▟███▛        "
-          "▟███████████▛                  ▟██████████▙  "
-        ];
+        val = [ "λ" ];
         opts = {
           position = "center";
-          hl = "AlphaNixBlue";
-        };
-      }
-      {
-        # Bottom half of the snowflake (NixOS lighter blue #7EBAE4)
-        type = "text";
-        val = [
-          "▜██████████▛                  ▟███████████▛  "
-          "         ▟███▖               ▟███▛           "
-          "          ▟███▛              ▜███▛           "
-          "          ▝████▙              ▜██▛           "
-          "           ▝████▙            ▟███▙           "
-          "    ▟███████████████████▙ ▜███▙              "
-          "   ▟█████████████████████▙ ▜███▙             "
-          "        ▜██████▛  ▟██████▙                   "
-          "         ▜███▛    ▟████▛                     "
-          "          ▀▀▀      ▀▀▀                       "
-        ];
-        opts = {
-          position = "center";
-          hl = "AlphaNixLightBlue";
+          hl = "AlphaLambda";
         };
       }
       {
         type = "padding";
-        val = 2;
+        val = 1;
       }
       {
         # Footer: Neovim version, dynamically rendered via raw Lua
@@ -77,16 +37,10 @@
     ];
   };
 
-  # Highlight groups for the dashboard using NixOS official brand colors.
   highlight = {
-    # Top half: NixOS darker blue (#5277C3)
-    AlphaNixBlue = {
-      fg = "#5277c3";
-      bold = true;
-    };
-    # Bottom half: NixOS lighter blue (#7EBAE4)
-    AlphaNixLightBlue = {
-      fg = "#7ebae4";
+    # Lambda symbol: soft purple
+    AlphaLambda = {
+      fg = "#bb9af7";
       bold = true;
     };
     # Footer: muted comment color
