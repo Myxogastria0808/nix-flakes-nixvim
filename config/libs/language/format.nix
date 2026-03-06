@@ -25,6 +25,8 @@
     pkgs.ruff
     # required by GitHub Actions linter
     pkgs.actionlint
+    # required by Elm formatter
+    pkgs.elmPackages.elm-format
   ];
 
   # conform-nvim
@@ -74,6 +76,8 @@
         yaml = [ "prettier" ];
         # GitHub Actions workflow formatter
         "yaml.github" = [ "prettier" ];
+        # Elm formatter
+        elm = [ "elm_format" ];
         # Rust formatter
         rust = [ "rustfmt" ];
         # TypeScript / JavaScript formatter

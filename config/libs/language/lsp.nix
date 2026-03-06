@@ -23,6 +23,7 @@
   #   taplo             : TOML           (reference: https://github.com/tamasfe/taplo)
   #   jsonls            : JSON           (reference: https://github.com/hrsh7th/vscode-langservers-extracted)
   #   yamlls            : YAML           (reference: https://github.com/redhat-developer/yaml-language-server)
+  #   elmls             : Elm            (reference: https://github.com/elm-language-server/elm-language-server)
   plugins.lsp = {
     enable = true;
     servers = {
@@ -86,6 +87,8 @@
           "https://json.schemastore.org/github-workflow.json" = ".github/workflows/*.{yml,yaml}";
         };
       };
+      # Elm language server
+      elmls.enable = true;
       # Rust language server
       rust_analyzer = {
         enable = true;

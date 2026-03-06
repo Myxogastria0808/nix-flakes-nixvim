@@ -24,6 +24,7 @@
       java
       haskell
       ocaml
+      elm
       html
       css
       json
