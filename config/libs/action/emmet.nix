@@ -4,10 +4,10 @@
   # reference: https://github.com/mattn/emmet-vim
   #
   # HTML/CSS abbreviation expansion (Emmet).
-  # Usage: type `!` then press <C-!> to expand to HTML boilerplate.
+  # Usage: type `!` then press <A-!> to expand to HTML boilerplate.
   #
   # Keymaps (Insert mode, HTML/CSS files only):
-  # <C-!> : expand abbreviation (e.g. `!` → HTML boilerplate)
+  # <A-!> : expand abbreviation (e.g. `!` → HTML boilerplate)
   plugins.emmet = {
     enable = true;
     settings = {
@@ -20,7 +20,7 @@
   keymaps = [
     {
       mode = "i";
-      key = "<C-!>";
+      key = "<A-!>";
       action.__raw = "function() return vim.fn[\"emmet#expandAbbrIntelligently\"](\"\\t\") end";
       options.expr = true;
     }
