@@ -44,7 +44,7 @@
     {
       mode = "x";
       key = "<C-/>";
-      action.__raw = "function() require('Comment.api').toggle.linewise(vim.fn.visualmode()) end";
+      action = "<Plug>(comment_toggle_linewise_visual)";
       options.desc = "Toggle line comment (selection)";
     }
   ];

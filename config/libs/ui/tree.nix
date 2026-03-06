@@ -3,6 +3,9 @@
   # reference: https://github.com/nvim-neo-tree/neo-tree.nvim
   #
   # File explorer tree shown on the left side of the editor.
+  #
+  # Keymaps:
+  # <leader>e : toggle file tree (Normal)
   plugins.neo-tree = {
     enable = true;
     # update git status asynchronously for better performance
@@ -63,4 +66,13 @@
       name = "Envrc";
     };
   };
+
+  keymaps = [
+    {
+      mode = "n";
+      key = "<leader>e";
+      action = "<cmd>Neotree toggle<CR>";
+      options.desc = "Toggle neo-tree";
+    }
+  ];
 }

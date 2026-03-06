@@ -19,12 +19,24 @@
   # Displays indent guide lines with rainbow colors for each indent level.
   highlight = {
     # indent-blankline.nvim rainbow colors (one per indent level, muted)
-    IblIndent1 = { fg = "#51303a"; };
-    IblIndent2 = { fg = "#51402a"; };
-    IblIndent3 = { fg = "#304830"; };
-    IblIndent4 = { fg = "#284848"; };
-    IblIndent5 = { fg = "#283848"; };
-    IblIndent6 = { fg = "#3a2851"; };
+    IblIndent1 = {
+      fg = "#51303a";
+    };
+    IblIndent2 = {
+      fg = "#51402a";
+    };
+    IblIndent3 = {
+      fg = "#304830";
+    };
+    IblIndent4 = {
+      fg = "#284848";
+    };
+    IblIndent5 = {
+      fg = "#283848";
+    };
+    IblIndent6 = {
+      fg = "#3a2851";
+    };
   };
 
   plugins.indent-blankline = {
@@ -58,6 +70,25 @@
   # todo-comments.nvim
   # reference: https://github.com/folke/todo-comments.nvim
   #
-  # Highlights and lists TODO, FIXME, NOTE, and other comment keywords.
+  # Highlights comment keywords. Supported patterns:
+  #   TODO        : something to be done
+  #   FIXME       : broken code that needs fixing
+  #   BUG         : broken code that needs fixing
+  #   FIXIT       : broken code that needs fixing
+  #   ISSUE       : broken code that needs fixing
+  #   HACK        : hacky workaround, should be refactored
+  #   WARN        : warnings
+  #   WARNING     : warnings
+  #   XXX         : warnings
+  #   PERF        : performance issues
+  #   OPTIM       : performance issues
+  #   PERFORMANCE : performance issues
+  #   OPTIMIZE    : performance issues
+  #   NOTE        : notes and information
+  #   INFO        : notes and information
+  #   TEST        : testing notes
+  #   TESTING     : testing notes
+  #   PASSED      : testing notes
+  #   FAILED      : testing notes
   plugins.todo-comments.enable = true;
 }

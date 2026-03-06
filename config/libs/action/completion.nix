@@ -5,11 +5,9 @@
   # Completion engine with LSP, buffer word, and file path sources.
   #
   # Keymaps (Insert mode):
-  # <C-n>     : select next item
-  # <C-p>     : select previous item
-  # <C-y>     : confirm selected item
-  # <C-Space> : trigger completion manually
-  # <C-e>     : abort / close completion
+  # <C-n> : select next item
+  # <C-p> : select previous item
+  # <CR>  : confirm explicitly selected item (select = false: falls through to newline if none selected)
   plugins.cmp = {
     enable = true;
     settings = {
@@ -21,9 +19,7 @@
       mapping = {
         "<C-n>".__raw = "cmp.mapping.select_next_item()";
         "<C-p>".__raw = "cmp.mapping.select_prev_item()";
-        "<C-y>".__raw = "cmp.mapping.confirm({ select = true })";
-        "<C-Space>".__raw = "cmp.mapping.complete()";
-        "<C-e>".__raw = "cmp.mapping.abort()";
+        "<CR>".__raw = "cmp.mapping.confirm({ select = false })";
       };
     };
   };
