@@ -17,6 +17,7 @@
         val = 1;
       }
       {
+        # Top half of the snowflake (NixOS darker blue #5277C3)
         type = "text";
         val = [
           "          ▗▄▄▄       ▗▄▄▄▄    ▄▄▄▖          "
@@ -29,20 +30,30 @@
           "          ▟███▛             ▜██▛ ▟███▛       "
           "         ▟███▛               ▜▛ ▟███▛        "
           "▟███████████▛                  ▟██████████▙  "
+        ];
+        opts = {
+          position = "center";
+          hl = "AlphaNixBlue";
+        };
+      }
+      {
+        # Bottom half of the snowflake (NixOS lighter blue #7EBAE4)
+        type = "text";
+        val = [
           "▜██████████▛                  ▟███████████▛  "
           "         ▟███▖               ▟███▛           "
           "          ▟███▛              ▜███▛           "
           "          ▝████▙              ▜██▛           "
-          "           ▝████▙             ▟▛             "
+          "           ▝████▙            ▟███▙           "
           "    ▟███████████████████▙ ▜███▙              "
           "   ▟█████████████████████▙ ▜███▙             "
-          "        ▜██████▛▀▜██████▛                    "
-          "         ▜███▛    ▜███▛                      "
+          "        ▜██████▛  ▟██████▙                   "
+          "         ▜███▛    ▟████▛                     "
           "          ▀▀▀      ▀▀▀                       "
         ];
         opts = {
           position = "center";
-          hl = "AlphaNixHeader";
+          hl = "AlphaNixLightBlue";
         };
       }
       {
@@ -66,10 +77,15 @@
     ];
   };
 
-  # Highlight groups for the dashboard, matching tokyonight-night palette.
+  # Highlight groups for the dashboard using NixOS official brand colors.
   highlight = {
-    # Header: NixOS light blue (#7EBAE4)
-    AlphaNixHeader = {
+    # Top half: NixOS darker blue (#5277C3)
+    AlphaNixBlue = {
+      fg = "#5277c3";
+      bold = true;
+    };
+    # Bottom half: NixOS lighter blue (#7EBAE4)
+    AlphaNixLightBlue = {
       fg = "#7ebae4";
       bold = true;
     };
