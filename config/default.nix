@@ -16,6 +16,7 @@
     ./libs/action/copilot.nix
     ./libs/action/completion.nix
     ./libs/action/commentout.nix
+    ./libs/action/emmet.nix
     ./libs/action/utils.nix
     ./libs/action/keymaps.nix
   ];

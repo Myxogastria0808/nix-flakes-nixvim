@@ -7,6 +7,7 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | Category       | Plugin                                                                                                                                                            | Details                                                                      |
 | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | **Theme**      | [tokyonight.nvim](https://github.com/folke/tokyonight.nvim)                                                                                                      | night style                                                                  |
+| **Dashboard**  | [alpha-nvim](https://github.com/goolord/alpha-nvim)                                                                                                              | Start screen with lambda logo and Neovim version                             |
 | **File tree**  | [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim)                                                                                                  | Git status icons, auto-close on last window, follow current file             |
 | **Icons**      | [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons)                                                                                              | Custom icons for `.lean` (∀), `lean-toolchain` (∃), `.envrc/.bashrc/.zshrc` ($) |
 | **Statusline** | [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)                                                                                                     | Components hidden when neo-tree is focused                                   |
@@ -15,7 +16,7 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | **Indent**     | [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim)                                                                                  | Rainbow indent guide lines                                                   |
 | **Keybind help** | [which-key.nvim](https://github.com/folke/which-key.nvim)                                                                                                      | Keybinding popup on prefix key                                               |
 | **Scrolling**  | [neoscroll.nvim](https://github.com/karb94/neoscroll.nvim)                                                                                                       | Smooth scrolling for `C-u/d/f/b/e/y`, `zt/zz/zb`                            |
-| **Syntax**     | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                                                                                            | 23-language parser set — highlighting + indent                               |
+| **Syntax**     | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                                                                                            | 24-language parser set — highlighting + indent                               |
 | **LSP**        | nvim-lspconfig via NixVim                                                                                                                                         | See [Language Support](#language-support)                                    |
 | **Completion** | [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)                                                                                                                  | LSP, buffer word, and file path sources                                      |
 | **Formatting** | [conform.nvim](https://github.com/stevearc/conform.nvim)                                                                                                         | Format-on-save (500 ms timeout) — see [Language Support](#language-support)  |
@@ -23,6 +24,7 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | **Git**        | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)                                                                                                      | Added / modified / removed indicators in the sign column                     |
 | **AI**         | [copilot.lua](https://github.com/zbirenbaum/copilot.lua)                                                                                                         | Auto-trigger inline suggestions                                              |
 | **Autopairs**  | [nvim-autopairs](https://github.com/windwp/nvim-autopairs)                                                                                                       | Auto-close brackets and quotes                                               |
+| **Emmet**      | [emmet-vim](https://github.com/mattn/emmet-vim)                                                                                                                  | HTML/CSS abbreviation expansion (e.g. `!` → HTML boilerplate)               |
 | **Comments**   | [Comment.nvim](https://github.com/numToStr/Comment.nvim) + [ts-context-commentstring](https://github.com/JoosepAlviste/nvim-ts-context-commentstring)            | Context-aware commenting (JSX/TSX support)                                   |
 | **Terminal**   | [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim)                                                                                                    | Floating terminal toggle                                                     |
 | **Preview**    | [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim)                                                                                         | Live Markdown + Mermaid preview in browser                                   |
@@ -52,6 +54,7 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | JSON                | jsonls             | prettier           | ✓          |                                                                                                     |
 | YAML                | yamlls             | prettier           | ✓          | GitHub Actions schema auto-applied to `.github/workflows/*.yml`                                     |
 | TOML                | taplo              | taplo              | ✓          |                                                                                                     |
+| Elm                 | elmls              | elm_format         | ✓          |                                                                                                     |
 | R                   | r_language_server  | air                | —          | **External dependency**: requires R with `languageserver` installed in the project flake            |
 | Julia               | julials            | LSP fallback       | —          | **External dependency**: requires Julia with `LanguageServer.jl` installed in the Julia environment |
 | GitHub Actions      | yamlls (schema)    | prettier           | —          | [actionlint](https://github.com/rhysd/actionlint) linter enabled for `.github/workflows/`          |
@@ -103,6 +106,12 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | `Tab`             | Insert | Accept Copilot suggestion (fallback: insert tab) |
 | `Alt+]` / `Alt+[` | Insert | Next / Previous suggestion                       |
 | `Ctrl+]`          | Insert | Dismiss suggestion                               |
+
+### Emmet (emmet-vim)
+
+| Key        | Mode   | Action                                                   |
+| ---------- | ------ | -------------------------------------------------------- |
+| `Ctrl+Y ,` | Insert | Expand Emmet abbreviation (e.g. `!` → HTML boilerplate) |
 
 ### Navigation
 
@@ -251,19 +260,21 @@ If you want to use GitHub Copilot, run `:Copilot auth` inside Neovim after the f
 │   └── libs/
 │       ├── ui/
 │       │   ├── theme.nix            # Colorscheme (tokyonight)
+│       │   ├── dashboard.nix        # Start screen (alpha-nvim)
 │       │   ├── tree.nix             # Neo-tree + web-devicons
 │       │   ├── bar.nix              # Statusline (lualine)
 │       │   ├── tab.nix              # Buffer tabs (bufferline)
 │       │   ├── gitsigns.nix         # Git gutter signs
-│       │   ├── treesitter.nix       # Syntax highlighting (nvim-treesitter)
 │       │   └── utils.nix            # noice / indent-blankline / which-key / neoscroll / todo-comments
 │       ├── language/
 │       │   ├── lsp.nix              # LSP servers (20+ languages) + lean.nvim
-│       │   └── format.nix           # conform.nvim (format-on-save) + nvim-lint
+│       │   ├── format.nix           # conform.nvim (format-on-save) + nvim-lint
+│       │   └── treesitter.nix       # Syntax highlighting (nvim-treesitter)
 │       └── action/
 │           ├── copilot.nix          # GitHub Copilot
 │           ├── completion.nix       # nvim-cmp + LSP / buffer / path sources
 │           ├── commentout.nix       # Comment.nvim + ts-context-commentstring
+│           ├── emmet.nix            # Emmet abbreviation expansion (emmet-vim)
 │           ├── utils.nix            # autopairs / jumpcursor / toggleterm / markdown-preview
 │           └── keymaps.nix          # Global keymaps and leader key
 ├── .envrc                           # direnv integration
