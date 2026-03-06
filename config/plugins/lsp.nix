@@ -119,10 +119,13 @@
   # gD                     : go-to-declaration
   # gy                     : go-to-type
   # <LocalLeader><Tab>     : jump to the lean file from the infoview
+  #
+  # Note: lean.nvim cannot use lazyLoad.settings.ft = "lean" because
+  # Neovim does not recognize .lean files without the plugin's ftdetect loaded first.
+  # Instead, trigger on BufReadPost *.lean to avoid depending on filetype detection.
   plugins.lean = {
     enable = true;
-    # Only load lean.nvim when a .lean file is opened (~50ms startup savings)
-    lazyLoad.settings.ft = "lean";
+    lazyLoad.settings.event = [{ event = "BufReadPost"; pattern = "*.lean"; }];
     settings = {
       # infoview panel settings
       infoview = {
