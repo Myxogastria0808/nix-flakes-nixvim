@@ -120,13 +120,10 @@
   # gy                     : go-to-type
   # <LocalLeader><Tab>     : jump to the lean file from the infoview
   #
-  # ftdetect for .lean files
-  # lean.nvim provides its own ftdetect, but since it is lazy-loaded it does not run at
-  # startup. This entry registers .lean → lean filetype ahead of time so that the
-  # FileType lean event fires and triggers the lazy loader correctly.
-  extraFiles."ftdetect/lean.vim".text = ''
-    au BufNewFile,BufRead *.lean set filetype=lean
-  '';
+  # Register .lean → lean filetype at startup via vim.filetype.add().
+  # lean.nvim's own ftdetect does not run when the plugin is lazy-loaded, so this
+  # ensures FileType lean fires and triggers the lazy loader correctly.
+  filetype.extension.lean = "lean";
 
   plugins.lean = {
     enable = true;
