@@ -21,7 +21,7 @@
     {
       mode = "i";
       key = "<C-!>";
-      action.__raw = "emmet#expandAbbrIntelligently(\"\\<Tab>\")";
+      action.__raw = "function() return vim.fn[\"emmet#expandAbbrIntelligently\"](\"\\t\") end";
       options.expr = true;
     }
   ];
