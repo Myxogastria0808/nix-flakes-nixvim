@@ -6,13 +6,21 @@
   # HTML/CSS abbreviation expansion (Emmet).
   # Usage: type abbreviation then press <C-y>, to expand (e.g. `!` → HTML boilerplate).
   #
-  # Keymaps (Insert mode):
+  # Keymaps (All modes):
   # <C-y>, : expand abbreviation
   plugins.emmet = {
     enable = true;
-    settings = {
-      mode = "i";
-      leader_key = "<C-y>";
-    };
+    mode = "a";
+    leader_key = "<C-y>";
   };
+
+  extraConfigLua = ''
+    vim.g.user_emmet_settings = {
+      html = {
+        snippets = {
+          ["!"] = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Document</title>\n</head>\n<body>\n    \n</body>\n</html>"
+        }
+      }
+    }
+  '';
 }
