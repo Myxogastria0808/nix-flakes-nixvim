@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   # emmet-vim
   # reference: https://github.com/mattn/emmet-vim
@@ -10,10 +10,21 @@
   # <C-y>, : expand abbreviation
   plugins.emmet = {
     enable = true;
+    leader = "<C-y>";
+    mode = "a";
     settings = {
-      user_emmet_leader_key = "<C-y>";
-      user_emmet_mode = "a";
       html = {
+        default_attributes = {
+          option = {
+            value = lib.nixvim.mkRaw "nil";
+          };
+          textarea = {
+            cols = 10;
+            id = lib.nixvim.mkRaw "nil";
+            name = lib.nixvim.mkRaw "nil";
+            rows = 10;
+          };
+        };
         snippets = {
           "html:5" = ''
             <!DOCTYPE html>
@@ -29,6 +40,9 @@
             </html>
           '';
         };
+      };
+      variables = {
+        lang = "ja";
       };
     };
   };
