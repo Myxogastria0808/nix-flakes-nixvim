@@ -8,13 +8,28 @@
   #
   # Keymaps (All modes):
   # <C-y>, : expand abbreviation
-  plugins.emmet.enable = true;
-
-  globals = {
-    user_emmet_mode = "a";
-    user_emmet_leader_key = "<C-y>";
-    user_emmet_settings = {
-      html.snippets."!" = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Document</title>\n</head>\n<body>\n    \n</body>\n</html>";
+  plugins.emmet = {
+    enable = true;
+    leader = "<C-y>";
+    mode = "a";
+    settings = {
+      html = {
+        snippets = {
+          "html:5" = ''
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Document</title>
+            </head>
+            <body>
+                |
+            </body>
+            </html>
+          '';
+        };
+      };
     };
   };
 }
