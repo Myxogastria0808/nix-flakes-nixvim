@@ -10,9 +10,9 @@
   # <C-y>, : expand abbreviation
   plugins.emmet = {
     enable = true;
-    leader = "<C-y>";
-    mode = "a";
     settings = {
+      user_emmet_leader_key = "<C-y>";
+      user_emmet_mode = "a";
       html = {
         snippets = {
           "html:5" = ''
