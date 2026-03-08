@@ -25,6 +25,9 @@
       haskell
       ocaml
       elm
+      r
+      julia
+      typst
       html
       css
       json

@@ -16,7 +16,7 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | **Indent**       | [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim)                                                                       | Rainbow indent guide lines                                                      |
 | **Keybind help** | [which-key.nvim](https://github.com/folke/which-key.nvim)                                                                                             | Keybinding popup on prefix key                                                  |
 | **Scrolling**    | [neoscroll.nvim](https://github.com/karb94/neoscroll.nvim)                                                                                            | Smooth scrolling for `C-u/d/f/b/e/y`, `zt/zz/zb`                                |
-| **Syntax**       | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                                                                                 | 24-language parser set — highlighting + indent                                  |
+| **Syntax**       | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                                                                                 | 27-language parser set — highlighting + indent                                  |
 | **LSP**          | nvim-lspconfig via NixVim                                                                                                                             | See [Language Support](#language-support)                                       |
 | **Completion**   | [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)                                                                                                       | LSP, buffer word, and file path sources                                         |
 | **Formatting**   | [conform.nvim](https://github.com/stevearc/conform.nvim)                                                                                              | Format-on-save (500 ms timeout) — see [Language Support](#language-support)     |
@@ -33,35 +33,36 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 
 ## Language Support
 
-| Language            | LSP               | Formatter          | Treesitter | Notes                                                                                               |
-| ------------------- | ----------------- | ------------------ | ---------- | --------------------------------------------------------------------------------------------------- |
-| Nix                 | nil_ls            | nixfmt             | ✓          |                                                                                                     |
-| Markdown            | marksman          | prettier           | ✓          |                                                                                                     |
-| Shell (sh/bash/zsh) | bashls            | shfmt              | ✓          |                                                                                                     |
-| TypeScript          | ts_ls             | prettier           | ✓          |                                                                                                     |
-| JavaScript          | ts_ls             | prettier           | ✓          |                                                                                                     |
-| TSX / JSX           | ts_ls             | prettier           | ✓          | Context-aware commenting via ts-context-commentstring                                               |
-| Rust                | rust_analyzer     | rustfmt            | ✓          | cargo and rustc installed automatically by NixVim                                                   |
-| Python              | basedpyright      | ruff_format        | ✓          |                                                                                                     |
-| Go                  | gopls             | gofumpt            | ✓          |                                                                                                     |
-| C                   | clangd            | clang_format       | ✓          |                                                                                                     |
-| Java                | jdtls             | google_java_format | ✓          |                                                                                                     |
-| Haskell             | hls               | fourmolu           | ✓          | GHC installed automatically by NixVim                                                               |
-| OCaml               | ocamllsp          | ocamlformat        | ✓          | Requires `.ocamlformat` file in project root (empty file is fine)                                   |
-| Typst               | tinymist          | typstyle           | —          |                                                                                                     |
-| HTML                | html              | prettier           | ✓          |                                                                                                     |
-| CSS                 | cssls             | prettier           | ✓          |                                                                                                     |
-| JSON                | jsonls            | prettier           | ✓          |                                                                                                     |
-| YAML                | yamlls            | prettier           | ✓          | GitHub Actions schema auto-applied to `.github/workflows/*.yml`                                     |
-| TOML                | taplo             | taplo              | ✓          |                                                                                                     |
-| Elm                 | elmls             | elm_format         | ✓          |                                                                                                     |
-| R                   | r_language_server | air                | —          | **External dependency**: requires R with `languageserver` installed in the project flake            |
-| Julia               | julials           | LSP fallback       | —          | **External dependency**: requires Julia with `LanguageServer.jl` installed in the Julia environment |
-| GitHub Actions      | yamlls (schema)   | prettier           | —          | [actionlint](https://github.com/rhysd/actionlint) linter enabled for `.github/workflows/`           |
-| Lean 4              | lean.nvim         | —                  | —          | Dedicated plugin with interactive infoview panel                                                    |
+| Language            | LSP               | Formatter          | Treesitter | Notes                                                                                                                            |
+| ------------------- | ----------------- | ------------------ | ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Nix                 | nil_ls            | nixfmt             | ✓          |                                                                                                                                  |
+| Markdown            | marksman          | prettier           | ✓          |                                                                                                                                  |
+| Shell (sh/bash/zsh) | bashls            | shfmt              | ✓          |                                                                                                                                  |
+| TypeScript          | ts_ls             | prettier           | ✓          |                                                                                                                                  |
+| JavaScript          | ts_ls             | prettier           | ✓          |                                                                                                                                  |
+| TSX / JSX           | ts_ls             | prettier           | ✓          | Context-aware commenting via ts-context-commentstring                                                                            |
+| Rust                | rust_analyzer     | rustfmt            | ✓          | cargo and rustc installed automatically by NixVim                                                                                |
+| Python              | basedpyright      | ruff_format        | ✓          |                                                                                                                                  |
+| Go                  | gopls             | gofumpt            | ✓          |                                                                                                                                  |
+| C                   | clangd            | clang_format       | ✓          |                                                                                                                                  |
+| Java                | jdtls             | google_java_format | ✓          |                                                                                                                                  |
+| Haskell             | hls               | fourmolu           | ✓          | GHC installed automatically by NixVim                                                                                            |
+| OCaml               | ocamllsp          | ocamlformat        | ✓          | Requires `.ocamlformat` file in project root (empty file is fine)                                                                |
+| Typst               | tinymist          | typstyle           | ✓          |                                                                                                                                  |
+| HTML                | html              | prettier           | ✓          |                                                                                                                                  |
+| CSS                 | cssls             | prettier           | ✓          |                                                                                                                                  |
+| JSON                | jsonls            | prettier           | ✓          |                                                                                                                                  |
+| YAML                | yamlls            | prettier           | ✓          | GitHub Actions schema auto-applied to `.github/workflows/*.yml`                                                                  |
+| TOML                | taplo             | taplo              | ✓          |                                                                                                                                  |
+| Elm                 | elmls             | elm_format         | ✓          |                                                                                                                                  |
+| R                   | r_language_server | air                | ✓          | **External dependency**: requires R with `languageserver` installed in the project flake                                         |
+| Julia               | julials           | LSP fallback       | ✓          | **External dependency**: requires Julia with `LanguageServer.jl` installed in the Julia environment                              |
+| GitHub Actions      | yamlls (schema)   | prettier           | —          | [actionlint](https://github.com/rhysd/actionlint) linter enabled for `.github/workflows/`                                        |
+| Lean 4              | lean.nvim         | —                  | —          | Dedicated plugin with interactive infoview panel; nvim-treesitter has no Lean grammar (lean.nvim handles its own syntax support) |
 
 ## Key Bindings
 
+> [!NOTE]
 > `<leader>` and `<LocalLeader>` are both set to `Space`.
 
 ### General
