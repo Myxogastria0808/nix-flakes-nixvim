@@ -4,15 +4,21 @@
   # reference: https://github.com/mattn/emmet-vim
   #
   # HTML/CSS abbreviation expansion (Emmet).
-  # Usage: type abbreviation then press <M-z> or <C-z>, to expand (e.g. `!` → HTML boilerplate).
+  # Usage: type abbreviation then press <A-z> to expand (e.g. `!` → HTML boilerplate).
   #
   # Keymaps (Insert mode only):
-  # <M-z>   : expand abbreviation (direct)
-  # <C-z>,  : expand abbreviation (via leader key)
+  # <A-z> : expand abbreviation
   plugins.emmet = {
     enable = true;
     settings = {
-      leader_key = "<C-z>";
+      # emmet-vim creates insert-mode mappings for every action as <leader_key><action_key>
+      # (e.g. <C-z>, to expand, <C-z>; for word-expand, <C-z>u to update tag, etc.).
+      # Using a real key like <C-z> as the leader causes Neovim to enter "wait for next key"
+      # state whenever that key is pressed in insert mode, blocking other plugins from using it.
+      # Setting the leader to a <Plug>(...) value makes all emmet leader-based mappings
+      # unreachable from the keyboard (Plug mappings cannot be triggered by direct key input),
+      # effectively disabling them. <A-z> is exposed instead via an explicit keymap below.
+      leader_key = "<Plug>(emmet-leader)";
       mode = "i";
       settings = {
         html = {
@@ -39,7 +45,7 @@
   keymaps = [
     {
       mode = "i";
-      key = "<M-z>";
+      key = "<A-z>";
       action = "<Plug>(emmet-expand-abbr)";
       options.silent = true;
     }
