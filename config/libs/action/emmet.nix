@@ -4,10 +4,11 @@
   # reference: https://github.com/mattn/emmet-vim
   #
   # HTML/CSS abbreviation expansion (Emmet).
-  # Usage: type abbreviation then press <C-z>, to expand (e.g. `!` → HTML boilerplate).
+  # Usage: type abbreviation then press <M-z> or <C-z>, to expand (e.g. `!` → HTML boilerplate).
   #
-  # Keymaps (All modes):
-  # <C-z>, : expand abbreviation
+  # Keymaps (Insert mode only):
+  # <M-z>   : expand abbreviation (direct)
+  # <C-z>,  : expand abbreviation (via leader key)
   plugins.emmet = {
     enable = true;
     settings = {
@@ -34,6 +35,15 @@
       };
     };
   };
+
+  keymaps = [
+    {
+      mode = "i";
+      key = "<M-z>";
+      action = "<Plug>(emmet-expand-abbr)";
+      options.silent = true;
+    }
+  ];
 
   # Fix: emmet-vim's emmet_utils.lua uses require("nvim-treesitter.ts_utils") which was
   # removed in nvim-treesitter v1. Override the module with the new vim.treesitter API.
