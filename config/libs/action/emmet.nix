@@ -7,11 +7,11 @@
   # Usage: type abbreviation then press <C-y>, to expand (e.g. `!` → HTML boilerplate).
   #
   # Keymaps (All modes):
-  # <C-y>, : expand abbreviation
+  # <C-z>, : expand abbreviation
   plugins.emmet = {
     enable = true;
     settings = {
-      leader_key = "<C-y>";
+      leader_key = "<C-z>";
       mode = "a";
       settings = {
         html = {
