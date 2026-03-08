@@ -16,18 +16,19 @@
       settings = {
         html = {
           snippets = {
-            "!" =
-              ''<!DOCTYPE html>\n
-<html lang=\"en\">\n
-  <head>\n
-    <meta charset=\"UTF-8\">\n
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n
-    <title>Document</title>\n
-  </head>\n
-  <body>\n
-  |\n
-  </body>\n
-</html>\n'';
+            "!" = ''
+              <!DOCTYPE html>
+              <html lang="en">
+                <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>Document</title>
+                </head>
+                <body>
+                |
+                </body>
+              </html>
+            '';
           };
         };
       };
