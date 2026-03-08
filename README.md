@@ -80,8 +80,8 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 
 | Key     | Mode                     | Action                |
 | ------- | ------------------------ | --------------------- |
-| `Alt+l` | Normal / Insert / Visual | Next buffer           |
-| `Alt+h` | Normal / Insert / Visual | Previous buffer       |
+| `Alt+]` | Normal / Insert / Visual | Next buffer           |
+| `Alt+[` | Normal / Insert / Visual | Previous buffer       |
 | `Alt+d` | Normal                   | Close (delete) buffer |
 
 ### Completion (nvim-cmp)
@@ -109,9 +109,59 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 
 ### Emmet (emmet-vim)
 
-| Key        | Mode   | Action                                                  |
-| ---------- | ------ | ------------------------------------------------------- |
-| `Ctrl+Y ,` | Insert | Expand Emmet abbreviation (e.g. `!` → HTML boilerplate) |
+| Key     | Mode   | Action                    |
+| ------- | ------ | ------------------------- |
+| `Alt+z` | Insert | Expand Emmet abbreviation |
+
+#### Usage
+
+Type an abbreviation in insert mode, then press `Alt+z` to expand it.
+
+**Custom snippet — HTML boilerplate (`!`)**
+
+```
+! → Alt+z
+```
+
+Expands to:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    |
+  </body>
+</html>
+```
+
+(`|` is the cursor position after expansion.)
+
+**Standard Emmet abbreviations**
+
+| Abbreviation        | Expands to                                                             |
+| ------------------- | ---------------------------------------------------------------------- |
+| `div`               | `<div></div>`                                                          |
+| `div.container`     | `<div class="container"></div>`                                        |
+| `div#app`           | `<div id="app"></div>`                                                 |
+| `ul>li*3`           | `<ul>` with three `<li></li>` children                                 |
+| `a[href="#"]`       | `<a href="#"></a>`                                                     |
+| `p>{Hello }+span`   | `<p>Hello <span></span></p>`                                           |
+| `input:text`        | `<input type="text">`                                                  |
+
+#### Configuration notes (why it works this way)
+
+emmet-vim's default design uses a **leader key** (e.g. `Ctrl+Y`) followed by a suffix (`,` to expand, `;` for word-expand, `u` to update tag, etc.), creating a family of insert-mode mappings all starting with that prefix.
+
+This causes a problem: as soon as any key is bound as a leader, Neovim enters "wait for the next key" state whenever that leader is pressed in insert mode — even if you only want to use the key for something else. Setting `Ctrl+Y` as the leader, for example, would block neoscroll from using it.
+
+To avoid this, the leader key is set to `<Plug>(emmet-leader)`. `<Plug>` sequences cannot be triggered directly from the keyboard, so all of emmet's built-in leader-based mappings become unreachable. A single explicit keymap (`Alt+z` → `<Plug>(emmet-expand-abbr)`) is then added to expose only the abbreviation expansion action.
+
+Additionally, the bundled `emmet_utils.lua` requires `nvim-treesitter.ts_utils`, a module removed in nvim-treesitter v1. This is patched at startup by overriding `package.loaded["emmet_utils"]` with an equivalent implementation using the current `vim.treesitter.get_node()` API.
 
 ### Navigation
 
