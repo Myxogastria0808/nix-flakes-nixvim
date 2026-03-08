@@ -14,35 +14,9 @@
       user_emmet_leader_key = "<C-y>";
       user_emmet_mode = "a";
       html = {
-        default_attributes = {
-          option = {
-            value = lib.nixvim.mkRaw "nil";
-          };
-          textarea = {
-            cols = 10;
-            id = lib.nixvim.mkRaw "nil";
-            name = lib.nixvim.mkRaw "nil";
-            rows = 10;
-          };
-        };
         snippets = {
-          "html:5" = ''
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Document</title>
-            </head>
-            <body>
-                |
-            </body>
-            </html>
-          '';
+          "html:5" = "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n\t<meta charset=\"UTF-8\">\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\t<title>Document</title>\n</head>\n<body>\n\t|\n</body>\n</html>";
         };
-      };
-      variables = {
-        lang = "ja";
       };
     };
   };
