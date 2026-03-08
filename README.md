@@ -143,15 +143,15 @@ Expands to:
 
 **Standard Emmet abbreviations**
 
-| Abbreviation        | Expands to                                                             |
-| ------------------- | ---------------------------------------------------------------------- |
-| `div`               | `<div></div>`                                                          |
-| `div.container`     | `<div class="container"></div>`                                        |
-| `div#app`           | `<div id="app"></div>`                                                 |
-| `ul>li*3`           | `<ul>` with three `<li></li>` children                                 |
-| `a[href="#"]`       | `<a href="#"></a>`                                                     |
-| `p>{Hello }+span`   | `<p>Hello <span></span></p>`                                           |
-| `input:text`        | `<input type="text">`                                                  |
+| Abbreviation      | Expands to                             |
+| ----------------- | -------------------------------------- |
+| `div`             | `<div></div>`                          |
+| `div.container`   | `<div class="container"></div>`        |
+| `div#app`         | `<div id="app"></div>`                 |
+| `ul>li*3`         | `<ul>` with three `<li></li>` children |
+| `a[href="#"]`     | `<a href="#"></a>`                     |
+| `p>{Hello }+span` | `<p>Hello <span></span></p>`           |
+| `input:text`      | `<input type="text">`                  |
 
 #### Configuration notes (why it works this way)
 
