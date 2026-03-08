@@ -33,7 +33,7 @@
         };
         css = {
           snippets = {
-            "?" = ''
+            "!" = ''
               * {
                 margin: 0;
                 padding: 0;
