@@ -12,7 +12,7 @@
     enable = true;
     settings = {
       leader_key = "<C-z>";
-      mode = "a";
+      mode = "i";
       settings = {
         html = {
           snippets = {
@@ -25,9 +25,19 @@
                   <title>Document</title>
                 </head>
                 <body>
-                |
+                  |
                 </body>
               </html>
+            '';
+          };
+        };
+        css = {
+          snippets = {
+            "?" = ''
+              * {
+                margin: 0;
+                padding: 0;
+              }
             '';
           };
         };
