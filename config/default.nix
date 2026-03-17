@@ -7,6 +7,7 @@
     ./libs/ui/tab.nix
     ./libs/ui/gitsigns.nix
     ./libs/ui/utils.nix
+    ./libs/ui/notify.nix
     ./libs/ui/dashboard.nix
     # language
     ./libs/language/lsp.nix
