@@ -12,6 +12,7 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | **Icons**        | [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons)                                                                                   | Custom icons for `.lean` (∀), `lean-toolchain` (∃), `.envrc/.bashrc/.zshrc` ($) |
 | **Statusline**   | [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)                                                                                          | Components hidden when neo-tree is focused                                      |
 | **Buffer tabs**  | [bufferline.nvim](https://github.com/akinsho/bufferline.nvim)                                                                                         | Slant separator style with close icons                                          |
+| **Notifications** | [nvim-notify](https://github.com/rcarriga/nvim-notify)                                                                                               | Fancy notification popups (ERROR / WARN / INFO) used as noice.nvim backend     |
 | **UI**           | [noice.nvim](https://github.com/folke/noice.nvim)                                                                                                     | Modern floating command line and notifications                                  |
 | **Indent**       | [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim)                                                                       | Rainbow indent guide lines                                                      |
 | **Keybind help** | [which-key.nvim](https://github.com/folke/which-key.nvim)                                                                                             | Keybinding popup on prefix key                                                  |
@@ -70,6 +71,7 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | Key               | Mode                                | Action                           |
 | ----------------- | ----------------------------------- | -------------------------------- |
 | `Ctrl+S`          | Normal / Insert / Visual            | Save file                        |
+| `Alt+L`           | Normal / Insert / Visual            | Toggle line wrap                 |
 | `gx`              | Normal                              | Open URL under cursor in browser |
 | `Ctrl+Left Click` | Normal / Insert / Visual / Terminal | Open URL under cursor in browser |
 
@@ -321,7 +323,7 @@ If you want to use GitHub Copilot, run `:Copilot auth` inside Neovim after the f
 │       │   ├── bar.nix              # Statusline (lualine)
 │       │   ├── tab.nix              # Buffer tabs (bufferline)
 │       │   ├── gitsigns.nix         # Git gutter signs
-│       │   └── utils.nix            # noice / indent-blankline / which-key / neoscroll / todo-comments
+│       │   └── utils.nix            # nvim-notify / noice / indent-blankline / which-key / neoscroll / todo-comments
 │       ├── language/
 │       │   ├── lsp.nix              # LSP servers (20+ languages) + lean.nvim
 │       │   ├── format.nix           # conform.nvim (format-on-save) + nvim-lint

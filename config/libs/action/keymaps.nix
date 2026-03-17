@@ -19,6 +19,7 @@
   # Keymaps:
   # <C-s>           : save file (Normal / Insert / Visual)
   # <C-LeftMouse>   : open URL under cursor in browser (Normal / Insert / Visual / Terminal)
+  # <M-l>           : toggle line wrap (Normal / Insert / Visual)
   keymaps = [
     # Save the current file.
     # keybind: Ctrl + S
@@ -31,6 +32,18 @@
       key = "<C-s>";
       action = "<cmd>w<CR>";
       options.desc = "Save file";
+    }
+    # Toggle line wrap.
+    # keybind: Alt + L
+    {
+      mode = [
+        "n"
+        "i"
+        "v"
+      ];
+      key = "<M-l>";
+      action = "<cmd>lua vim.wo.wrap = not vim.wo.wrap<CR>";
+      options.desc = "Toggle line wrap";
     }
     # Open URL under cursor in browser.
     # keybind: Ctrl + Left Click
