@@ -24,6 +24,11 @@
           unstaged = "-";
           staged = "✓";
           conflict = "!";
+
+          ahead = "⇡";
+          behind = "⇣";
+          diverged = "⇕";
+          stashed = "\\$";
         };
       };
       window = {
