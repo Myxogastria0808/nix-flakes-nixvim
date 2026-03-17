@@ -11,9 +11,9 @@
   #
   # Fancy, configurable notification manager used as noice.nvim's backend.
   # Notification levels and their appearance:
-  #   ERROR   : red border, stays until dismissed
-  #   WARN    : yellow border, auto-closes after timeout
-  #   INFO    : blue border, auto-closes after timeout
+  #   ERROR -> red border, stays until dismissed
+  #   WARN  -> yellow border, auto-closes after timeout
+  #   INFO  -> blue border, auto-closes after timeout
   plugins.notify = {
     enable = true;
     settings = {
@@ -27,11 +27,11 @@
       max_height = 10;
       # show notification level icons in the title bar
       icons = {
-        ERROR = " ";
-        WARN = " ";
-        INFO = " ";
-        DEBUG = " ";
-        TRACE = "✎";
+        ERROR = "❌";
+        WARN = "⚠️";
+        INFO = "ℹ️";
+        DEBUG = "🐛";
+        TRACE = "🔍";
       };
       render = "wrapped-compact";
     };
