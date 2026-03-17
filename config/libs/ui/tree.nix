@@ -15,20 +15,19 @@
       filesystem.follow_current_file.enabled = true;
       default_component_configs.git_status = {
         symbols = {
-          added = "+";
-          modified = "~";
-          deleted = "✘";
-          renamed = "»";
-          untracked = "?";
-          ignored = "◌";
-          unstaged = "-";
-          staged = "✓";
           conflict = "!";
-
           ahead = "⇡";
           behind = "⇣";
           diverged = "⇕";
+          untracked = "?";
           stashed = "\\$";
+          modified = "~";
+          staged = "✓";
+          renamed = "»";
+          deleted = "✘";
+          added = "+";
+          ignored = "◌";
+          unstaged = "-";
         };
       };
       window = {
