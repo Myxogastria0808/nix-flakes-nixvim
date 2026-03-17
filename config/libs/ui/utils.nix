@@ -4,6 +4,8 @@
     number = true;
     # hide ~ at the end of buffer
     fillchars.eob = " ";
+    # sync yank with system clipboard
+    clipboard = "unnamedplus";
   };
 
   # indent-blankline.nvim
