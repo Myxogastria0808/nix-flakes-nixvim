@@ -67,9 +67,14 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 
 ### General
 
-| Key      | Mode                     | Action    |
-| -------- | ------------------------ | --------- |
-| `Ctrl+S` | Normal / Insert / Visual | Save file |
+| Key               | Mode                                | Action                           |
+| ----------------- | ----------------------------------- | -------------------------------- |
+| `Ctrl+S`          | Normal / Insert / Visual            | Save file                        |
+| `gx`              | Normal                              | Open URL under cursor in browser |
+| `Ctrl+Left Click` | Normal / Insert / Visual / Terminal | Open URL under cursor in browser |
+
+> [!NOTE]
+> ctags is explicitly disabled (`tags = ""`).
 
 ### File Tree (neo-tree)
 
