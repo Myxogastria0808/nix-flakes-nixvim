@@ -76,6 +76,9 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | `Ctrl+Left Click` | Normal / Insert / Visual / Terminal | Open URL under cursor in browser |
 
 > [!NOTE]
+> `clipboard = "unnamedplus"` is set, so yank (`y`), delete (`d`), change (`c`), cut (`x`), and substitute (`s`) operations are automatically synced to the system clipboard.
+
+> [!NOTE]
 > ctags is explicitly disabled (`tags = ""`).
 
 ### File Tree (neo-tree)
