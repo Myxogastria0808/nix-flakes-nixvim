@@ -21,7 +21,7 @@
           # `makeNixvimWithModule` is used to create a standalone Neovim package that includes my custom configuration module.
           # Reference: https://nix-community.github.io/nixvim/user-guide/install.html#standalone-usage
           nixvimConfig = inputs.nixvim.legacyPackages.${system}.makeNixvimWithModule {
-            # `makeNixvimWithModule` accept `pkgs`, `extraSpecialArgs`, `module`
+            # `makeNixvimWithModule` accepts `pkgs`, `extraSpecialArgs`, `module`
             module = import ./config;
           };
         in

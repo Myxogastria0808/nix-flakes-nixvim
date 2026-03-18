@@ -32,15 +32,61 @@
 
   # noice.nvim
   # reference: https://github.com/folke/noice.nvim
+  # source:    https://github.com/folke/noice.nvim/blob/main/lua/noice/ui/msg.lua
   #
   # Replaces the default command line, messages, and pop-up UI
   # with a modern floating interface.
   # Uses nvim-notify as the notification backend.
   #
+  # ─── IMPORTANT: `event` and `kind` are tightly coupled ───────────────────────
+  #
+  # The `kind` field in a route filter has DIFFERENT meanings depending on
+  # the `event` field.  Using a kind that does not belong to the given event
+  # will silently never match, so routes will be dead without any error.
+  #
+  # ┌──────────────────┬────────────────────────────────────────────────────────┐
+  # │ event            │ valid kind values                                      │
+  # ├──────────────────┼────────────────────────────────────────────────────────┤
+  # │ "msg_show"       │ see full table below (M.kinds in lua/noice/ui/msg.lua) │
+  # │ "notify"         │ log-level strings: "trace" "debug" "info" "warn"       │
+  # │                  │                    "error" "off"                       │
+  # │ "lsp"            │ "progress"  "hover"  "message"  "signature"            │
+  # └──────────────────┴────────────────────────────────────────────────────────┘
+  #
+  # ─── Full kind table for event = "msg_show" ──────────────────────────────────
+  #
+  # Category        │ kind             │ Description
+  # ────────────────┼──────────────────┼─────────────────────────────────────────
+  # echo            │ ""               │ Unknown / unclassified messages,
+  #                 │                  │ vim.print() / :echo output (no newline)
+  #                 │ "echo"           │ :echo command output
+  #                 │ "echomsg"        │ :echomsg command output (added to :messages)
+  # ────────────────┼──────────────────┼─────────────────────────────────────────
+  # input/confirm   │ "confirm"        │ confirm() / :confirm dialog
+  #                 │ "confirm_sub"    │ :substitute confirm dialog (:s_c)
+  #                 │ "number_prompt"  │ inputlist() numeric prompt
+  #                 │ "return_prompt"  │ press-enter prompt after multiple messages
+  #                 │ "list_cmd"       │ :list command output
+  # ────────────────┼──────────────────┼─────────────────────────────────────────
+  # errors          │ "emsg"           │ General error (:throw, internal errors…)
+  #                 │ "echoerr"        │ :echoerr output
+  #                 │ "lua_error"      │ Errors raised inside :lua blocks
+  #                 │ "rpc_error"      │ Error responses from rpcrequest()
+  # ────────────────┼──────────────────┼─────────────────────────────────────────
+  # warnings        │ "wmsg"           │ Warnings ("search hit BOTTOM", W10…)
+  # ────────────────┼──────────────────┼─────────────────────────────────────────
+  # hints           │ "quickfix"       │ Quickfix navigation messages
+  #                 │ "search_count"   │ Search count ("S" flag of 'shortmess')
+  # ────────────────┴──────────────────┴─────────────────────────────────────────
+  #
+  # NOTE: "error" is NOT a valid kind for event = "msg_show".
+  #       It belongs to event = "notify" only.
+  #       The correct kind for Neovim error messages under msg_show is "emsg".
+  #
   # Routes:
-  #   ERROR messages  → notify popup (persistent, red)
-  #   WARN messages   → notify popup (auto-close, yellow)
-  #   INFO messages   → notify popup (auto-close, blue)
+  #   ERROR messages  → notify popup (persistent, red)    [kind = "emsg"]
+  #   WARN messages   → notify popup (auto-close, yellow) [kind = "wmsg"]
+  #   INFO messages   → notify popup (auto-close, blue)   [kind = "echo"]
   #   long messages   → split view (scrollable)
   plugins.noice = {
     enable = true;
@@ -50,16 +96,56 @@
       # show LSP progress in the bottom-right via nvim-notify
       lsp.progress.enabled = true;
       routes = [
-        # Error messages: use notify with a longer timeout so they are hard to miss
+        # Routes are evaluated top-to-bottom; the first match wins.
+        #
+        # Long output first — redirect to a split before any notify rule fires,
+        # so large outputs don't flood the popup stack.
         {
           filter = {
             event = "msg_show";
-            kind = "error";
+            min_height = 10;
+          };
+          view = "split";
+        }
+        # ── error-level ────────────────────────────────────────────────────────
+        # General errors (:throw, internal errors, etc.)
+        {
+          filter = {
+            event = "msg_show";
+            kind = "emsg";
           };
           view = "notify";
           opts.level = "error";
         }
-        # Warning messages: notify with default timeout
+        # :echoerr output
+        {
+          filter = {
+            event = "msg_show";
+            kind = "echoerr";
+          };
+          view = "notify";
+          opts.level = "error";
+        }
+        # Errors raised inside :lua blocks
+        {
+          filter = {
+            event = "msg_show";
+            kind = "lua_error";
+          };
+          view = "notify";
+          opts.level = "error";
+        }
+        # Error responses from rpcrequest()
+        {
+          filter = {
+            event = "msg_show";
+            kind = "rpc_error";
+          };
+          view = "notify";
+          opts.level = "error";
+        }
+        # ── warn-level ─────────────────────────────────────────────────────────
+        # Warnings ("search hit BOTTOM", W10, etc.)
         {
           filter = {
             event = "msg_show";
@@ -68,7 +154,17 @@
           view = "notify";
           opts.level = "warn";
         }
-        # Info messages: notify with default timeout
+        # ── info-level ─────────────────────────────────────────────────────────
+        # Unknown / unclassified messages, vim.print() output
+        {
+          filter = {
+            event = "msg_show";
+            kind = "";
+          };
+          view = "notify";
+          opts.level = "info";
+        }
+        # :echo output
         {
           filter = {
             event = "msg_show";
@@ -77,13 +173,77 @@
           view = "notify";
           opts.level = "info";
         }
-        # Long output (> 10 lines): open in a scrollable split instead of a pop-up
+        # :echomsg output (also added to :messages history)
         {
           filter = {
             event = "msg_show";
-            min_height = 10;
+            kind = "echomsg";
           };
-          view = "split";
+          view = "notify";
+          opts.level = "info";
+        }
+        # confirm() / :confirm dialog
+        {
+          filter = {
+            event = "msg_show";
+            kind = "confirm";
+          };
+          view = "notify";
+          opts.level = "info";
+        }
+        # :substitute confirm dialog (:s_c)
+        {
+          filter = {
+            event = "msg_show";
+            kind = "confirm_sub";
+          };
+          view = "notify";
+          opts.level = "info";
+        }
+        # inputlist() numeric prompt
+        {
+          filter = {
+            event = "msg_show";
+            kind = "number_prompt";
+          };
+          view = "notify";
+          opts.level = "info";
+        }
+        # press-enter prompt after multiple messages
+        {
+          filter = {
+            event = "msg_show";
+            kind = "return_prompt";
+          };
+          view = "notify";
+          opts.level = "info";
+        }
+        # :list command output
+        {
+          filter = {
+            event = "msg_show";
+            kind = "list_cmd";
+          };
+          view = "notify";
+          opts.level = "info";
+        }
+        # Quickfix navigation messages
+        {
+          filter = {
+            event = "msg_show";
+            kind = "quickfix";
+          };
+          view = "notify";
+          opts.level = "info";
+        }
+        # Search count ("S" flag of 'shortmess') — fires on every search keystroke, can be noisy
+        {
+          filter = {
+            event = "msg_show";
+            kind = "search_count";
+          };
+          view = "notify";
+          opts.level = "info";
         }
       ];
     };
