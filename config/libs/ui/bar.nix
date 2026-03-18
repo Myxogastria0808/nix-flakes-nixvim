@@ -64,21 +64,19 @@
             cond = notNeoTree;
           }
           {
-            # In binary buffers, show only byte count.
-            # Otherwise, show total word/char count (or selected count in visual mode).
+            # Show total word/char count normally.
+            # In visual mode, show selected word/char count instead.
+            # Hidden when vim.g.show_wordcount is false (toggled by <M-w>).
             "__unkeyed-1".__raw = ''
               function()
                 local wc = vim.fn.wordcount()
-                if vim.bo.binary then
-                  return wc.bytes .. ' bytes'
-                end
                 if wc.visual_chars ~= nil then
-                  return wc.visual_words .. ' words ' .. wc.visual_chars .. ' chars'
+                  return wc.visual_words .. '/' .. wc.words .. ' words ' .. wc.visual_chars .. '/' .. wc.chars .. ' chars'
                 end
                 return wc.words .. ' words ' .. wc.chars .. ' chars'
               end
             '';
-            cond = notNeoTree;
+            cond.__raw = "function() return vim.bo.filetype ~= 'neo-tree' and vim.g.show_wordcount ~= false end";
           }
         ];
         lualine_z = [

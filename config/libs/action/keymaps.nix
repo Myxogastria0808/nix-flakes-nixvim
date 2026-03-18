@@ -20,6 +20,7 @@
   # <C-s>           : save file (Normal / Insert / Visual)
   # <C-LeftMouse>   : open URL under cursor in browser (Normal / Insert / Visual / Terminal)
   # <M-l>           : toggle line wrap (Normal / Insert / Visual)
+  # <M-w>           : toggle word/char count in statusline (Normal / Insert / Visual)
   keymaps = [
     # Save the current file.
     # keybind: Ctrl + S
@@ -44,6 +45,22 @@
       key = "<M-l>";
       action = "<cmd>lua vim.wo.wrap = not vim.wo.wrap<CR>";
       options.desc = "Toggle line wrap";
+    }
+    # Toggle word/char count display in statusline.
+    # keybind: Alt + W
+    {
+      mode = [
+        "n"
+        "i"
+        "v"
+      ];
+      key = "<M-w>";
+      action.__raw = ''
+        function()
+          vim.g.show_wordcount = vim.g.show_wordcount == false
+        end
+      '';
+      options.desc = "Toggle word/char count in statusline";
     }
     # Open URL under cursor in browser.
     # keybind: Ctrl + Left Click
