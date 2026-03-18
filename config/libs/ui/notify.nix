@@ -11,7 +11,7 @@
     enable = true;
     settings = {
       # animation style when showing / hiding notifications
-      stages = "fade_in_slide_out";
+      stages = "fade";
       # fallback timeout in ms for notifications that bypass noice routes
       # (noice routes override this with per-route opts.timeout)
       timeout = 1000;
@@ -45,40 +45,39 @@
   # the `event` field.  Using a kind that does not belong to the given event
   # will silently never match, so routes will be dead without any error.
   #
-  # ┌──────────────────┬────────────────────────────────────────────────────────┐
-  # │ event            │ valid kind values                                      │
-  # ├──────────────────┼────────────────────────────────────────────────────────┤
-  # │ "msg_show"       │ see full table below (M.kinds in lua/noice/ui/msg.lua) │
-  # │ "notify"         │ log-level strings: "trace" "debug" "info" "warn"       │
-  # │                  │                    "error" "off"                       │
-  # │ "lsp"            │ "progress"  "hover"  "message"  "signature"            │
-  # └──────────────────┴────────────────────────────────────────────────────────┘
+  # ┌──────────────────┬────────────────────────────────────────────────────────────────┐
+  # │ event            │ valid kind values                                              │
+  # ├──────────────────┼────────────────────────────────────────────────────────────────┤
+  # │ "msg_show"       │ see full table below (M.kinds in lua/noice/ui/msg.lua)         │
+  # │ "notify"         │ log-level strings: "trace" "debug" "info" "warn" "error" "off" │
+  # │ "lsp"            │ "progress"  "hover"  "message"  "signature"                    │
+  # └──────────────────┴────────────────────────────────────────────────────────────────┘
   #
   # ─── Full kind table for event = "msg_show" ──────────────────────────────────
   #
-  # Category        │ kind             │ Description
-  # ────────────────┼──────────────────┼─────────────────────────────────────────
-  # echo            │ ""               │ Unknown / unclassified messages,
-  #                 │                  │ vim.print() / :echo output (no newline)
-  #                 │ "echo"           │ :echo command output
-  #                 │ "echomsg"        │ :echomsg command output (added to :messages)
-  # ────────────────┼──────────────────┼─────────────────────────────────────────
-  # input/confirm   │ "confirm"        │ confirm() / :confirm dialog
-  #                 │ "confirm_sub"    │ :substitute confirm dialog (:s_c)
-  #                 │ "number_prompt"  │ inputlist() numeric prompt
-  #                 │ "return_prompt"  │ press-enter prompt after multiple messages
-  #                 │ "list_cmd"       │ :list command output
-  # ────────────────┼──────────────────┼─────────────────────────────────────────
-  # errors          │ "emsg"           │ General error (:throw, internal errors…)
-  #                 │ "echoerr"        │ :echoerr output
-  #                 │ "lua_error"      │ Errors raised inside :lua blocks
-  #                 │ "rpc_error"      │ Error responses from rpcrequest()
-  # ────────────────┼──────────────────┼─────────────────────────────────────────
-  # warnings        │ "wmsg"           │ Warnings ("search hit BOTTOM", W10…)
-  # ────────────────┼──────────────────┼─────────────────────────────────────────
-  # hints           │ "quickfix"       │ Quickfix navigation messages
-  #                 │ "search_count"   │ Search count ("S" flag of 'shortmess')
-  # ────────────────┴──────────────────┴─────────────────────────────────────────
+  # ┌───────────────┬─────────────────┬─────────────────────────────────────────────────────┐
+  # │ Category      │ kind            │ Description                                         │
+  # ├───────────────┼─────────────────┼─────────────────────────────────────────────────────┤
+  # │ echo          │ ""              │ Unknown / unclassified messages, vim.print() output  │
+  # │               │ "echo"          │ :echo command output                                │
+  # │               │ "echomsg"       │ :echomsg command output (added to :messages)         │
+  # ├───────────────┼─────────────────┼─────────────────────────────────────────────────────┤
+  # │ input/confirm │ "confirm"       │ confirm() / :confirm dialog                         │
+  # │               │ "confirm_sub"   │ :substitute confirm dialog (:s_c)                   │
+  # │               │ "number_prompt" │ inputlist() numeric prompt                          │
+  # │               │ "return_prompt" │ press-enter prompt after multiple messages           │
+  # │               │ "list_cmd"      │ :list command output                                │
+  # ├───────────────┼─────────────────┼─────────────────────────────────────────────────────┤
+  # │ errors        │ "emsg"          │ General error (:throw, internal errors…)            │
+  # │               │ "echoerr"       │ :echoerr output                                     │
+  # │               │ "lua_error"     │ Errors raised inside :lua blocks                    │
+  # │               │ "rpc_error"     │ Error responses from rpcrequest()                   │
+  # ├───────────────┼─────────────────┼─────────────────────────────────────────────────────┤
+  # │ warnings      │ "wmsg"          │ Warnings ("search hit BOTTOM", W10…)                │
+  # ├───────────────┼─────────────────┼─────────────────────────────────────────────────────┤
+  # │ hints         │ "quickfix"      │ Quickfix navigation messages                        │
+  # │               │ "search_count"  │ Search count ("S" flag of 'shortmess')              │
+  # └───────────────┴─────────────────┴─────────────────────────────────────────────────────┘
   #
   # NOTE: "error" is NOT a valid kind for event = "msg_show".
   #       It belongs to event = "notify" only.
@@ -111,95 +110,185 @@
         # ── error-level (2s) ───────────────────────────────────────────────────
         # General errors (:throw, internal errors, etc.)
         {
-          filter = { event = "msg_show"; kind = "emsg"; };
+          filter = {
+            event = "msg_show";
+            kind = "emsg";
+          };
           view = "notify";
-          opts = { level = "error"; timeout = 3000; };
+          opts = {
+            level = "error";
+            timeout = 1000;
+          };
         }
         # :echoerr output
         {
-          filter = { event = "msg_show"; kind = "echoerr"; };
+          filter = {
+            event = "msg_show";
+            kind = "echoerr";
+          };
           view = "notify";
-          opts = { level = "error"; timeout = 3000; };
+          opts = {
+            level = "error";
+            timeout = 1000;
+          };
         }
         # Errors raised inside :lua blocks
         {
-          filter = { event = "msg_show"; kind = "lua_error"; };
+          filter = {
+            event = "msg_show";
+            kind = "lua_error";
+          };
           view = "notify";
-          opts = { level = "error"; timeout = 3000; };
+          opts = {
+            level = "error";
+            timeout = 1000;
+          };
         }
         # Error responses from rpcrequest()
         {
-          filter = { event = "msg_show"; kind = "rpc_error"; };
+          filter = {
+            event = "msg_show";
+            kind = "rpc_error";
+          };
           view = "notify";
-          opts = { level = "error"; timeout = 3000; };
+          opts = {
+            level = "error";
+            timeout = 1000;
+          };
         }
         # ── warn-level (2s) ────────────────────────────────────────────────────
         # Warnings ("search hit BOTTOM", W10, etc.)
         {
-          filter = { event = "msg_show"; kind = "wmsg"; };
+          filter = {
+            event = "msg_show";
+            kind = "wmsg";
+          };
           view = "notify";
-          opts = { level = "warn"; timeout = 2000; };
+          opts = {
+            level = "warn";
+            timeout = 1000;
+          };
         }
         # ── info-level (1s) ────────────────────────────────────────────────────
         # Unknown / unclassified messages, vim.print() output
         {
-          filter = { event = "msg_show"; kind = ""; };
+          filter = {
+            event = "msg_show";
+            kind = "";
+          };
           view = "notify";
-          opts = { level = "info"; timeout = 1000; };
+          opts = {
+            level = "info";
+            timeout = 1000;
+          };
         }
         # :echo output
         {
-          filter = { event = "msg_show"; kind = "echo"; };
+          filter = {
+            event = "msg_show";
+            kind = "echo";
+          };
           view = "notify";
-          opts = { level = "info"; timeout = 1000; };
+          opts = {
+            level = "info";
+            timeout = 1000;
+          };
         }
         # :echomsg output (also added to :messages history)
         {
-          filter = { event = "msg_show"; kind = "echomsg"; };
+          filter = {
+            event = "msg_show";
+            kind = "echomsg";
+          };
           view = "notify";
-          opts = { level = "info"; timeout = 1000; };
+          opts = {
+            level = "info";
+            timeout = 1000;
+          };
         }
         # confirm() / :confirm dialog
         {
-          filter = { event = "msg_show"; kind = "confirm"; };
+          filter = {
+            event = "msg_show";
+            kind = "confirm";
+          };
           view = "notify";
-          opts = { level = "info"; timeout = 1000; };
+          opts = {
+            level = "info";
+            timeout = 1000;
+          };
         }
         # :substitute confirm dialog (:s_c)
         {
-          filter = { event = "msg_show"; kind = "confirm_sub"; };
+          filter = {
+            event = "msg_show";
+            kind = "confirm_sub";
+          };
           view = "notify";
-          opts = { level = "info"; timeout = 1000; };
+          opts = {
+            level = "info";
+            timeout = 1000;
+          };
         }
         # inputlist() numeric prompt
         {
-          filter = { event = "msg_show"; kind = "number_prompt"; };
+          filter = {
+            event = "msg_show";
+            kind = "number_prompt";
+          };
           view = "notify";
-          opts = { level = "info"; timeout = 1000; };
+          opts = {
+            level = "info";
+            timeout = 1000;
+          };
         }
         # press-enter prompt after multiple messages
         {
-          filter = { event = "msg_show"; kind = "return_prompt"; };
+          filter = {
+            event = "msg_show";
+            kind = "return_prompt";
+          };
           view = "notify";
-          opts = { level = "info"; timeout = 1000; };
+          opts = {
+            level = "info";
+            timeout = 1000;
+          };
         }
         # :list command output
         {
-          filter = { event = "msg_show"; kind = "list_cmd"; };
+          filter = {
+            event = "msg_show";
+            kind = "list_cmd";
+          };
           view = "notify";
-          opts = { level = "info"; timeout = 1000; };
+          opts = {
+            level = "info";
+            timeout = 1000;
+          };
         }
         # Quickfix navigation messages
         {
-          filter = { event = "msg_show"; kind = "quickfix"; };
+          filter = {
+            event = "msg_show";
+            kind = "quickfix";
+          };
           view = "notify";
-          opts = { level = "info"; timeout = 1000; };
+          opts = {
+            level = "info";
+            timeout = 1000;
+          };
         }
         # Search count ("S" flag of 'shortmess') — fires on every search keystroke, can be noisy
         {
-          filter = { event = "msg_show"; kind = "search_count"; };
+          filter = {
+            event = "msg_show";
+            kind = "search_count";
+          };
           view = "notify";
-          opts = { level = "info"; timeout = 1000; };
+          opts = {
+            level = "info";
+            timeout = 1000;
+          };
         }
       ];
     };
