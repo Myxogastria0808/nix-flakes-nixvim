@@ -64,11 +64,14 @@
             cond = notNeoTree;
           }
           {
-            # Show total word/char count normally.
-            # In visual mode, show selected word/char count instead.
+            # In binary buffers, show only byte count.
+            # Otherwise, show total word/char count (or selected count in visual mode).
             "__unkeyed-1".__raw = ''
               function()
                 local wc = vim.fn.wordcount()
+                if vim.bo.binary then
+                  return wc.bytes .. ' bytes'
+                end
                 if wc.visual_chars ~= nil then
                   return wc.visual_words .. ' words ' .. wc.visual_chars .. ' chars'
                 end
