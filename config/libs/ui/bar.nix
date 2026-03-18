@@ -65,8 +65,7 @@
           }
           {
             # Show total word/char count normally.
-            # In visual mode, show selected word/char count instead.
-            # Hidden when vim.g.show_wordcount is false (toggled by <M-w>).
+            # In visual mode, show selected/total count (e.g. "5/100 words 20/800 chars").
             "__unkeyed-1".__raw = ''
               function()
                 local wc = vim.fn.wordcount()
@@ -76,7 +75,7 @@
                 return wc.words .. ' words ' .. wc.chars .. ' chars'
               end
             '';
-            cond.__raw = "function() return vim.bo.filetype ~= 'neo-tree' and vim.g.show_wordcount ~= false end";
+            cond = notNeoTree;
           }
         ];
         lualine_z = [
