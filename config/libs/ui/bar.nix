@@ -63,6 +63,20 @@
             "__unkeyed-1" = "progress";
             cond = notNeoTree;
           }
+          {
+            # Show total word/char count normally.
+            # In visual mode, show selected word/char count instead.
+            "__unkeyed-1".__raw = ''
+              function()
+                local wc = vim.fn.wordcount()
+                if wc.visual_chars ~= nil then
+                  return wc.visual_words .. ' words ' .. wc.visual_chars .. ' chars'
+                end
+                return wc.words .. ' words ' .. wc.chars .. ' chars'
+              end
+            '';
+            cond = notNeoTree;
+          }
         ];
         lualine_z = [
           {
