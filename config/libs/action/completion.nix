@@ -4,10 +4,10 @@
   #
   # Completion engine with LSP, buffer word, and file path sources.
   #
-  # Keymaps (Insert mode):
-  # <C-n> : select next item
-  # <C-p> : select previous item
-  # <CR>  : confirm explicitly selected item (select = false: falls through to newline if none selected)
+  # Keymaps:
+  # <C-n> : select next item (Insert)
+  # <C-p> : select previous item (Insert)
+  # <CR>  : confirm selected item, or fall through to newline if none selected (Insert)
   plugins.cmp = {
     enable = true;
     settings = {

@@ -1,5 +1,5 @@
 {
-  # tokyonight color scheme
+  # tokyonight.nvim
   # reference: https://github.com/folke/tokyonight.nvim
   colorschemes.tokyonight = {
     enable = true;

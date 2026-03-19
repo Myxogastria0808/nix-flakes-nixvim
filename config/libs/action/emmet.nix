@@ -6,8 +6,8 @@
   # HTML/CSS abbreviation expansion (Emmet).
   # Usage: type abbreviation then press <A-z> to expand (e.g. `!` → HTML boilerplate).
   #
-  # Keymaps (Insert mode only):
-  # <A-z> : expand abbreviation
+  # Keymaps:
+  # <A-z> : expand Emmet abbreviation (Insert)
   plugins.emmet = {
     enable = true;
     settings = {

@@ -4,11 +4,11 @@
   #
   # Provides GitHub Copilot AI suggestions in insert mode.
   #
-  # Keymaps (Insert mode):
-  # <Tab>   : accept suggestion or insert tab
-  # <A-]>   : next suggestion
-  # <A-[>   : previous suggestion
-  # <C-]>   : dismiss suggestion
+  # Keymaps:
+  # <Tab>   : accept suggestion or insert tab (Insert)
+  # <A-]>   : next suggestion (Insert)
+  # <A-[>   : previous suggestion (Insert)
+  # <C-]>   : dismiss suggestion (Insert)
   plugins.copilot-lua = {
     enable = true;
     settings = {

@@ -7,7 +7,7 @@
   # Keymaps:
   # <A-]>        : go to next buffer     (Normal / Insert / Visual)
   # <A-[>        : go to previous buffer (Normal / Insert / Visual)
-  # <A-d>        : close (delete) current buffer (Normal only, to avoid accidental close)
+  # <A-d>        : close (delete) current buffer (Normal)
   plugins.bufferline = {
     enable = true;
     settings.options = {
