@@ -88,6 +88,26 @@
   #   WARN messages   → notify popup (auto-close, yellow) [kind = "wmsg"]
   #   INFO messages   → notify popup (auto-close, blue)   [kind = "echo"]
   #   long messages   → split view (scrollable)
+  # Keymaps:
+  #   <M-q>  : dismiss all visible notifications (Normal / Insert / Visual / Terminal / Command)
+  keymaps = [
+    # Dismiss all notifications that are currently visible on screen.
+    # Does not affect notifications that are still pending in the queue.
+    # keybind: Alt + Q
+    {
+      mode = [
+        "n"
+        "i"
+        "v"
+        "t"
+        "c"
+      ];
+      key = "<M-q>";
+      action = "<cmd>lua require('notify').dismiss({ silent = true, pending = false })<CR>";
+      options.desc = "Dismiss all visible notifications";
+    }
+  ];
+
   plugins.noice = {
     enable = true;
     settings = {

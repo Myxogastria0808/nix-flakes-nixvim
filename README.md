@@ -84,6 +84,12 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 > [!NOTE]
 > Mouse support is enabled for all modes (`mouse = "a"`).
 
+### Notifications (nvim-notify)
+
+| Key     | Mode                                          | Action                          |
+| ------- | --------------------------------------------- | ------------------------------- |
+| `Alt+Q` | Normal / Insert / Visual / Terminal / Command | Dismiss all visible notifications |
+
 ### File Tree (neo-tree)
 
 | Key       | Mode   | Action          |
