@@ -29,7 +29,7 @@
   #   implement                              : implementation finder
   #
   # Keymaps:
-  # K       : hover documentation                           (Normal)
+  # K       : hover documentation                          (Normal)
   # <A-f>   : finder — refs / defs / impls in one view     (Normal)
   # gp      : peek definition (float, no jump)             (Normal)
   # gd      : go to definition                             (Normal)
