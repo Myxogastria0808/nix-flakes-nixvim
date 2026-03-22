@@ -32,3 +32,13 @@ Direnv is configured (`.envrc` with `use flake`), so `direnv allow` will auto-lo
 - **`config/default.nix`** — NixVim module where all Neovim configuration goes (plugins, keymaps, options, etc.)
 
 The `makeNixvimWithModule` function from NixVim takes a `module` parameter pointing to `config/default.nix`. All Neovim customization should be added there using [NixVim module options](https://nix-community.github.io/nixvim/).
+
+## Keybinding Rules
+
+**Before suggesting any new keybinding, always grep all existing bindings first:**
+
+```bash
+grep -r 'key\s*=' config/
+```
+
+Check for conflicts across all `config/**/*.nix` files before proposing a key. Never suggest a key that is already in use.

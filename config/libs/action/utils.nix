@@ -23,16 +23,6 @@
     })
   ];
 
-  # toggleterm.nvim
-  # reference: https://github.com/akinsho/toggleterm.nvim
-  #
-  # Keymaps:
-  # <A-t> : toggle floating terminal (Normal / Insert / Terminal)
-  plugins.toggleterm = {
-    enable = true;
-    settings.direction = "float";
-  };
-
   # markdown-preview.nvim
   # reference: https://github.com/iamcco/markdown-preview.nvim
   #
@@ -49,16 +39,6 @@
       key = "<A-j>";
       action = "<Plug>(jumpcursor-jump)";
       options.desc = "Jump cursor";
-    }
-    {
-      mode = [
-        "n"
-        "i"
-        "t"
-      ];
-      key = "<A-t>";
-      action = "<cmd>ToggleTerm<CR>";
-      options.desc = "Toggle terminal";
     }
     {
       mode = "n";

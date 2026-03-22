@@ -11,6 +11,7 @@
     ./libs/ui/dashboard.nix
     # language
     ./libs/language/lsp.nix
+    ./libs/language/lspsaga.nix
     ./libs/language/format.nix
     ./libs/language/treesitter.nix
     # action

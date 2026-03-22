@@ -19,6 +19,7 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | **Scrolling**     | [neoscroll.nvim](https://github.com/karb94/neoscroll.nvim)                                                                                            | Smooth scrolling for `C-u/d/f/b/e/y`, `zt/zz/zb`                                |
 | **Syntax**        | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                                                                                 | 28-parser set — highlighting + indent                                           |
 | **LSP**           | nvim-lspconfig via NixVim                                                                                                                             | See [Language Support](#language-support)                                       |
+| **LSP UI**        | [lspsaga.nvim](https://github.com/nvimdev/lspsaga.nvim)                                                                                               | Rich float UI for hover, diagnostics, finder, rename, code action, outline, breadcrumbs, call hierarchy, float terminal |
 | **Completion**    | [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)                                                                                                       | LSP, buffer word, and file path sources                                         |
 | **Formatting**    | [conform.nvim](https://github.com/stevearc/conform.nvim)                                                                                              | Format-on-save (500 ms timeout) — see [Language Support](#language-support)     |
 | **Linting**       | [nvim-lint](https://github.com/mfussenegger/nvim-lint)                                                                                                | [actionlint](https://github.com/rhysd/actionlint) for GitHub Actions workflows  |
@@ -27,7 +28,7 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | **Autopairs**     | [nvim-autopairs](https://github.com/windwp/nvim-autopairs)                                                                                            | Auto-close brackets and quotes                                                  |
 | **Emmet**         | [emmet-vim](https://github.com/mattn/emmet-vim)                                                                                                       | HTML/CSS abbreviation expansion (e.g. `!` → HTML boilerplate)                   |
 | **Comments**      | [Comment.nvim](https://github.com/numToStr/Comment.nvim) + [ts-context-commentstring](https://github.com/JoosepAlviste/nvim-ts-context-commentstring) | Context-aware commenting (JSX/TSX support)                                      |
-| **Terminal**      | [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim)                                                                                         | Floating terminal toggle                                                        |
+| **Terminal**      | [lspsaga.nvim](https://github.com/nvimdev/lspsaga.nvim) (`term_toggle`)                                                                               | Floating terminal toggle (via lspsaga)                                          |
 | **Preview**       | [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim)                                                                              | Live Markdown + Mermaid preview in browser                                      |
 | **Navigation**    | [jumpcursor.vim](https://github.com/skanehira/jumpcursor.vim)                                                                                         | Jump cursor to any location in the file                                         |
 | **Annotations**   | [todo-comments.nvim](https://github.com/folke/todo-comments.nvim)                                                                                     | Highlight `TODO`, `FIXME`, `HACK`, `WARN`, `NOTE`, `PERF`, `TEST` and aliases   |
@@ -189,11 +190,36 @@ Additionally, the bundled `emmet_utils.lua` requires `nvim-treesitter.ts_utils`,
 | ------- | ------ | --------------------------- |
 | `Alt+j` | Normal | Jump cursor to any location |
 
-### Terminal (toggleterm.nvim)
+### LSP UI (lspsaga.nvim)
 
-| Key     | Mode                       | Action                   |
-| ------- | -------------------------- | ------------------------ |
-| `Alt+t` | Normal / Insert / Terminal | Toggle floating terminal |
+| Key               | Mode            | Action                                          |
+| ----------------- | --------------- | ----------------------------------------------- |
+| `K`               | Normal          | Hover documentation (press `K` again to scroll) |
+| `Alt+f`           | Normal          | Finder — references / definitions / implementations |
+| `gp`              | Normal          | Peek definition (float, no jump)                |
+| `gd`              | Normal          | Go to definition                                |
+| `gP`              | Normal          | Peek type definition (float, no jump)           |
+| `gT`              | Normal          | Go to type definition                           |
+| `Alt+r`           | Normal          | Rename symbol project-wide                      |
+| `Alt+a`           | Normal / Visual | Code action with live preview                   |
+| `Alt+e`           | Normal          | Show line diagnostics                           |
+| `Alt+E`           | Normal          | Show cursor diagnostics                         |
+| `]d`              | Normal          | Jump to next diagnostic                         |
+| `[d`              | Normal          | Jump to previous diagnostic                     |
+| `Alt+o`           | Normal          | Toggle symbol outline panel                     |
+| `Alt+i`           | Normal          | Show incoming call hierarchy                    |
+| `Alt+u`           | Normal          | Show outgoing call hierarchy                    |
+| `gi`              | Normal          | Show implementations                            |
+| `Alt+t`           | Normal / Terminal | Toggle floating terminal                      |
+
+> [!NOTE]
+> Inside any lspsaga float window: `Ctrl+f` / `Ctrl+b` to scroll down / up.
+
+### Terminal (lspsaga.nvim)
+
+| Key     | Mode              | Action                   |
+| ------- | ----------------- | ------------------------ |
+| `Alt+t` | Normal / Terminal | Toggle floating terminal |
 
 ### Preview (markdown-preview.nvim)
 
@@ -343,6 +369,7 @@ If you want to use GitHub Copilot, run `:Copilot auth` inside Neovim after the f
 │       │   └── utils.nix            # indent-blankline / which-key / neoscroll / todo-comments
 │       ├── language/
 │       │   ├── lsp.nix              # LSP servers (20+ languages) + lean.nvim
+│       │   ├── lspsaga.nix          # lspsaga.nvim (rich LSP UI + float terminal)
 │       │   ├── format.nix           # conform.nvim (format-on-save) + nvim-lint
 │       │   └── treesitter.nix       # Syntax highlighting (nvim-treesitter)
 │       └── action/
@@ -350,7 +377,7 @@ If you want to use GitHub Copilot, run `:Copilot auth` inside Neovim after the f
 │           ├── completion.nix       # nvim-cmp + LSP / buffer / path sources
 │           ├── commentout.nix       # Comment.nvim + ts-context-commentstring
 │           ├── emmet.nix            # Emmet abbreviation expansion (emmet-vim)
-│           ├── utils.nix            # autopairs / jumpcursor / toggleterm / markdown-preview
+│           ├── utils.nix            # autopairs / jumpcursor / markdown-preview
 │           └── keymaps.nix          # Global keymaps and leader key
 ├── .envrc                           # direnv integration
 └── .gitignore
