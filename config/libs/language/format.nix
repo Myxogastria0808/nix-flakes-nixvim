@@ -27,6 +27,13 @@
     pkgs.actionlint
     # required by Elm formatter
     pkgs.elmPackages.elm-format
+    # required by Dockerfile linter
+    pkgs.hadolint
+    # required by Terraform formatter and linter
+    pkgs.terraform
+    pkgs.tflint
+    # required by Makefile linter
+    pkgs.checkmake
   ];
 
   # conform-nvim
@@ -85,6 +92,13 @@
         javascriptreact = [ "prettier" ];
         typescript = [ "prettier" ];
         typescriptreact = [ "prettier" ];
+        # Astro formatter
+        astro = [ "prettier" ];
+        # MDX formatter
+        mdx = [ "prettier" ];
+        # Terraform formatter
+        terraform = [ "terraform_fmt" ];
+        "terraform-vars" = [ "terraform_fmt" ];
       };
     };
   };
@@ -95,11 +109,21 @@
   # Runs linters per filetype as an async linting engine.
   # Enabled linters:
   #   actionlint : GitHub Actions workflows  (reference: https://github.com/rhysd/actionlint)
+  #   hadolint   : Dockerfile                (reference: https://github.com/hadolint/hadolint)
+  #   tflint     : Terraform                 (reference: https://github.com/terraform-linters/tflint)
+  #   checkmake  : Makefile                  (reference: https://github.com/mrtazz/checkmake)
   plugins.lint = {
     enable = true;
     lintersByFt = {
       # GitHub Actions workflow linter
       "yaml.github" = [ "actionlint" ];
+      # Dockerfile linter
+      dockerfile = [ "hadolint" ];
+      # Terraform linter
+      terraform = [ "tflint" ];
+      "terraform-vars" = [ "tflint" ];
+      # Makefile linter
+      make = [ "checkmake" ];
     };
   };
 }

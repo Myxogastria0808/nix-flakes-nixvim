@@ -24,6 +24,14 @@
   #   jsonls             : JSON                    (reference: https://github.com/hrsh7th/vscode-langservers-extracted)
   #   yamlls             : YAML                    (reference: https://github.com/redhat-developer/yaml-language-server)
   #   elmls              : Elm                     (reference: https://github.com/elm-language-server/elm-language-server)
+  #   astro              : Astro                   (reference: https://github.com/withastro/language-tools)
+  #   dockerls           : Dockerfile              (reference: https://github.com/rcjsuen/dockerfile-language-server)
+  #   docker_compose_language_service : Docker Compose (reference: https://github.com/microsoft/compose-language-service)
+  #   terraformls        : Terraform               (reference: https://github.com/hashicorp/terraform-ls)
+  #   autotools_ls       : Makefile                (reference: https://github.com/Freed-Wu/autotools-language-server)
+  #   mdx_analyzer       : MDX                     (reference: https://github.com/mdx-js/mdx-analyzer)
+  #   wasm_language_tools : WebAssembly Text (WAT) (reference: https://github.com/g-plane/wasm-language-tools)
+  #   asm_lsp            : Assembly (NASM/GAS)     (reference: https://github.com/bergercookie/asm-lsp)
   plugins.lsp = {
     enable = true;
     servers = {
@@ -89,6 +97,22 @@
       };
       # Elm language server
       elmls.enable = true;
+      # Astro language server
+      astro.enable = true;
+      # Dockerfile language server
+      dockerls.enable = true;
+      # Docker Compose language server
+      docker_compose_language_service.enable = true;
+      # Terraform language server
+      terraformls.enable = true;
+      # Makefile language server
+      autotools_ls.enable = true;
+      # MDX language server
+      mdx_analyzer.enable = true;
+      # WebAssembly Text (WAT) language server
+      wasm_language_tools.enable = true;
+      # Assembly (NASM/GAS) language server
+      asm_lsp.enable = true;
       # Rust language server
       rust_analyzer = {
         enable = true;
