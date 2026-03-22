@@ -94,8 +94,6 @@
         typescriptreact = [ "prettier" ];
         # Astro formatter
         astro = [ "prettier" ];
-        # MDX formatter
-        mdx = [ "prettier" ];
         # Terraform formatter
         terraform = [ "terraform_fmt" ];
         "terraform-vars" = [ "terraform_fmt" ];

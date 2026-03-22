@@ -67,8 +67,6 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | Terraform           | terraformls                     | terraform_fmt      | ✓          | [tflint](https://github.com/terraform-linters/tflint) linter enabled; applies to `.tf` and `.tfvars`                             |
 | HCL                 | —                               | —                  | ✓          | Treesitter only                                                                                                                  |
 | Makefile            | autotools_ls                    | —                  | ✓          | [checkmake](https://github.com/mrtazz/checkmake) linter enabled                                                                  |
-| MDX                 | mdx_analyzer                    | prettier           | —          | Treesitter grammar not available in nixos-unstable                                                                               |
-| WebAssembly (WAT)   | wasm_language_tools             | —                  | —          | Treesitter grammar not available in nixos-unstable                                                                               |
 | Assembly (GAS/NASM) | asm_lsp                         | —                  | ✓          | `asm` + `nasm` grammars                                                                                                          |
 
 ## Key Bindings

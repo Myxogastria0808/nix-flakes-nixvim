@@ -29,8 +29,6 @@
   #   docker_compose_language_service : Docker Compose (reference: https://github.com/microsoft/compose-language-service)
   #   terraformls        : Terraform               (reference: https://github.com/hashicorp/terraform-ls)
   #   autotools_ls       : Makefile                (reference: https://github.com/Freed-Wu/autotools-language-server)
-  #   mdx_analyzer       : MDX                     (reference: https://github.com/mdx-js/mdx-analyzer)
-  #   wasm_language_tools : WebAssembly Text (WAT) (reference: https://github.com/g-plane/wasm-language-tools)
   #   asm_lsp            : Assembly (NASM/GAS)     (reference: https://github.com/bergercookie/asm-lsp)
   plugins.lsp = {
     enable = true;
@@ -107,10 +105,6 @@
       terraformls.enable = true;
       # Makefile language server
       autotools_ls.enable = true;
-      # MDX language server
-      mdx_analyzer.enable = true;
-      # WebAssembly Text (WAT) language server
-      wasm_language_tools.enable = true;
       # Assembly (NASM/GAS) language server
       asm_lsp.enable = true;
       # Rust language server
