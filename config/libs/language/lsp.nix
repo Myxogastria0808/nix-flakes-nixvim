@@ -27,7 +27,6 @@
   #   astro              : Astro                   (reference: https://github.com/withastro/language-tools)
   #   dockerls           : Dockerfile              (reference: https://github.com/rcjsuen/dockerfile-language-server)
   #   docker_compose_language_service : Docker Compose (reference: https://github.com/microsoft/compose-language-service)
-  #   terraformls        : Terraform               (reference: https://github.com/hashicorp/terraform-ls)
   #   autotools_ls       : Makefile                (reference: https://github.com/Freed-Wu/autotools-language-server)
   #   asm_lsp            : Assembly (NASM/GAS)     (reference: https://github.com/bergercookie/asm-lsp)
   plugins.lsp = {
@@ -101,8 +100,6 @@
       dockerls.enable = true;
       # Docker Compose language server
       docker_compose_language_service.enable = true;
-      # Terraform language server
-      terraformls.enable = true;
       # Makefile language server
       autotools_ls.enable = true;
       # Assembly (NASM/GAS) language server

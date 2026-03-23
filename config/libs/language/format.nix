@@ -29,9 +29,8 @@
     pkgs.elmPackages.elm-format
     # required by Dockerfile linter
     pkgs.hadolint
-    # required by Terraform formatter and linter
-    pkgs.terraform
-    pkgs.tflint
+    # required by Makefile formatter
+    pkgs.mbake
     # required by Makefile linter
     pkgs.checkmake
   ];
@@ -94,9 +93,8 @@
         typescriptreact = [ "prettier" ];
         # Astro formatter
         astro = [ "prettier" ];
-        # Terraform formatter
-        terraform = [ "terraform_fmt" ];
-        "terraform-vars" = [ "terraform_fmt" ];
+        # Makefile formatter
+        make = [ "bake" ];
       };
     };
   };
@@ -108,7 +106,6 @@
   # Enabled linters:
   #   actionlint : GitHub Actions workflows  (reference: https://github.com/rhysd/actionlint)
   #   hadolint   : Dockerfile                (reference: https://github.com/hadolint/hadolint)
-  #   tflint     : Terraform                 (reference: https://github.com/terraform-linters/tflint)
   #   checkmake  : Makefile                  (reference: https://github.com/mrtazz/checkmake)
   plugins.lint = {
     enable = true;
@@ -117,9 +114,6 @@
       "yaml.github" = [ "actionlint" ];
       # Dockerfile linter
       dockerfile = [ "hadolint" ];
-      # Terraform linter
-      terraform = [ "tflint" ];
-      "terraform-vars" = [ "tflint" ];
       # Makefile linter
       make = [ "checkmake" ];
     };
