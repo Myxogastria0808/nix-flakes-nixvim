@@ -373,7 +373,7 @@ If you want to use GitHub Copilot, run `:Copilot auth` inside Neovim after the f
 │       │   ├── notify.nix           # nvim-notify + noice.nvim (notification routing)
 │       │   └── utils.nix            # indent-blankline / which-key / neoscroll / todo-comments
 │       ├── language/
-│       │   ├── lsp.nix              # LSP servers (30+ languages) + lean.nvim
+│       │   ├── lsp.nix              # LSP servers (25 languages) + lean.nvim
 │       │   ├── lspsaga.nix          # lspsaga.nvim (rich LSP UI + float terminal)
 │       │   ├── format.nix           # conform.nvim (format-on-save) + nvim-lint
 │       │   └── treesitter.nix       # Syntax highlighting (nvim-treesitter)
