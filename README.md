@@ -78,6 +78,7 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | ----------------- | ----------------------------------- | -------------------------------- |
 | `Ctrl+S`          | Normal / Insert / Visual            | Save file                        |
 | `Alt+L`           | Normal / Insert / Visual            | Toggle line wrap                 |
+| `Alt+W`           | Normal / Insert / Visual            | Show word/char count popup       |
 | `gx`              | Normal                              | Open URL under cursor in browser |
 | `Ctrl+Left Click` | Normal / Insert / Visual / Terminal | Open URL under cursor in browser |
 
