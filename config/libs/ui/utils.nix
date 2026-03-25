@@ -6,6 +6,19 @@
     fillchars.eob = " ";
     # sync yank with system clipboard
     clipboard = "unnamedplus";
+    # Use a single global statusline shared across all windows (laststatus=3).
+    #
+    # The default (laststatus=2) renders a separate statusline per window.
+    # When neo-tree is focused, the other windows become inactive and their
+    # statuslines stay visible but dimmed — showing filename, location, etc.
+    # even though they are not the active window.
+    #
+    # With laststatus=3 there is only one statusline for the entire editor,
+    # so inactive-window bleed-through disappears entirely.
+    # The `notNeoTree` cond in status-bar.nix already handles this case:
+    # it hides filename/location components when neo-tree has focus, keeping
+    # the global statusline clean.
+    laststatus = 3;
   };
 
   # indent-blankline.nvim
