@@ -452,7 +452,7 @@ If you want to use GitHub Copilot, run `:Copilot auth` inside Neovim after the f
 │       │   ├── theme.nix            # Colorscheme (tokyonight)
 │       │   ├── dashboard.nix        # Start screen (alpha-nvim)
 │       │   ├── tree.nix             # Neo-tree + web-devicons
-│       │   ├── bar.nix              # Statusline (lualine)
+│       │   ├── status-bar.nix       # Statusline (lualine)
 │       │   ├── tab.nix              # Buffer tabs (bufferline)
 │       │   ├── gitsigns.nix         # Git gutter signs
 │       │   ├── notify.nix           # nvim-notify + noice.nvim (notification routing)

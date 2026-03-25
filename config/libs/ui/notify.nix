@@ -4,9 +4,9 @@
   #
   # Fancy, configurable notification manager used as noice.nvim's backend.
   # Notification levels and their appearance:
-  #   ERROR -> red border, stays until dismissed
-  #   WARN  -> yellow border, auto-closes after timeout
-  #   INFO  -> blue border, auto-closes after timeout
+  #   ERROR -> red border, auto-closes after 1s
+  #   WARN  -> yellow border, auto-closes after 1s
+  #   INFO  -> blue border, auto-closes after 1s
   plugins.notify = {
     enable = true;
     settings = {
@@ -84,7 +84,7 @@
   #       The correct kind for Neovim error messages under msg_show is "emsg".
   #
   # Routes:
-  #   ERROR messages  → notify popup (persistent, red)    [kind = "emsg"]
+  #   ERROR messages  → notify popup (auto-close, red)    [kind = "emsg"]
   #   WARN messages   → notify popup (auto-close, yellow) [kind = "wmsg"]
   #   INFO messages   → notify popup (auto-close, blue)   [kind = "echo"]
   #   long messages   → split view (scrollable)
@@ -127,7 +127,7 @@
           };
           view = "split";
         }
-        # ── error-level (2s) ───────────────────────────────────────────────────
+        # ── error-level (1s) ───────────────────────────────────────────────────
         # General errors (:throw, internal errors, etc.)
         {
           filter = {
@@ -176,7 +176,7 @@
             timeout = 1000;
           };
         }
-        # ── warn-level (2s) ────────────────────────────────────────────────────
+        # ── warn-level (1s) ────────────────────────────────────────────────────
         # Warnings ("search hit BOTTOM", W10, etc.)
         {
           filter = {

@@ -43,7 +43,7 @@ Configuration is split into three categories under `config/libs/`:
 | `theme.nix`    | tokyonight colorscheme (night style)                          |
 | `dashboard.nix`| alpha-nvim startup screen with lambda logo                    |
 | `tree.nix`     | neo-tree file explorer + nvim-web-devicons custom icons       |
-| `bar.nix`      | lualine statusline (hidden in neo-tree windows)               |
+| `status-bar.nix` | lualine statusline (hidden in neo-tree windows)             |
 | `tab.nix`      | bufferline buffer tabs                                        |
 | `gitsigns.nix` | gitsigns sign-column git indicators                           |
 | `notify.nix`   | nvim-notify + noice.nvim floating notifications and UI        |
