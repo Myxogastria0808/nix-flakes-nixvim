@@ -285,6 +285,11 @@ Additionally, the bundled `emmet_utils.lua` requires `nvim-treesitter.ts_utils`,
 
 - [Nix](https://nixos.org/download/) with [flakes enabled](https://wiki.nixos.org/wiki/Flakes#Enable_flakes_permanently)
 - Target platform: `x86_64-linux`
+- A **Nerd Font** installed and set as your terminal emulator's font (e.g. [JetBrains Mono Nerd Font](https://www.nerdfonts.com/))
+  - Required for icons in the statusline (lualine), file tree (neo-tree), diagnostics, and other UI components
+  - Without a Nerd Font, those glyphs will render as broken or missing characters
+  - Install via NixOS: `fonts.packages = [ pkgs.nerd-fonts.jetbrains-mono ];`
+  - Install via Home Manager: `home.packages = [ pkgs.nerd-fonts.jetbrains-mono ];`
 
 ## Setup
 
@@ -315,7 +320,17 @@ If you have [direnv](https://direnv.net/) installed, simply run `direnv allow` a
 
 ### Using this config from another flake
 
-You can consume this Neovim package as an input in your own `flake.nix`:
+You can consume this Neovim package as an input in your own `flake.nix`.
+There are three typical patterns depending on how you manage your system.
+
+> [!IMPORTANT]
+> A Nerd Font must be installed separately on each host that uses this config.
+> The Neovim package itself does not carry fonts.
+
+#### Standalone devShell
+
+Add the Neovim package to a development shell.
+Useful for per-project environments or quick experimentation.
 
 ```nix
 {
@@ -324,29 +339,98 @@ You can consume this Neovim package as an input in your own `flake.nix`:
     nixvim-config.url = "github:Myxogastria0808/nix-flakes-nixvim";
   };
 
-  outputs = { nixpkgs, nixvim-config, ... }:
+  outputs =
+    { nixpkgs, nixvim-config, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      # Example: add to a dev shell
       devShells.${system}.default = pkgs.mkShell {
         packages = [
           nixvim-config.packages.${system}.default
         ];
       };
+    };
+}
+```
 
-      # Example: include in a NixOS configuration
-      # nixosConfigurations.myhost = nixpkgs.lib.nixosSystem {
-      #   modules = [
-      #     ({ ... }: {
-      #       environment.systemPackages = [
-      #         nixvim-config.packages.${system}.default
-      #       ];
-      #     })
-      #   ];
-      # };
+Install the Nerd Font on your NixOS host separately:
+
+```nix
+# In your NixOS configuration.nix (or equivalent module)
+fonts.packages = [ pkgs.nerd-fonts.jetbrains-mono ];
+```
+
+#### Home Manager
+
+Add the Neovim package and Nerd Font to your Home Manager configuration.
+
+```nix
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixvim-config.url = "github:Myxogastria0808/nix-flakes-nixvim";
+  };
+
+  outputs =
+    { nixpkgs, home-manager, nixvim-config, ... }:
+    {
+      homeConfigurations."your-username" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages."x86_64-linux";
+        modules = [
+          (
+            { pkgs, ... }:
+            {
+              home.packages = [
+                nixvim-config.packages."x86_64-linux".default
+                pkgs.nerd-fonts.jetbrains-mono # required for icons
+              ];
+              # Required to make user-installed fonts discoverable
+              fonts.fontconfig.enable = true;
+            }
+          )
+        ];
+      };
+    };
+}
+```
+
+#### NixOS Module
+
+Add the Neovim package to `environment.systemPackages` and the Nerd Font to `fonts.packages` in your NixOS configuration.
+
+```nix
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixvim-config.url = "github:Myxogastria0808/nix-flakes-nixvim";
+  };
+
+  outputs =
+    { nixpkgs, nixvim-config, ... }:
+    {
+      nixosConfigurations.your-hostname = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          (
+            { pkgs, ... }:
+            {
+              environment.systemPackages = [
+                nixvim-config.packages."x86_64-linux".default
+              ];
+              fonts.packages = [
+                pkgs.nerd-fonts.jetbrains-mono # required for icons
+              ];
+            }
+          )
+          # ... your other modules (hardware-configuration.nix, etc.)
+        ];
+      };
     };
 }
 ```
