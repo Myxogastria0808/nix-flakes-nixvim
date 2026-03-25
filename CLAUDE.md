@@ -38,34 +38,37 @@ The `makeNixvimWithModule` function from NixVim takes a `module` parameter point
 Configuration is split into three categories under `config/libs/`:
 
 ### `ui/` — Visual and interface plugins
-| File           | Contents                                                      |
-| -------------- | ------------------------------------------------------------- |
-| `theme.nix`    | tokyonight colorscheme (night style)                          |
-| `dashboard.nix`| alpha-nvim startup screen with lambda logo                    |
-| `tree.nix`     | neo-tree file explorer + nvim-web-devicons custom icons       |
-| `status-bar.nix` | lualine statusline (hidden in neo-tree windows)             |
-| `tab.nix`      | bufferline buffer tabs                                        |
-| `gitsigns.nix` | gitsigns sign-column git indicators                           |
-| `notify.nix`   | nvim-notify + noice.nvim floating notifications and UI        |
-| `utils.nix`    | indent-blankline, which-key, neoscroll, todo-comments, opts   |
 
-### `language/` — LSP, formatting, and syntax
 | File             | Contents                                                    |
 | ---------------- | ----------------------------------------------------------- |
-| `lsp.nix`        | nvim-lspconfig (25 language servers) + lean.nvim            |
-| `lspsaga.nix`    | lspsaga.nvim rich LSP UI + floating terminal                |
-| `format.nix`     | conform.nvim format-on-save + nvim-lint async linting       |
-| `treesitter.nix` | nvim-treesitter syntax highlighting (35 parsers)            |
+| `theme.nix`      | tokyonight colorscheme (night style)                        |
+| `dashboard.nix`  | alpha-nvim startup screen with lambda logo                  |
+| `tree.nix`       | neo-tree file explorer + nvim-web-devicons custom icons     |
+| `status-bar.nix` | lualine statusline (hidden in neo-tree windows)             |
+| `tab.nix`        | bufferline buffer tabs                                      |
+| `gitsigns.nix`   | gitsigns sign-column git indicators                         |
+| `notify.nix`     | nvim-notify + noice.nvim floating notifications and UI      |
+| `utils.nix`      | indent-blankline, which-key, neoscroll, todo-comments, opts |
+
+### `language/` — LSP, formatting, and syntax
+
+| File             | Contents                                              |
+| ---------------- | ----------------------------------------------------- |
+| `lsp.nix`        | nvim-lspconfig (25 language servers) + lean.nvim      |
+| `lspsaga.nix`    | lspsaga.nvim rich LSP UI + floating terminal          |
+| `format.nix`     | conform.nvim format-on-save + nvim-lint async linting |
+| `treesitter.nix` | nvim-treesitter syntax highlighting (35 parsers)      |
 
 ### `action/` — Editing and workflow plugins
-| File            | Contents                                                     |
-| --------------- | ------------------------------------------------------------ |
-| `copilot.nix`   | copilot.lua inline AI suggestions                            |
-| `completion.nix`| nvim-cmp completion engine (LSP / buffer / path sources)     |
-| `commentout.nix`| Comment.nvim + ts-context-commentstring (JSX/TSX-aware)      |
-| `emmet.nix`     | emmet-vim HTML/CSS abbreviation expansion                    |
-| `utils.nix`     | nvim-autopairs, jumpcursor.vim, markdown-preview.nvim        |
-| `keymaps.nix`   | Global keymaps and leader key (`<Space>`)                    |
+
+| File             | Contents                                                 |
+| ---------------- | -------------------------------------------------------- |
+| `copilot.nix`    | copilot.lua inline AI suggestions                        |
+| `completion.nix` | nvim-cmp completion engine (LSP / buffer / path sources) |
+| `commentout.nix` | Comment.nvim + ts-context-commentstring (JSX/TSX-aware)  |
+| `emmet.nix`      | emmet-vim HTML/CSS abbreviation expansion                |
+| `utils.nix`      | nvim-autopairs, jumpcursor.vim, markdown-preview.nvim    |
+| `keymaps.nix`    | Global keymaps and leader key (`<Space>`)                |
 
 ## Adding Plugins Not in nixpkgs
 

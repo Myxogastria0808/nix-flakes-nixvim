@@ -99,6 +99,22 @@
     };
   };
 
+  # Ensure every file always ends with a trailing newline on save.
+  #
+  # conform's format_on_save hooks BufWritePre first; this autocmd is
+  # registered via extraConfigLua which runs after all plugin setup, so it
+  # fires after conform and gets the final say on buffer content.
+  extraConfigLua = ''
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      callback = function()
+        local last = vim.fn.line("$")
+        if vim.fn.getline(last) ~= "" then
+          vim.fn.append(last, "")
+        end
+      end,
+    })
+  '';
+
   # nvim-lint
   # reference: https://github.com/mfussenegger/nvim-lint
   #
