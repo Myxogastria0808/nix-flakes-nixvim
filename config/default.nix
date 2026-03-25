@@ -3,7 +3,7 @@
     # ui
     ./libs/ui/theme.nix
     ./libs/ui/tree.nix
-    ./libs/ui/bar.nix
+    ./libs/ui/status-bar.nix
     ./libs/ui/tab.nix
     ./libs/ui/gitsigns.nix
     ./libs/ui/utils.nix
