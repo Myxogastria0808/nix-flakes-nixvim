@@ -19,6 +19,8 @@
     # it hides filename/location components when neo-tree has focus, keeping
     # the global statusline clean.
     laststatus = 3;
+    # always write a newline at end of file
+    fixendofline = true;
   };
 
   # indent-blankline.nvim
