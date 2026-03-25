@@ -44,7 +44,7 @@
           }
         ];
         # right side
-        lualine_x = [ ];
+        lualine_x.__raw = "{}";
         lualine_y = [
           {
             "__unkeyed-1" = "progress";
