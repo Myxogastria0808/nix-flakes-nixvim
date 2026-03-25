@@ -53,11 +53,15 @@
               "warn"
               "info"
             ];
+            # Always show the component even when there are zero diagnostics.
+            # Without this, lualine hides the section entirely when the file is clean,
+            # making it impossible to tell whether diagnostics are working or just absent.
+            always_visible = true;
             # Icons for each diagnostic level (Nerd Font required).
             symbols = {
-              error = " ";
-              warn = " ";
-              info = " ";
+              error = " ";
+              warn = " ";
+              info = " ";
             };
             # Explicit colors matching tokyonight palette.
             diagnostics_color = {
