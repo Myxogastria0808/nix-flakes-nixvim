@@ -39,6 +39,13 @@
         lualine_b = [ "branch" ];
         lualine_c = [
           {
+            "__unkeyed-1" = "diff";
+            cond = notNeoTree;
+          }
+        ];
+        # right side
+        lualine_x = [
+          {
             # LSP diagnostics: Error / Warn / Info counts for the current buffer.
             "__unkeyed-1" = "diagnostics";
             sources = [ "nvim_lsp" ];
@@ -67,13 +74,6 @@
                 fg = "#7dcfff";
               };
             };
-            cond = notNeoTree;
-          }
-        ];
-        # right side
-        lualine_x = [
-          {
-            "__unkeyed-1" = "lsp_status";
             cond = notNeoTree;
           }
         ];
