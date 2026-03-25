@@ -100,3 +100,4 @@
   #   FAILED      : testing notes
   plugins.todo-comments.enable = true;
 }
+

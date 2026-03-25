@@ -480,3 +480,4 @@ If you want to use GitHub Copilot, run `:Copilot auth` inside Neovim after the f
 - [NixVim Standalone Installation Guide](https://nix-community.github.io/nixvim/user-guide/install.html#standalone-usage)
 - [Nix Flakes - NixOS Wiki](https://wiki.nixos.org/wiki/Flakes)
 - [NixOS/nixpkgs (nixos-unstable)](https://github.com/NixOS/nixpkgs)
+

@@ -29,3 +29,4 @@
   plugins.cmp-buffer.enable = true;
   plugins.cmp-path.enable = true;
 }
+

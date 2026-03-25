@@ -7,3 +7,4 @@
   "schedule": ["* 0 * * *"],
   "automergeSchedule": ["* * * * 6"]
 }
+

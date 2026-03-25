@@ -5,3 +5,4 @@
   # Shows git change indicators (added, modified, removed) in the sign column.
   plugins.gitsigns.enable = true;
 }
+
