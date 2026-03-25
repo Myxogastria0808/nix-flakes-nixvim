@@ -44,20 +44,20 @@
           }
         ];
         # right side
-        lualine_x = [
-          {
-            "__unkeyed-1" = "encoding";
-            cond = notNeoTree;
-          }
-          {
-            "__unkeyed-1" = "fileformat";
-            cond = notNeoTree;
-          }
-          {
-            "__unkeyed-1" = "filetype";
-            cond = notNeoTree;
-          }
-        ];
+        # lualine_x = [
+        #   {
+        #     "__unkeyed-1" = "encoding";
+        #     cond = notNeoTree;
+        #   }
+        #   {
+        #     "__unkeyed-1" = "fileformat";
+        #     cond = notNeoTree;
+        #   }
+        #   {
+        #     "__unkeyed-1" = "filetype";
+        #     cond = notNeoTree;
+        #   }
+        # ];
         lualine_y = [
           {
             "__unkeyed-1" = "progress";
