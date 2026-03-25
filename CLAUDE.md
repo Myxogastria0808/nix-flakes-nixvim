@@ -120,3 +120,4 @@ grep -r 'key\s*=' config/
 ```
 
 Check for conflicts across all `config/**/*.nix` files before proposing a key. Never suggest a key that is already in use.
+
