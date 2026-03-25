@@ -40,6 +40,22 @@
         lualine_c = [
           {
             "__unkeyed-1" = "diff";
+            symbols = {
+              added = " ";
+              modified = " ";
+              removed = " ";
+            };
+            diff_color = {
+              added = {
+                fg = "#9ece6a";
+              };
+              modified = {
+                fg = "#e0af68";
+              };
+              removed = {
+                fg = "#f7768e";
+              };
+            };
             cond = notNeoTree;
           }
         ];
