@@ -55,41 +55,35 @@
             # Without this, lualine hides the section entirely when the file is clean,
             # making it impossible to tell whether diagnostics are working or just absent.
             always_visible = true;
-            # Icons for each diagnostic level (Nerd Font required).
             symbols = {
               error = " ";
               warn = " ";
               info = " ";
             };
-            # Explicit colors matching tokyonight palette.
             diagnostics_color = {
-              error = { fg = "#f7768e"; };
-              warn = { fg = "#e0af68"; };
-              info = { fg = "#7dcfff"; };
+              error = {
+                fg = "#f7768e";
+              };
+              warn = {
+                fg = "#e0af68";
+              };
+              info = {
+                fg = "#7dcfff";
+              };
             };
             cond = notNeoTree;
           }
         ];
         # right side
-        #
-        # lualine_x.__raw = "{}" instead of lualine_x = []
-        #
-        # NixVim omits empty lists from the generated Lua, so lualine falls back
-        # to its built-in defaults ({ "encoding", "fileformat", "filetype" }).
-        # Using __raw = "{}" passes an explicit empty Lua table, which overrides
-        # the defaults and keeps the section truly empty when no components are set.
         lualine_x = [
           {
-            # lsp_status shows the name(s) of LSP servers attached to the current
-            # buffer, plus a spinner while the server is indexing or loading.
-            # This makes it easy to confirm which servers are active at a glance.
             "__unkeyed-1" = "lsp_status";
             cond = notNeoTree;
           }
         ];
         lualine_y = [
           {
-            "__unkeyed-1".__raw "progress";;
+            "__unkeyed-1" = "progress";
             cond = notNeoTree;
           }
         ];
