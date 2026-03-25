@@ -44,7 +44,36 @@
           }
         ];
         # right side
-        lualine_x.__raw = "{}";
+        lualine_x = [
+          {
+            "__unkeyed-1" = "diagnostics";
+            sources = [ "nvim_lsp" ];
+            sections = [
+              "error"
+              "warn"
+              "info"
+            ];
+            # Icons for each diagnostic level (Nerd Font required).
+            symbols = {
+              error = " ";
+              warn = " ";
+              info = " ";
+            };
+            # Explicit colors matching tokyonight palette.
+            diagnostics_color = {
+              error = {
+                fg = "#f7768e";
+              };
+              warn = {
+                fg = "#e0af68";
+              };
+              info = {
+                fg = "#7dcfff";
+              };
+            };
+            cond = notNeoTree;
+          }
+        ];
         lualine_y = [
           {
             "__unkeyed-1" = "progress";
