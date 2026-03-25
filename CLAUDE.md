@@ -57,7 +57,7 @@ Configuration is split into three categories under `config/libs/`:
 | `lsp.nix`        | nvim-lspconfig (25 language servers) + lean.nvim      |
 | `lspsaga.nix`    | lspsaga.nvim rich LSP UI + floating terminal          |
 | `format.nix`     | conform.nvim format-on-save + nvim-lint async linting |
-| `treesitter.nix` | nvim-treesitter syntax highlighting (35 parsers)      |
+| `treesitter.nix` | nvim-treesitter syntax highlighting (33 parsers)      |
 
 ### `action/` — Editing and workflow plugins
 
@@ -110,6 +110,10 @@ Some LSP servers require tools installed outside this flake:
 | Julia    | Julia with `LanguageServer.jl` installed in the Julia environment |
 
 These are configured with `package = null` in `lsp.nix` so NixVim does not attempt to provide them.
+
+## File Editing Rules
+
+When creating or editing any file, always ensure it ends with exactly one trailing newline. If the last line is not empty, append a blank line before saving. This is consistent with the `BufWritePre` autocmd in `config/libs/language/format.nix` that enforces trailing newlines on every save.
 
 ## Keybinding Rules
 

@@ -42,8 +42,6 @@
       comment
       astro
       dockerfile
-      terraform
-      hcl
       make
       asm
       nasm
