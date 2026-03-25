@@ -80,16 +80,7 @@
         ];
         lualine_y = [
           {
-            # The built-in "progress" component shows "Top" / "Bot" at the edges.
-            # This custom function always returns a numeric percentage (0%–100%)
-            # by computing current line / total lines.
-            "__unkeyed-1".__raw = ''
-              function()
-                local cur   = vim.fn.line('.')
-                local total = vim.fn.line('$')
-                return string.format('%d%%', math.floor(cur / total * 100))
-              end
-            '';
+            "__unkeyed-1" = "progress";
             cond = notNeoTree;
           }
         ];
