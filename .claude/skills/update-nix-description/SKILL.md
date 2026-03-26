@@ -1,5 +1,5 @@
 ---
-name: /update-description
+name: update-nix-description
 description: Update all Nix file comments, README.md, and CLAUDE.md to accurately reflect the actual Nix configuration.
 disable-model-invocation: true
 ---
@@ -14,6 +14,8 @@ You must read ALL Nix files before editing anything. Do not start editing until 
 
 ## Step 2: Add/update comments in every .nix file
 
+**Before writing any comments, read all files in the `references/` directory to get the exact format specs.**
+
 For each `.nix` file, add or update English comments so they accurately describe the actual configuration:
 
 - **File header comment**: Add a `#` comment at the very top (before any `{`) briefly stating the file's purpose and what plugins/features it configures.
@@ -22,6 +24,11 @@ For each `.nix` file, add or update English comments so they accurately describe
 - Comments must match the actual code — do not describe options that are not present.
 - Follow the existing comment style (`# ...`).
 - Do not add comments that simply restate the option name.
+- **Comment formats**: Follow the exact conventions in the `references/` directory:
+  - `references/file-header.md` — file header format
+  - `references/plugin-block.md` — plugin block + keymaps section format
+  - `references/keymap-item.md` — individual keymap item format
+  - `references/inline-setting.md` — inline single-option comment format
 
 ## Step 3: Update README.md
 

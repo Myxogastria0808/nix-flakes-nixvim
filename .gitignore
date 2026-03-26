@@ -4,3 +4,6 @@
 # vim
 result
 
+# claude
+.claude/settings.local.json
+
