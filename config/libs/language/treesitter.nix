@@ -5,6 +5,12 @@
   #
   # Provides accurate syntax highlighting and structural code analysis
   # using language-specific parsers.
+  #
+  # Enabled parsers (33 total):
+  #   nix, bash, python, javascript, typescript, tsx, rust, c, go, java,
+  #   haskell, ocaml, elm, r, julia, typst, html, css, json, yaml, toml,
+  #   markdown, markdown_inline, lua, vim, vimdoc, regex, comment,
+  #   astro, dockerfile, make, asm, nasm
   plugins.treesitter = {
     enable = true;
     settings = {

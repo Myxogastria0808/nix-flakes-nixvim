@@ -1,3 +1,8 @@
+# flake.nix — Nix flake definition for nix-flakes-nixvim.
+# Produces two outputs targeting x86_64-linux:
+#   packages.x86_64-linux.default  : standalone Neovim package built with NixVim (makeNixvimWithModule)
+#   devShells.x86_64-linux.default : development shell that includes the Neovim package
+# Inputs: nixpkgs (nixos-unstable) + nixvim (follows nixpkgs).
 {
   description = "nix-flakes-nixvim";
 

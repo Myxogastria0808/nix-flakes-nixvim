@@ -1,3 +1,8 @@
+# config/default.nix — Root NixVim module.
+# Imports all sub-modules from config/libs/ organised into three categories:
+#   ui/       : visual and interface plugins (theme, dashboard, tree, statusline, tabs, gitsigns, notifications, utils)
+#   language/ : LSP servers, LSP UI, formatting/linting, treesitter syntax
+#   action/   : editing workflow plugins (copilot, completion, comments, emmet, autopairs, keymaps)
 {
   imports = [
     # ui

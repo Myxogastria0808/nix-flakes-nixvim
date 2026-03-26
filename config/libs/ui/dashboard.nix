@@ -1,3 +1,6 @@
+# dashboard.nix — Startup screen using alpha-nvim.
+# Shows a geometric ASCII art logo (block-character art) and the current Neovim version.
+# Custom highlight groups: AlphaLogo (soft purple, bold) and AlphaFooter (muted, italic).
 {
   # alpha-nvim
   # reference: https://github.com/goolord/alpha-nvim
