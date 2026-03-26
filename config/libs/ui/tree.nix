@@ -13,6 +13,7 @@
     settings = {
       close_if_last_window = true;
       filesystem.follow_current_file.enabled = true;
+      filesystem.filtered_items.visible = true;
       default_component_configs.git_status = {
         symbols = {
           conflict = "!";
