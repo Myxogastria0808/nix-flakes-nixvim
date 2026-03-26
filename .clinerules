@@ -20,3 +20,4 @@ All plugins, LSP servers, formatters, and keymaps are declared in Nix.
 
 ## MCP Servers
 This project uses Git and file search MCP servers to help with repository exploration and history understanding.
+

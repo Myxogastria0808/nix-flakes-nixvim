@@ -17,3 +17,4 @@
     "keyBindingCheck": "grep -r 'key\\s*=' config/"
   }
 }
+
