@@ -32,7 +32,7 @@ Output a structured Markdown report **entirely in Japanese**.
 
 ### Sections to include:
 
-#### 1. Explicit keymaps (from `config/`)
+#### Explicit keymaps (from `config/`)
 
 Group by source file. For each file that contains keymaps, use the file path as a heading and display a table:
 
@@ -41,7 +41,7 @@ Group by source file. For each file that contains keymaps, use the file path as 
 
 Skip files that contain no keymaps.
 
-#### 2. Plugin default keymaps
+#### Plugin default keymaps
 
 List plugin default keymaps that are active and not overridden in the Nix config:
 
@@ -50,7 +50,7 @@ List plugin default keymaps that are active and not overridden in the Nix config
 
 If knowledge of a plugin's defaults is uncertain, explicitly note it rather than omitting it silently.
 
-#### 3. Summary
+#### Summary
 
 - Total explicit keymaps: N
 - Supplemented plugin defaults: N
@@ -64,3 +64,4 @@ If knowledge of a plugin's defaults is uncertain, explicitly note it rather than
 - Include file paths relative to the repository root.
 - **Do not begin output until all files have been read.**
 - Never suppress uncertain plugin information — flag it explicitly instead.
+

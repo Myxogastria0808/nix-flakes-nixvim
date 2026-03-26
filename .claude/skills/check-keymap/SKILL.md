@@ -39,25 +39,25 @@ Only include sections where a conflict was actually found. Skip any section with
 
 ### Sections to include (only if a conflict exists):
 
-#### 1. Explicit Nix bindings (from `config/`)
+#### Explicit Nix bindings (from `config/`)
 
 Only show if `$ARGUMENTS` is found in the config files:
 
 | File | Line | Purpose |
 | ---- | ---- | ------- |
 
-#### 2. Implicit plugin defaults
+#### Implicit plugin defaults
 
 Only show if a plugin's default keymap matches `$ARGUMENTS` and is not overridden:
 
 | Plugin | Default keymap | Scope / condition | Notes |
 | ------ | -------------- | ----------------- | ----- |
 
-#### 3. Neovim built-ins
+#### Neovim built-ins
 
 Only show if `$ARGUMENTS` overlaps with a Neovim built-in. State what it does by default.
 
-#### 4. Verdict
+#### Verdict
 
 - **Conflict** — if any of the above sections was shown: state clearly that the key is already in use and summarize where.
 - **Clear** — if no sections above were shown: state that the key appears to be available, and show a reference table of all existing explicit bindings that share the same modifier for situational awareness:
@@ -65,7 +65,7 @@ Only show if `$ARGUMENTS` overlaps with a Neovim built-in. State what it does by
   | Key | File | Purpose |
   | --- | ---- | ------- |
 
-#### 5. Honesty note
+#### Honesty note
 
 If your knowledge of a plugin's defaults is uncertain, explicitly say so rather than silently omitting it. For example: _"neoscroll default mappings are not well-documented in my training data — manual verification recommended."_
 
