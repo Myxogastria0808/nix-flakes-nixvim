@@ -1,7 +1,7 @@
 ---
 name: check-keymap
 description: Check whether a specific keybinding is already in use across all config/**/*.nix files, including implicit plugin defaults and Neovim built-ins not exposed in Nix.
-disable-model-invocation: true
+disable-model-invocation: false
 ---
 
 # Check Keybinding Conflict
@@ -35,34 +35,32 @@ Neovim ships with many built-in Normal/Insert/Visual/Operator-pending mappings. 
 
 Output a structured Markdown report **entirely in Japanese**.
 
-### Sections to include:
+Only include sections where a conflict was actually found. Skip any section with no findings — do not write "none found" placeholders.
+
+### Sections to include (only if a conflict exists):
 
 #### 1. Explicit Nix bindings (from `config/`)
+
+Only show if `$ARGUMENTS` is found in the config files:
 
 | File | Line | Purpose |
 | ---- | ---- | ------- |
 
-If none found, write: _No explicit binding found in config/._
-
 #### 2. Implicit plugin defaults
 
-List any plugin default keymaps that match `$ARGUMENTS` and are not overridden in the Nix config:
+Only show if a plugin's default keymap matches `$ARGUMENTS` and is not overridden:
 
 | Plugin | Default keymap | Scope / condition | Notes |
 | ------ | -------------- | ----------------- | ----- |
 
-If none found, write: _No known plugin defaults conflict with this key._
-
 #### 3. Neovim built-ins
 
-State whether `$ARGUMENTS` overlaps with a Neovim built-in, and if so what it does by default.
-
-If none found, write: _No Neovim built-in uses this key._
+Only show if `$ARGUMENTS` overlaps with a Neovim built-in. State what it does by default.
 
 #### 4. Verdict
 
-- **Conflict** — if any of the three sources above returned a hit: state clearly that the key is already in use and summarize where.
-- **Clear** — if all three sources returned nothing: state that the key appears to be available, and show a reference table of all existing explicit bindings that share the same modifier for situational awareness:
+- **Conflict** — if any of the above sections was shown: state clearly that the key is already in use and summarize where.
+- **Clear** — if no sections above were shown: state that the key appears to be available, and show a reference table of all existing explicit bindings that share the same modifier for situational awareness:
 
   | Key | File | Purpose |
   | --- | ---- | ------- |
@@ -76,7 +74,6 @@ If your knowledge of a plugin's defaults is uncertain, explicitly say so rather 
 ## Constraints
 
 - Do not edit any files — this skill is read-only.
-- Write the entire report in Japanese.
 - Include file paths relative to the repository root.
 - Never suppress uncertain information — flag it explicitly instead.
 

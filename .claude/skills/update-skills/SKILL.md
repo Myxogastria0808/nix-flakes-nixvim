@@ -36,6 +36,7 @@ Based on the verification results, fix any content that diverges from the actual
 - Add a Constraints section if missing.
 
 Rules for editing:
+
 - Do not change the skill's workflow logic — only fix factual accuracy against the Nix config.
 - Do not remove existing content that is correct.
 - Every edited file must end with exactly one trailing newline.
@@ -48,7 +49,7 @@ After all edits are complete, **always** output a summary **in Japanese** coveri
 - Files left unchanged and the reason why
 - Discrepancies found between skills and the actual Nix config
 
-Use Markdown bullet lists or tables for the output. Omitting the summary is not allowed.
+Use Markdown bullet tables for the output. Omitting the summary is not allowed.
 
 ---
 
@@ -59,3 +60,4 @@ Use Markdown bullet lists or tables for the output. Omitting the summary is not 
 - Do not change skill workflow logic — fix factual accuracy against the Nix config only.
 - Do not remove existing correct content.
 - Every edited file must end with exactly one trailing newline (per CLAUDE.md File Editing Rules).
+
