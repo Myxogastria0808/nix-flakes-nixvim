@@ -1,3 +1,5 @@
+# tab.nix — Buffer tabs using bufferline.nvim.
+# Slant separator style with close icons; keymaps for next (Alt+]), previous (Alt+[), and close (Alt+d).
 {
   # bufferline.nvim
   # reference: https://github.com/akinsho/bufferline.nvim

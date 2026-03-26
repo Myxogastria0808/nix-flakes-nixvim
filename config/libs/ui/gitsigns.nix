@@ -1,3 +1,4 @@
+# gitsigns.nix — Git change indicators in the sign column using gitsigns.nvim.
 {
   # gitsigns.nvim
   # reference: https://github.com/lewis6991/gitsigns.nvim

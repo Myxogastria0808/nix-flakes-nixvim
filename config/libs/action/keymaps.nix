@@ -1,3 +1,6 @@
+# keymaps.nix — Global keymaps and editor options independent of any plugin.
+# Leader and LocalLeader: Space.  Options: mouse=a, tags="" (ctags disabled).
+# Keymaps: save (Ctrl+S), line wrap toggle (Alt+L), word count (Alt+W), URL open (Ctrl+LeftMouse).
 {
   # Global keymaps and leader keys.
   globals = {

@@ -1,3 +1,5 @@
+# copilot.nix — GitHub Copilot inline suggestions using copilot.lua.
+# Auto-trigger enabled; Tab accepts suggestions via a custom keymap to avoid <Ignore> insertion.
 {
   # copilot.lua
   # reference: https://github.com/zbirenbaum/copilot.lua

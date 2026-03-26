@@ -1,3 +1,5 @@
+# commentout.nix — Context-aware line commenting.
+# Comment.nvim handles toggling; ts-context-commentstring provides JSX/TSX-aware comment strings.
 {
   # nvim-ts-context-commentstring
   # reference: https://github.com/JoosepAlviste/nvim-ts-context-commentstring

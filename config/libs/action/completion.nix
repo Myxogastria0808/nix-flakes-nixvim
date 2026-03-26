@@ -1,3 +1,5 @@
+# completion.nix — Completion engine using nvim-cmp.
+# Sources: LSP (nvim-lsp), buffer words, and file paths.
 {
   # nvim-cmp
   # reference: https://github.com/hrsh7th/nvim-cmp

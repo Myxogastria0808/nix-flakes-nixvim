@@ -1,3 +1,6 @@
+# utils.nix — Miscellaneous editing utility plugins.
+# Plugins: nvim-autopairs (auto-close brackets/quotes), jumpcursor.vim (jump to any location),
+#          markdown-preview.nvim (live browser preview with Mermaid support).
 { pkgs, ... }:
 {
   # nvim-autopairs

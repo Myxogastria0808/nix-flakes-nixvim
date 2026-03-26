@@ -1,3 +1,5 @@
+# treesitter.nix — Syntax highlighting and indent using nvim-treesitter.
+# Enables 33 language parsers with highlight and indent support.
 { pkgs, ... }:
 {
   # nvim-treesitter

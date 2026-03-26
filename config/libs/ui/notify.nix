@@ -1,3 +1,7 @@
+# notify.nix — Notification system using nvim-notify + noice.nvim.
+# nvim-notify: styled fade-in popups (1 s timeout, max 60×10, wrapped-compact render).
+# noice.nvim: replaces the command line and message UI; routes all msg_show events to
+# nvim-notify with ERROR / WARN / INFO level mapping; long output (≥10 lines) goes to a split.
 {
   # nvim-notify
   # reference: https://github.com/rcarriga/nvim-notify

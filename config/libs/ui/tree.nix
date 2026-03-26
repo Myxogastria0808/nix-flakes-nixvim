@@ -1,3 +1,6 @@
+# tree.nix — File explorer using neo-tree.nvim + nvim-web-devicons.
+# neo-tree opens on the left (width 30), follows the current file, and shows git status symbols.
+# nvim-web-devicons adds custom icons for Lean, lean-toolchain, .envrc, .bashrc, and .zshrc.
 {
   # neo-tree.nvim
   # reference: https://github.com/nvim-neo-tree/neo-tree.nvim

@@ -1,3 +1,7 @@
+# utils.nix — Miscellaneous UI plugins and Vim options.
+# Options: line numbers, clipboard sync (unnamedplus), eob fill char, global statusline (laststatus=3).
+# Plugins: indent-blankline.nvim (6-level rainbow guides), which-key.nvim, neoscroll.nvim,
+#          todo-comments.nvim (TODO / FIXME / HACK / WARN / NOTE / PERF / TEST and aliases).
 {
   opts = {
     # show line numbers

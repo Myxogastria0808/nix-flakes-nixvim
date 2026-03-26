@@ -46,6 +46,17 @@ Update `CLAUDE.md` so it accurately reflects the current Nix configuration:
 - **Module structure tables** (`ui/`, `language/`, `action/`): Ensure each row's "Contents" column accurately describes the actual file.
 - Do not change the project instructions, commands, architecture sections, or rules (File Editing Rules, Keybinding Rules) unless their factual content is wrong.
 
+## Step 5: Display summary in Japanese
+
+After all edits and the build verification, **always** output a summary **in Japanese** covering:
+
+- List of edited files (file path and a brief description of what changed)
+- Types of comments added or updated (file header, section, inline)
+- Result of `nix build` (success / failure; include error details if it failed)
+- Any files that were left unchanged and the reason why
+
+Use Markdown bullet lists or tables for the output. Omitting the summary is not allowed.
+
 ---
 
 ## Constraints

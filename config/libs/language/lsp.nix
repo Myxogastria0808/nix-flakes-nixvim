@@ -1,3 +1,6 @@
+# lsp.nix — Language Server Protocol configuration.
+# Enables 25 language servers via nvim-lspconfig (NixVim) and lean.nvim for Lean 4.
+# r_language_server and julials use package = null (external dependencies required).
 {
   # nvim-lspconfig (via NixVim)
   # reference: https://github.com/neovim/nvim-lspconfig

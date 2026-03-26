@@ -1,3 +1,7 @@
+# format.nix — Format-on-save and async linting.
+# conform.nvim: formats on BufWritePre (500 ms timeout, lsp_format fallback) with per-filetype formatters.
+# A BufWritePre autocmd also enforces exactly one trailing newline on every save.
+# nvim-lint: runs actionlint (GitHub Actions), hadolint (Dockerfile), checkmake (Makefile) asynchronously.
 { pkgs, ... }:
 {
   extraPackages = [

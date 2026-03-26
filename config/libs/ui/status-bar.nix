@@ -1,3 +1,6 @@
+# status-bar.nix — Statusline using lualine.nvim with a single global statusline (laststatus=3).
+# Displays: mode, branch, git diff (lualine_c), LSP diagnostics (lualine_x), progress, location.
+# All components are hidden when a neo-tree window is focused via the notNeoTree cond.
 {
   # lualine.nvim
   # reference: https://github.com/nvim-lualine/lualine.nvim

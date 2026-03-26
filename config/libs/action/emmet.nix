@@ -1,3 +1,6 @@
+# emmet.nix — HTML/CSS abbreviation expansion using emmet-vim.
+# Leader key set to <Plug>(emmet-leader) to disable all built-in mappings; only <A-z> is exposed.
+# Includes a startup patch for the nvim-treesitter v1 API change in emmet_utils.lua.
 { lib, ... }:
 {
   # emmet-vim

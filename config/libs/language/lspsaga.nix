@@ -1,3 +1,6 @@
+# lspsaga.nix — Rich LSP UI using lspsaga.nvim (loaded via extraPlugins).
+# Provides hover, finder, peek/goto definition, rename, code action, diagnostics, outline,
+# breadcrumbs (symbol_in_winbar), call hierarchy, implementations, and a floating terminal.
 { pkgs, ... }:
 {
   # lspsaga.nvim
