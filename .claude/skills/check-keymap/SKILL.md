@@ -1,5 +1,5 @@
 ---
-name: check-keybind
+name: check-keymap
 description: Check whether a specific keybinding is already in use across all config/**/*.nix files, including implicit plugin defaults and Neovim built-ins not exposed in Nix.
 disable-model-invocation: true
 ---
