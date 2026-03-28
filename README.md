@@ -2,6 +2,8 @@
 
 A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.nixos.org/wiki/Flakes) and [NixVim](https://nix-community.github.io/nixvim/). All plugins, LSP servers, formatters, and keymaps are declared in Nix — no manual plugin manager or imperative configuration required.
 
+![preview image](https://raw.githubusercontent.com/Myxogastria0808/nix-flakes-nixvim/refs/heads/main/assets/preview.png)
+
 ## Features
 
 | Category          | Plugin                                                                                                                                                | Details                                                                                                                                                                                        |
