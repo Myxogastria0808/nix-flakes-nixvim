@@ -82,6 +82,7 @@
         toml = [ "taplo" ];
         # JSON formatter
         json = [ "prettier" ];
+        jsonc = [ "prettier" ];
         # YAML formatter
         yaml = [ "prettier" ];
         # GitHub Actions workflow formatter
