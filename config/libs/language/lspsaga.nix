@@ -107,9 +107,9 @@
       -- updating automatically as the cursor moves.
       lightbulb = {
         enable = true,
-        -- show the lightbulb icon in the sign column
-        sign = true,
-        -- also show it as virtual text at the end of the line
+        -- hide the lightbulb icon in the sign column (next to line numbers)
+        sign = false,
+        -- show it as virtual text at the end of the line only
         virtual_text = true,
       },
 
