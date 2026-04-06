@@ -70,25 +70,7 @@
   plugins.telescope.extensions.undo = {
     enable = true;
     settings = {
-      # telescope-undo auto-detects the Neovim colorscheme ("tokyonight") and
-      # passes it to delta as --syntax-theme, but that theme is not in bat's
-      # theme directory. Use TwoDark (a built-in bat theme) for syntax
-      # highlighting, and override diff colors with tokyonight night palette
-      # (sourced from tokyonight.nvim extras/delta/tokyonight_night.gitconfig).
-      delta_opts = [
-        "--syntax-theme"                  "TwoDark"
-        "--minus-style"                   "syntax #4a272f"
-        "--minus-non-emph-style"          "syntax #4a272f"
-        "--minus-emph-style"              "syntax #713137"
-        "--minus-empty-line-marker-style" "syntax #4a272f"
-        "--line-numbers-minus-style"      "#914c54"
-        "--plus-style"                    "syntax #243e4a"
-        "--plus-non-emph-style"           "syntax #243e4a"
-        "--plus-emph-style"               "syntax #2c5a66"
-        "--plus-empty-line-marker-style"  "syntax #243e4a"
-        "--line-numbers-plus-style"       "#449dab"
-        "--line-numbers-zero-style"       "#3b4261"
-      ];
+      use_delta = false;
     };
   };
 
