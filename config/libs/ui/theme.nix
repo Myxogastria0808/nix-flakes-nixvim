@@ -1,13 +1,13 @@
-# theme.nix — Colorscheme using tokyonight.nvim.
-# Style: night (the darkest variant).
+# theme.nix — Colorscheme using catppuccin.
+# Flavour: mocha (the darkest variant).
 {
-  # tokyonight.nvim
-  # reference: https://github.com/folke/tokyonight.nvim
-  colorschemes.tokyonight = {
+  # catppuccin
+  # reference: https://github.com/catppuccin/nvim
+  colorschemes.catppuccin = {
     enable = true;
-    # available styles: moon | storm | night | day
-    # night is the darkest variant
-    settings.style = "night";
+    # available flavours: latte | frappe | macchiato | mocha
+    # mocha is the darkest variant
+    settings.flavour = "mocha";
   };
 }
 
