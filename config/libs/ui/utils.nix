@@ -1,9 +1,35 @@
 # utils.nix — Miscellaneous UI plugins and Vim options.
-# Options: line numbers, clipboard sync (unnamedplus), eob fill char, global statusline (laststatus=3).
-# Plugins: indent-blankline.nvim (6-level rainbow guides), which-key.nvim, neoscroll.nvim,
+# Options: swapfile off + undofile on, line numbers, clipboard sync (unnamedplus),
+#          eob fill char, global statusline (laststatus=3).
+# Plugins: telescope.nvim + telescope-undo.nvim (undo history browser),
+#          indent-blankline.nvim (6-level rainbow guides), which-key.nvim, neoscroll.nvim,
 #          todo-comments.nvim (TODO / FIXME / HACK / WARN / NOTE / PERF / TEST and aliases).
+{ pkgs, ... }:
 {
+  # delta — required by telescope-undo for rich diff preview
+  extraPackages = [ pkgs.delta ];
   opts = {
+    # Crash recovery strategy: persistent undo (undofile) instead of swap files.
+    #
+    # Swap file approach (Neovim default):
+    #   Creates .swp files while editing. On crash the RECOVER/DELETE dialog
+    #   appears. Pitfall: if the terminal emulator is killed (e.g. Ghostty
+    #   closed), Neovim may survive as an orphan process keeping the swap
+    #   file locked. Choosing DELETE in that state can discard file contents.
+    #
+    # Persistent undo approach (VSCode-like, used here):
+    #   No .swp files are created; the RECOVER/DELETE dialog never appears.
+    #   Undo history is saved to ~/.local/state/nvim/undo/ on every :w,
+    #   so :u (undo) works across sessions — even after closing and reopening.
+    #
+    #   Scenario                          | swapfile  | undofile (this config)
+    #   ----------------------------------|-----------|------------------------
+    #   Terminal killed (last :w saved)   | swap dialog | opens normally
+    #   Terminal killed (unsaved changes) | RECOVER     | unsaved part lost
+    #   Revert to earlier saved states    | impossible  | :u across sessions
+    swapfile = false;
+    undofile = true;
+
     # show line numbers
     number = true;
     # hide ~ at the end of buffer
@@ -24,6 +50,56 @@
     # the global statusline clean.
     laststatus = 3;
   };
+
+  # telescope.nvim
+  # reference: https://github.com/nvim-telescope/telescope.nvim
+  #
+  # Fuzzy finder framework. Currently used as the backend for telescope-undo.
+  plugins.telescope = {
+    enable = true;
+  };
+
+  # telescope-undo.nvim
+  # reference: https://github.com/debugloop/telescope-undo.nvim
+  #
+  # Browse undo history in a telescope floating window with live diff preview.
+  # Works with undofile so the history persists across sessions.
+  #
+  # Keymaps:
+  # <A-u> : open undo history in telescope                  (Normal)
+  plugins.telescope.extensions.undo = {
+    enable = true;
+    settings = {
+      # telescope-undo auto-detects the Neovim colorscheme ("tokyonight") and
+      # passes it to delta as --syntax-theme, but that theme is not in bat's
+      # theme directory. Use TwoDark (a built-in bat theme) for syntax
+      # highlighting, and override diff colors with tokyonight night palette
+      # (sourced from tokyonight.nvim extras/delta/tokyonight_night.gitconfig).
+      delta_opts = [
+        "--syntax-theme"                  "TwoDark"
+        "--minus-style"                   "syntax #4a272f"
+        "--minus-non-emph-style"          "syntax #4a272f"
+        "--minus-emph-style"              "syntax #713137"
+        "--minus-empty-line-marker-style" "syntax #4a272f"
+        "--line-numbers-minus-style"      "#914c54"
+        "--plus-style"                    "syntax #243e4a"
+        "--plus-non-emph-style"           "syntax #243e4a"
+        "--plus-emph-style"               "syntax #2c5a66"
+        "--plus-empty-line-marker-style"  "syntax #243e4a"
+        "--line-numbers-plus-style"       "#449dab"
+        "--line-numbers-zero-style"       "#3b4261"
+      ];
+    };
+  };
+
+  keymaps = [
+    {
+      mode = "n";
+      key = "<A-u>";
+      action = "<cmd>Telescope undo<CR>";
+      options.desc = "Undo history (telescope)";
+    }
+  ];
 
   # indent-blankline.nvim
   # reference: https://github.com/lukas-reineke/indent-blankline.nvim

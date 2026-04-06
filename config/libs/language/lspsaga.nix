@@ -44,9 +44,9 @@
   # <A-E>   : show cursor diagnostics                      (Normal)
   # ]d      : jump to next diagnostic                      (Normal)
   # [d      : jump to previous diagnostic                  (Normal)
-  # <A-o>   : toggle outline panel                         (Normal)
+  # <A-O>   : toggle outline panel                         (Normal)
   # <A-i>   : show incoming call hierarchy                 (Normal)
-  # <A-u>   : show outgoing call hierarchy                 (Normal)
+  # <A-o>   : show outgoing call hierarchy                 (Normal)
   # gi      : show implementations                         (Normal)
   # <A-t>   : toggle floating terminal                     (Normal / Terminal)
 
@@ -172,7 +172,7 @@
 
       -- ── Outline ─────────────────────────────────────────────────────────
       -- IDE-style symbol outline panel.
-      -- Triggered by <A-o>.
+      -- Triggered by <A-O> (Alt+Shift+O).
       outline = {
         -- open the panel on the right side of the screen
         win_position = 'right',
@@ -220,7 +220,7 @@
       },
 
       -- ── Call Hierarchy ──────────────────────────────────────────────────
-      -- Visualizes incoming (<A-i>) and outgoing (<A-u>) call relationships.
+      -- Visualizes incoming (<A-i>) and outgoing (<A-o>) call relationships.
       callhierarchy = {
         layout = 'float',
         keys = {
@@ -370,10 +370,10 @@
       options.desc = "Previous diagnostic";
     }
     # Toggle the symbol outline panel on the right side.
-    # keybind: Alt + O
+    # keybind: Alt + Shift + O
     {
       mode = "n";
-      key = "<A-o>";
+      key = "<A-O>";
       action = "<cmd>Lspsaga outline<CR>";
       options.desc = "Toggle symbol outline";
     }
@@ -386,10 +386,10 @@
       options.desc = "Incoming call hierarchy";
     }
     # Show outgoing call hierarchy: what does the symbol under the cursor call?
-    # keybind: Alt + U
+    # keybind: Alt + O
     {
       mode = "n";
-      key = "<A-u>";
+      key = "<A-o>";
       action = "<cmd>Lspsaga outgoing_calls<CR>";
       options.desc = "Outgoing call hierarchy";
     }

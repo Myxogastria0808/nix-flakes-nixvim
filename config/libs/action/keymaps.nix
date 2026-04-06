@@ -62,13 +62,15 @@
       action.__raw = ''
         function()
           local wc = vim.fn.wordcount()
-          local msg
+          local msg, title
           if wc.visual_chars ~= nil then
             msg = wc.visual_words .. '/' .. wc.words .. ' words\n' .. wc.visual_chars .. '/' .. wc.chars .. ' chars'
+            title = 'Word Count (Selected Area)'
           else
             msg = wc.words .. ' words\n' .. wc.chars .. ' chars'
+            title = 'Word Count'
           end
-          vim.notify(msg, vim.log.levels.INFO, { title = 'Word Count' })
+          vim.notify(msg, vim.log.levels.INFO, { title = title })
         end
       '';
       options.desc = "Show word/char count popup";

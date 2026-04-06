@@ -39,16 +39,16 @@ Configuration is split into three categories under `config/libs/`:
 
 ### `ui/` — Visual and interface plugins
 
-| File             | Contents                                                    |
-| ---------------- | ----------------------------------------------------------- |
-| `theme.nix`      | tokyonight colorscheme (night style)                        |
-| `dashboard.nix`  | alpha-nvim startup screen with lambda logo                  |
-| `tree.nix`       | neo-tree file explorer + nvim-web-devicons custom icons     |
-| `status-bar.nix` | lualine statusline (hidden in neo-tree windows)             |
-| `tab.nix`        | bufferline buffer tabs                                      |
-| `gitsigns.nix`   | gitsigns sign-column git indicators                         |
-| `notify.nix`     | nvim-notify + noice.nvim floating notifications and UI      |
-| `utils.nix`      | indent-blankline, which-key, neoscroll, todo-comments, opts |
+| File             | Contents                                                                                                            |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `theme.nix`      | tokyonight colorscheme (night style)                                                                                |
+| `dashboard.nix`  | alpha-nvim startup screen with lambda logo                                                                          |
+| `tree.nix`       | neo-tree file explorer + nvim-web-devicons custom icons                                                             |
+| `status-bar.nix` | lualine statusline (hidden in neo-tree windows)                                                                     |
+| `tab.nix`        | bufferline buffer tabs                                                                                              |
+| `gitsigns.nix`   | gitsigns sign-column git indicators                                                                                 |
+| `notify.nix`     | nvim-notify + noice.nvim floating notifications and UI                                                              |
+| `utils.nix`      | swapfile off + undofile on, telescope + telescope-undo, indent-blankline, which-key, neoscroll, todo-comments, opts |
 
 ### `language/` — LSP, formatting, and syntax
 
