@@ -99,7 +99,7 @@
         -- border style: 'single' | 'double' | 'rounded' | 'solid' | 'shadow'
         border = 'rounded',
         -- icon shown next to available code actions
-        code_action = '󰌵',
+        code_action = ' 󰛨 ',
       },
 
       -- ── Lightbulb ───────────────────────────────────────────────────────
