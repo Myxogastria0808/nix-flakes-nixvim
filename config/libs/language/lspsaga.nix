@@ -49,10 +49,51 @@
   # <A-o>   : show outgoing call hierarchy                 (Normal)
   # gi      : show implementations                         (Normal)
   # <A-t>   : toggle floating terminal                     (Normal / Terminal)
+  #
+  # LSP capability guard — keymaps are guarded by lspsaga_guard() which
+  # checks server_capabilities before sending a request to avoid leaving
+  # lspsaga in a stuck "request pending" state.
+  #
+  # Keybind | Required capability       | Guard
+  # --------|---------------------------|------
+  # K       | hoverProvider             | yes
+  # gp      | definitionProvider        | yes
+  # gd      | definitionProvider        | yes
+  # gP      | typeDefinitionProvider    | yes
+  # gT      | typeDefinitionProvider    | yes
+  # <A-f>   | referencesProvider        | yes
+  # <A-r>   | renameProvider            | yes
+  # <A-a>   | codeActionProvider        | yes
+  # <A-O>   | documentSymbolProvider    | yes
+  # <A-i>   | callHierarchyProvider     | yes
+  # <A-o>   | callHierarchyProvider     | yes
+  # gi      | implementationProvider    | yes
+  # <A-e>   | (always available)        | no
+  # <A-E>   | (always available)        | no
+  # ]d      | (always available)        | no
+  # [d      | (always available)        | no
+  # <A-t>   | (always available)        | no
 
   extraPlugins = [ pkgs.vimPlugins.lspsaga-nvim ];
 
   extraConfigLua = ''
+    -- Guard function for LSP-dependent keymaps.
+    -- See the capability table in the Nix comment block above.
+    _G.lspsaga_guard = function(capability, cmd)
+      return function()
+        for _, c in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+          if c.server_capabilities[capability] then
+            vim.cmd(cmd)
+            return
+          end
+        end
+        vim.notify(
+          capability .. ' is not supported by the current LSP server.',
+          vim.log.levels.WARN
+        )
+      end
+    end
+
     require('lspsaga').setup({
       -- ── UI ──────────────────────────────────────────────────────────────
       -- Visual style applied to all lspsaga floating windows.
@@ -262,6 +303,11 @@
     })
   '';
 
+  # All LSP-dependent keymaps are guarded by lspsaga_guard (defined in
+  # extraConfigLua above). If the current buffer's LSP server does not
+  # advertise the required capability, a warning notification is shown
+  # instead of sending a request that could leave lspsaga stuck.
+  # Diagnostics and terminal keymaps do not depend on LSP capabilities.
   keymaps = [
     # Hover documentation for the symbol under the cursor.
     # Press K a second time to enter the float window and scroll.
@@ -269,7 +315,7 @@
     {
       mode = "n";
       key = "K";
-      action = "<cmd>Lspsaga hover_doc<CR>";
+      action.__raw = "lspsaga_guard('hoverProvider', 'Lspsaga hover_doc')";
       options.desc = "LSP hover documentation";
     }
     # Unified LSP finder: references, definitions, and implementations in one float.
@@ -277,7 +323,7 @@
     {
       mode = "n";
       key = "<A-f>";
-      action = "<cmd>Lspsaga finder<CR>";
+      action.__raw = "lspsaga_guard('referencesProvider', 'Lspsaga finder')";
       options.desc = "LSP finder (refs / defs / impls)";
     }
     # Peek definition: open the definition in a float without jumping away.
@@ -285,7 +331,7 @@
     {
       mode = "n";
       key = "gp";
-      action = "<cmd>Lspsaga peek_definition<CR>";
+      action.__raw = "lspsaga_guard('definitionProvider', 'Lspsaga peek_definition')";
       options.desc = "Peek definition";
     }
     # Go to definition: jump to the definition location.
@@ -294,7 +340,7 @@
     {
       mode = "n";
       key = "gd";
-      action = "<cmd>Lspsaga goto_definition<CR>";
+      action.__raw = "lspsaga_guard('definitionProvider', 'Lspsaga goto_definition')";
       options.desc = "Go to definition";
     }
     # Peek type definition: open the type definition in a float without jumping away.
@@ -302,7 +348,7 @@
     {
       mode = "n";
       key = "gP";
-      action = "<cmd>Lspsaga peek_type_definition<CR>";
+      action.__raw = "lspsaga_guard('typeDefinitionProvider', 'Lspsaga peek_type_definition')";
       options.desc = "Peek type definition";
     }
     # Go to type definition: jump to the type definition location.
@@ -310,7 +356,7 @@
     {
       mode = "n";
       key = "gT";
-      action = "<cmd>Lspsaga goto_type_definition<CR>";
+      action.__raw = "lspsaga_guard('typeDefinitionProvider', 'Lspsaga goto_type_definition')";
       options.desc = "Go to type definition";
     }
     # Rename the symbol under the cursor across the entire project.
@@ -319,7 +365,7 @@
     {
       mode = "n";
       key = "<A-r>";
-      action = "<cmd>Lspsaga rename<CR>";
+      action.__raw = "lspsaga_guard('renameProvider', 'Lspsaga rename')";
       options.desc = "LSP rename";
     }
     # Open the code action picker with live preview.
@@ -332,7 +378,7 @@
         "v"
       ];
       key = "<A-a>";
-      action = "<cmd>Lspsaga code_action<CR>";
+      action.__raw = "lspsaga_guard('codeActionProvider', 'Lspsaga code_action')";
       options.desc = "LSP code action";
     }
     # Show all diagnostics on the current line in a floating window.
@@ -374,7 +420,7 @@
     {
       mode = "n";
       key = "<A-O>";
-      action = "<cmd>Lspsaga outline<CR>";
+      action.__raw = "lspsaga_guard('documentSymbolProvider', 'Lspsaga outline')";
       options.desc = "Toggle symbol outline";
     }
     # Show incoming call hierarchy: who calls the symbol under the cursor?
@@ -382,7 +428,7 @@
     {
       mode = "n";
       key = "<A-i>";
-      action = "<cmd>Lspsaga incoming_calls<CR>";
+      action.__raw = "lspsaga_guard('callHierarchyProvider', 'Lspsaga incoming_calls')";
       options.desc = "Incoming call hierarchy";
     }
     # Show outgoing call hierarchy: what does the symbol under the cursor call?
@@ -390,7 +436,7 @@
     {
       mode = "n";
       key = "<A-o>";
-      action = "<cmd>Lspsaga outgoing_calls<CR>";
+      action.__raw = "lspsaga_guard('callHierarchyProvider', 'Lspsaga outgoing_calls')";
       options.desc = "Outgoing call hierarchy";
     }
     # Show all implementations of the interface or abstract type under the cursor.
@@ -399,7 +445,7 @@
     {
       mode = "n";
       key = "gi";
-      action = "<cmd>Lspsaga finder imp<CR>";
+      action.__raw = "lspsaga_guard('implementationProvider', 'Lspsaga finder imp')";
       options.desc = "Show implementations";
     }
     # Toggle the floating terminal.
