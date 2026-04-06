@@ -80,18 +80,16 @@
     -- Guard function for LSP-dependent keymaps.
     -- See the capability table in the Nix comment block above.
     _G.lspsaga_guard = function(capability, cmd)
-      return function()
-        for _, c in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
-          if c.server_capabilities[capability] then
-            vim.cmd(cmd)
-            return
-          end
+      for _, c in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+        if c.server_capabilities[capability] then
+          vim.cmd(cmd)
+          return
         end
-        vim.notify(
-          capability .. ' is not supported by the current LSP server.',
-          vim.log.levels.WARN
-        )
       end
+      vim.notify(
+        capability .. ' is not supported by the current LSP server.',
+        vim.log.levels.WARN
+      )
     end
 
     require('lspsaga').setup({
@@ -315,7 +313,7 @@
     {
       mode = "n";
       key = "K";
-      action.__raw = "lspsaga_guard('hoverProvider', 'Lspsaga hover_doc')";
+      action.__raw = "function() lspsaga_guard('hoverProvider', 'Lspsaga hover_doc') end";
       options.desc = "LSP hover documentation";
     }
     # Unified LSP finder: references, definitions, and implementations in one float.
@@ -323,7 +321,7 @@
     {
       mode = "n";
       key = "<A-f>";
-      action.__raw = "lspsaga_guard('referencesProvider', 'Lspsaga finder')";
+      action.__raw = "function() lspsaga_guard('referencesProvider', 'Lspsaga finder') end";
       options.desc = "LSP finder (refs / defs / impls)";
     }
     # Peek definition: open the definition in a float without jumping away.
@@ -331,7 +329,7 @@
     {
       mode = "n";
       key = "gp";
-      action.__raw = "lspsaga_guard('definitionProvider', 'Lspsaga peek_definition')";
+      action.__raw = "function() lspsaga_guard('definitionProvider', 'Lspsaga peek_definition') end";
       options.desc = "Peek definition";
     }
     # Go to definition: jump to the definition location.
@@ -340,7 +338,7 @@
     {
       mode = "n";
       key = "gd";
-      action.__raw = "lspsaga_guard('definitionProvider', 'Lspsaga goto_definition')";
+      action.__raw = "function() lspsaga_guard('definitionProvider', 'Lspsaga goto_definition') end";
       options.desc = "Go to definition";
     }
     # Peek type definition: open the type definition in a float without jumping away.
@@ -348,7 +346,7 @@
     {
       mode = "n";
       key = "gP";
-      action.__raw = "lspsaga_guard('typeDefinitionProvider', 'Lspsaga peek_type_definition')";
+      action.__raw = "function() lspsaga_guard('typeDefinitionProvider', 'Lspsaga peek_type_definition') end";
       options.desc = "Peek type definition";
     }
     # Go to type definition: jump to the type definition location.
@@ -356,7 +354,7 @@
     {
       mode = "n";
       key = "gT";
-      action.__raw = "lspsaga_guard('typeDefinitionProvider', 'Lspsaga goto_type_definition')";
+      action.__raw = "function() lspsaga_guard('typeDefinitionProvider', 'Lspsaga goto_type_definition') end";
       options.desc = "Go to type definition";
     }
     # Rename the symbol under the cursor across the entire project.
@@ -365,7 +363,7 @@
     {
       mode = "n";
       key = "<A-r>";
-      action.__raw = "lspsaga_guard('renameProvider', 'Lspsaga rename')";
+      action.__raw = "function() lspsaga_guard('renameProvider', 'Lspsaga rename') end";
       options.desc = "LSP rename";
     }
     # Open the code action picker with live preview.
@@ -378,7 +376,7 @@
         "v"
       ];
       key = "<A-a>";
-      action.__raw = "lspsaga_guard('codeActionProvider', 'Lspsaga code_action')";
+      action.__raw = "function() lspsaga_guard('codeActionProvider', 'Lspsaga code_action') end";
       options.desc = "LSP code action";
     }
     # Show all diagnostics on the current line in a floating window.
@@ -420,7 +418,7 @@
     {
       mode = "n";
       key = "<A-O>";
-      action.__raw = "lspsaga_guard('documentSymbolProvider', 'Lspsaga outline')";
+      action.__raw = "function() lspsaga_guard('documentSymbolProvider', 'Lspsaga outline') end";
       options.desc = "Toggle symbol outline";
     }
     # Show incoming call hierarchy: who calls the symbol under the cursor?
@@ -428,7 +426,7 @@
     {
       mode = "n";
       key = "<A-i>";
-      action.__raw = "lspsaga_guard('callHierarchyProvider', 'Lspsaga incoming_calls')";
+      action.__raw = "function() lspsaga_guard('callHierarchyProvider', 'Lspsaga incoming_calls') end";
       options.desc = "Incoming call hierarchy";
     }
     # Show outgoing call hierarchy: what does the symbol under the cursor call?
@@ -436,7 +434,7 @@
     {
       mode = "n";
       key = "<A-o>";
-      action.__raw = "lspsaga_guard('callHierarchyProvider', 'Lspsaga outgoing_calls')";
+      action.__raw = "function() lspsaga_guard('callHierarchyProvider', 'Lspsaga outgoing_calls') end";
       options.desc = "Outgoing call hierarchy";
     }
     # Show all implementations of the interface or abstract type under the cursor.
@@ -445,7 +443,7 @@
     {
       mode = "n";
       key = "gi";
-      action.__raw = "lspsaga_guard('implementationProvider', 'Lspsaga finder imp')";
+      action.__raw = "function() lspsaga_guard('implementationProvider', 'Lspsaga finder imp') end";
       options.desc = "Show implementations";
     }
     # Toggle the floating terminal.
