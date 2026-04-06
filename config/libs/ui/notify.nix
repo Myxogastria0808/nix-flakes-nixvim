@@ -3,6 +3,21 @@
 # noice.nvim: replaces the command line and message UI; routes all msg_show events to
 # nvim-notify with ERROR / WARN / INFO level mapping; long output (≥10 lines) goes to a split.
 {
+  # Replace NUL bytes (\0) with newlines in notification messages.
+  # Neovim uses NUL as an internal line separator in msg_show events,
+  # but nvim-notify renders them as literal ^@ characters.
+  extraConfigLua = ''
+    do
+      local original_notify = vim.notify
+      vim.notify = function(msg, ...)
+        if type(msg) == 'string' then
+          msg = msg:gsub('\0', '\n')
+        end
+        return original_notify(msg, ...)
+      end
+    end
+  '';
+
   # nvim-notify
   # reference: https://github.com/rcarriga/nvim-notify
   #
