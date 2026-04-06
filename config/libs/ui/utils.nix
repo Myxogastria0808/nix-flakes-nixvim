@@ -51,6 +51,13 @@
     laststatus = 3;
   };
 
+  # Set BAT_THEME so delta (used by telescope-undo for diff preview) picks up
+  # a bat built-in syntax theme instead of auto-detecting "tokyonight" which
+  # is not in bat's theme directory.
+  extraConfigLua = ''
+    vim.env.BAT_THEME = "TwoDark"
+  '';
+
   # telescope.nvim
   # reference: https://github.com/nvim-telescope/telescope.nvim
   #
@@ -70,7 +77,7 @@
   plugins.telescope.extensions.undo = {
     enable = true;
     settings = {
-      use_delta = false;
+      use_delta = true;
     };
   };
 
