@@ -41,7 +41,7 @@ Configuration is split into three categories under `config/libs/`:
 
 | File             | Contents                                                                                                            |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `theme.nix`      | catppuccin colorscheme (mocha flavour)                                                                              |
+| `theme.nix`      | tokyonight colorscheme (night style)                                                                                |
 | `dashboard.nix`  | alpha-nvim startup screen with lambda logo                                                                          |
 | `tree.nix`       | neo-tree file explorer + nvim-web-devicons custom icons                                                             |
 | `status-bar.nix` | lualine statusline (hidden in neo-tree windows)                                                                     |

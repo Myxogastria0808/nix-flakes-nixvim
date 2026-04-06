@@ -8,7 +8,7 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 
 | Category           | Plugin                                                                                                                                                | Details                                                                                                                                                                                        |
 | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Theme**          | [catppuccin](https://github.com/catppuccin/nvim)                                                                                                       | mocha flavour                                                                                                                                                                                  |
+| **Theme**          | [tokyonight.nvim](https://github.com/folke/tokyonight.nvim)                                                                                           | night style                                                                                                                                                                                    |
 | **Dashboard**      | [alpha-nvim](https://github.com/goolord/alpha-nvim)                                                                                                   | Start screen with lambda logo and Neovim version                                                                                                                                               |
 | **File tree**      | [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim)                                                                                       | Git status icons, auto-close on last window, follow current file                                                                                                                               |
 | **Icons**          | [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons)                                                                                   | Custom icons for `.lean` (∀), `lean-toolchain` (∃), `.envrc/.bashrc/.zshrc` ($)                                                                                                                |
@@ -464,7 +464,7 @@ If you want to use GitHub Copilot, run `:Copilot auth` inside Neovim after the f
 │   ├── default.nix                  # Root NixVim module — imports all modules below
 │   └── libs/
 │       ├── ui/
-│       │   ├── theme.nix            # Colorscheme (catppuccin)
+│       │   ├── theme.nix            # Colorscheme (tokyonight)
 │       │   ├── dashboard.nix        # Start screen (alpha-nvim)
 │       │   ├── tree.nix             # Neo-tree + web-devicons
 │       │   ├── status-bar.nix       # Statusline (lualine)

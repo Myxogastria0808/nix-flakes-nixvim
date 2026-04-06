@@ -52,9 +52,10 @@
   };
 
   # Set BAT_THEME so delta (used by telescope-undo for diff preview) uses
-  # Catppuccin Mocha, matching the Neovim colorscheme.
+  # Nord, a bat built-in dark theme close to tokyonight, instead of
+  # auto-detecting "tokyonight" which is not in bat's theme directory.
   extraConfigLua = ''
-    vim.env.BAT_THEME = "Catppuccin Mocha"
+    vim.env.BAT_THEME = "Nord"
   '';
 
   # telescope.nvim
@@ -95,24 +96,23 @@
   # Displays indent guide lines with rainbow colors for each indent level.
   highlight = {
     # indent-blankline.nvim rainbow colors (one per indent level, muted)
-    # Based on Catppuccin Mocha palette with reduced opacity.
     IblIndent1 = {
-      fg = "#45293b";
+      fg = "#51303a";
     };
     IblIndent2 = {
-      fg = "#45392a";
+      fg = "#51402a";
     };
     IblIndent3 = {
-      fg = "#2b4530";
+      fg = "#304830";
     };
     IblIndent4 = {
-      fg = "#264545";
+      fg = "#284848";
     };
     IblIndent5 = {
-      fg = "#263545";
+      fg = "#283848";
     };
     IblIndent6 = {
-      fg = "#362650";
+      fg = "#3a2851";
     };
   };
 
