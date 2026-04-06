@@ -106,6 +106,30 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 > [!NOTE]
 > Mouse support is enabled for all modes (`mouse = "a"`).
 
+### Undo History (telescope-undo.nvim)
+
+Press `Alt+u` to open the undo history browser. The right pane shows a diff preview of each state.
+
+#### Inside the telescope window (Insert mode)
+
+| Key                      | Action                             |
+| ------------------------ | ---------------------------------- |
+| `Ctrl+N` / `Ctrl+P`      | Navigate undo states up / down     |
+| `Enter`                  | Yank additions from selected state |
+| `Shift+Enter` / `Ctrl+Y` | Yank deletions from selected state |
+| `Ctrl+Enter` / `Ctrl+R`  | Restore buffer to selected state   |
+| `Esc`                    | Close the window                   |
+
+#### Inside the telescope window (Normal mode)
+
+| Key       | Action                             |
+| --------- | ---------------------------------- |
+| `j` / `k` | Navigate undo states up / down     |
+| `y`       | Yank additions from selected state |
+| `Y`       | Yank deletions from selected state |
+| `u`       | Restore buffer to selected state   |
+| `Esc`     | Close the window                   |
+
 ### Notifications (nvim-notify)
 
 | Key     | Mode                                          | Action                            |

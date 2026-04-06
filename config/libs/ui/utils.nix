@@ -73,7 +73,19 @@
   # Works with undofile so the history persists across sessions.
   #
   # Keymaps:
-  # <A-u> : open undo history in telescope                  (Normal)
+  # <A-u>    : open undo history in telescope               (Normal)
+  #
+  # Inside the telescope window (Insert):
+  # <CR>     : yank additions from selected state           (Insert)
+  # <S-CR>   : yank deletions from selected state           (Insert)
+  # <C-CR>   : restore buffer to selected state             (Insert)
+  # <C-y>    : yank deletions (terminal-compatible alt)     (Insert)
+  # <C-r>    : restore (terminal-compatible alt)            (Insert)
+  #
+  # Inside the telescope window (Normal):
+  # y        : yank additions from selected state           (Normal)
+  # Y        : yank deletions from selected state           (Normal)
+  # u        : restore buffer to selected state             (Normal)
   plugins.telescope.extensions.undo = {
     enable = true;
     settings = {
