@@ -52,10 +52,10 @@
   };
 
   # Set BAT_THEME so delta (used by telescope-undo for diff preview) uses
-  # Nord, a bat built-in dark theme close to tokyonight, instead of
-  # auto-detecting "tokyonight" which is not in bat's theme directory.
+  # TwoDark, a bat built-in dark theme, instead of auto-detecting
+  # "tokyonight" which is not in bat's theme directory.
   extraConfigLua = ''
-    vim.env.BAT_THEME = "Nord"
+    vim.env.BAT_THEME = "TwoDark"
   '';
 
   # telescope.nvim
