@@ -56,7 +56,7 @@ Configuration is split into three categories under `config/libs/`:
 | ---------------- | ----------------------------------------------------- |
 | `lsp.nix`        | nvim-lspconfig (25 language servers) + lean.nvim      |
 | `lspsaga.nix`    | lspsaga.nvim rich LSP UI + floating terminal          |
-| `format.nix`     | conform.nvim format-on-save + nvim-lint async linting |
+| `format.nix`     | conform.nvim format-on-save (oxfmt for JS/TS/JSON/YAML/HTML/CSS/Markdown, prettier for Astro) + nvim-lint async linting |
 | `treesitter.nix` | nvim-treesitter syntax highlighting (33 parsers)      |
 
 ### `action/` — Editing and workflow plugins

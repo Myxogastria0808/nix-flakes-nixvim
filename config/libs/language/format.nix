@@ -5,8 +5,10 @@
 { pkgs, ... }:
 {
   extraPackages = [
-    # required by markdown formatter
+    # required by Astro formatter
     pkgs.prettier
+    # required by JSON / YAML / JS / TS / HTML / CSS / Markdown formatter
+    pkgs.oxfmt
     # required by shell script formatter
     pkgs.shfmt
     # required by R formatter
@@ -53,8 +55,8 @@
       formatters_by_ft = {
         # nix formatter
         nix = [ "nixfmt" ];
-        # markdown formatter
-        markdown = [ "prettier" ];
+        # Markdown formatter
+        markdown = [ "oxfmt" ];
         # shell script formatter (sh, bash, zsh)
         sh = [ "shfmt" ];
         bash = [ "shfmt" ];
@@ -71,32 +73,33 @@
         c = [ "clang_format" ];
         # Python formatter
         python = [ "ruff_format" ];
-        # HTML / CSS formatter
-        html = [ "prettier" ];
-        css = [ "prettier" ];
+        # HTML formatter
+        html = [ "oxfmt" ];
+        # CSS formatter
+        css = [ "oxfmt" ];
         # Java formatter
-        java = [ "google_java_format" ];
+        java = [ "google-java-format" ];
         # Go formatter
         go = [ "gofumpt" ];
         # TOML formatter
         toml = [ "taplo" ];
-        # JSON formatter
-        json = [ "prettier" ];
-        jsonc = [ "prettier" ];
+        # JSON / JSONC formatter
+        json = [ "oxfmt" ];
+        jsonc = [ "oxfmt" ];
         # YAML formatter
-        yaml = [ "prettier" ];
-        # GitHub Actions workflow formatter
-        "yaml.github" = [ "prettier" ];
+        yaml = [ "oxfmt" ];
+        # GitHub Actions workflow formatter (yaml.github filetype)
+        "yaml.github" = [ "oxfmt" ];
         # Elm formatter
         elm = [ "elm_format" ];
         # Rust formatter
         rust = [ "rustfmt" ];
-        # TypeScript / JavaScript formatter
-        javascript = [ "prettier" ];
-        javascriptreact = [ "prettier" ];
-        typescript = [ "prettier" ];
-        typescriptreact = [ "prettier" ];
-        # Astro formatter
+        # JavaScript / JSX / TypeScript / TSX formatter
+        javascript = [ "oxfmt" ];
+        javascriptreact = [ "oxfmt" ];
+        typescript = [ "oxfmt" ];
+        typescriptreact = [ "oxfmt" ];
+        # Astro formatter (oxfmt does not support Astro yet)
         astro = [ "prettier" ];
         # Makefile formatter
         make = [ "bake" ];
