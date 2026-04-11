@@ -1,6 +1,53 @@
 # lsp.nix — Language Server Protocol configuration.
-# Enables 25 language servers via nvim-lspconfig (NixVim) and lean.nvim for Lean 4.
+# Enables 26 language servers via nvim-lspconfig (NixVim) and lean.nvim for Lean 4.
 # r_language_server and julials use package = null (external dependencies required).
+# mdx_analyzer is built from the npm tarball using buildNpmPackage.
+{ pkgs, ... }:
+let
+  # mdx-language-server
+  # reference: https://github.com/mdx-js/mdx-analyzer
+  #
+  # Language server for MDX, providing diagnostics, completions, and hover
+  # via the Volar framework.
+  #
+  # mdx_analyzer is listed in NixVim's "unpackaged" servers, meaning NixVim
+  # knows how to configure the LSP client but nixpkgs has no pre-built
+  # package for it. Normally you would set package = null and rely on the
+  # binary being on $PATH (like r_language_server and julials), but here we
+  # build it ourselves with buildNpmPackage so the flake is self-contained.
+  #
+  # The source is fetched from the npm registry tarball (not GitHub) because
+  # the upstream repo is a monorepo without a root package-lock.json, which
+  # makes buildNpmPackage impractical from the Git source.
+  #
+  # buildNpmPackage requires a package-lock.json to resolve the dependency
+  # tree deterministically. Since the npm tarball does not include one, we
+  # vendor a pre-generated lockfile (mdx-language-server-package-lock.json)
+  # and symlink it in postPatch.
+  #
+  # dontNpmBuild = true skips the build phase because the package ships
+  # pre-compiled JS — no transpilation or bundling step is needed.
+  #
+  # npmDepsHash pins the exact dependency tree for Nix's reproducible builds.
+  mdx-language-server = pkgs.buildNpmPackage rec {
+    pname = "mdx-language-server";
+    version = "0.6.3";
+    src = pkgs.fetchurl {
+      url = "https://registry.npmjs.org/@mdx-js/language-server/-/language-server-${version}.tgz";
+      hash = "sha256-rNYJYQjnA7u02nP4a7EL/yJbjGdwP0RLQpAhr/I9xLs=";
+    };
+    postPatch = ''
+      ln -s ${./mdx-language-server-package-lock.json} package-lock.json
+    '';
+    npmDepsHash = "sha256-fY+lG+eu+hX7RFyWRiGOA1VXEt4hTmud6KB5XDaBeFo=";
+    dontNpmBuild = true;
+    meta = {
+      description = "Language server for MDX";
+      homepage = "https://github.com/mdx-js/mdx-analyzer";
+      mainProgram = "mdx-language-server";
+    };
+  };
+in
 {
   # nvim-lspconfig (via NixVim)
   # reference: https://github.com/neovim/nvim-lspconfig
@@ -31,6 +78,7 @@
   #   dockerls           : Dockerfile              (reference: https://github.com/rcjsuen/dockerfile-language-server)
   #   docker_compose_language_service : Docker Compose (reference: https://github.com/microsoft/compose-language-service)
   #   autotools_ls       : Makefile                (reference: https://github.com/Freed-Wu/autotools-language-server)
+  #   mdx_analyzer       : MDX                     (reference: https://github.com/mdx-js/mdx-analyzer)
   #   asm_lsp            : Assembly (NASM/GAS)     (reference: https://github.com/bergercookie/asm-lsp)
   plugins.lsp = {
     enable = true;
@@ -105,6 +153,30 @@
       docker_compose_language_service.enable = true;
       # Makefile language server
       autotools_ls.enable = true;
+      # MDX language server (built from npm tarball, see let-binding above)
+      # enable = true generates the nvim-lspconfig setup for mdx_analyzer.
+      # package = mdx-language-server supplies the self-built binary so that
+      # NixVim adds bin/mdx-language-server to $PATH. The LSP client then
+      # starts it automatically when a buffer with filetype "mdx" is opened.
+      #
+      # init_options.typescript.tsdk must point to the TypeScript SDK lib
+      # directory so that the Volar-based language server can resolve TS/JSX
+      # types inside MDX files. Without this, the server exits immediately
+      # because the Volar framework requires a TypeScript SDK to initialise.
+      #
+      # pkgs.typescript is NOT a new external dependency — it is already in
+      # the runtime closure via typescript-language-server (ts_ls). We are
+      # simply referencing its nix store path here.
+      #
+      # Note: mdx_analyzer uses root_markers = { "package.json" } by default
+      # (from nvim-lspconfig). The LSP will only attach when a package.json
+      # exists in the file's ancestor directories, which is the expected
+      # behaviour since MDX is typically used in JS/TS projects.
+      mdx_analyzer = {
+        enable = true;
+        package = mdx-language-server;
+        extraOptions.init_options.typescript.tsdk = "${pkgs.typescript}/lib/node_modules/typescript/lib";
+      };
       # Assembly (NASM/GAS) language server
       asm_lsp.enable = true;
       # Rust language server

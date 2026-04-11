@@ -99,6 +99,8 @@
         javascriptreact = [ "oxfmt" ];
         typescript = [ "oxfmt" ];
         typescriptreact = [ "oxfmt" ];
+        # MDX formatter
+        mdx = [ "oxfmt" ];
         # Astro formatter (oxfmt does not support Astro yet)
         astro = [ "prettier" ];
         # Makefile formatter

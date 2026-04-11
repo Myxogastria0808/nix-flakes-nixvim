@@ -54,10 +54,10 @@ Configuration is split into three categories under `config/libs/`:
 
 | File             | Contents                                              |
 | ---------------- | ----------------------------------------------------- |
-| `lsp.nix`        | nvim-lspconfig (25 language servers) + lean.nvim      |
+| `lsp.nix`        | nvim-lspconfig (26 language servers) + lean.nvim      |
 | `lspsaga.nix`    | lspsaga.nvim rich LSP UI + floating terminal          |
-| `format.nix`     | conform.nvim format-on-save (oxfmt for JS/TS/JSON/YAML/HTML/CSS/Markdown, prettier for Astro) + nvim-lint async linting |
-| `treesitter.nix` | nvim-treesitter syntax highlighting (33 parsers)      |
+| `format.nix`     | conform.nvim format-on-save (oxfmt for JS/TS/JSON/YAML/HTML/CSS/Markdown/MDX, prettier for Astro) + nvim-lint async linting |
+| `treesitter.nix` | nvim-treesitter syntax highlighting (34 parsers, MDX built from source) |
 
 ### `action/` — Editing and workflow plugins
 
@@ -110,6 +110,15 @@ Some LSP servers require tools installed outside this flake:
 | Julia    | Julia with `LanguageServer.jl` installed in the Julia environment |
 
 These are configured with `package = null` in `lsp.nix` so NixVim does not attempt to provide them.
+
+## Custom-Built Packages
+
+Some tools are not available in nixpkgs and are built from source within this flake:
+
+| Package                | Build method                       | Used by          | Notes                                                                 |
+| ---------------------- | ---------------------------------- | ---------------- | --------------------------------------------------------------------- |
+| tree-sitter-mdx        | `pkgs.tree-sitter.buildGrammar`    | `treesitter.nix` | MDX grammar from [srazzak/tree-sitter-mdx](https://github.com/srazzak/tree-sitter-mdx) |
+| mdx-language-server    | `pkgs.buildNpmPackage` (npm tarball) | `lsp.nix`        | Requires a vendored `package-lock.json` and `init_options.typescript.tsdk` pointing to the TypeScript SDK |
 
 ## File Editing Rules
 
