@@ -1,6 +1,7 @@
 # utils.nix — Miscellaneous editing utility plugins.
 # Plugins: nvim-autopairs (auto-close brackets/quotes), jumpcursor.vim (jump to any location),
-#          markdown-preview.nvim (live browser preview with Mermaid support).
+#          markdown-preview.nvim (live browser preview with Mermaid support),
+#          typst-preview.nvim (live browser preview for Typst documents).
 { pkgs, ... }:
 {
   # nvim-autopairs
@@ -24,6 +25,7 @@
         hash = "sha256-WlH6VJiBy0rvFMvLjXA5pDjV6Rzv3luY1ueUrmGBwak=";
       };
     })
+    pkgs.vimPlugins.typst-preview-nvim
   ];
 
   # markdown-preview.nvim
@@ -35,6 +37,15 @@
     enable = true;
     settings.auto_start = 0;
   };
+
+  # typst-preview.nvim
+  # reference: https://github.com/chomosuke/typst-preview.nvim
+  #
+  # Keymaps:
+  # <A-p> : toggle Typst preview in browser (Normal)
+  extraConfigLua = ''
+    require("typst-preview").setup({})
+  '';
 
   keymaps = [
     {
@@ -48,6 +59,12 @@
       key = "<A-m>";
       action = "<cmd>MarkdownPreviewToggle<CR>";
       options.desc = "Toggle Markdown preview";
+    }
+    {
+      mode = "n";
+      key = "<A-p>";
+      action = "<cmd>TypstPreviewToggle<CR>";
+      options.desc = "Toggle Typst preview";
     }
   ];
 }

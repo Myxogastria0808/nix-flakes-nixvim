@@ -1,5 +1,5 @@
 # lsp.nix — Language Server Protocol configuration.
-# Enables 26 language servers via nvim-lspconfig (NixVim) and lean.nvim for Lean 4.
+# Enables 27 language servers via nvim-lspconfig (NixVim) and lean.nvim for Lean 4.
 # r_language_server and julials use package = null (external dependencies required).
 # mdx_analyzer is built from the npm tarball using buildNpmPackage.
 { pkgs, ... }:
@@ -79,6 +79,7 @@ in
   #   docker_compose_language_service : Docker Compose (reference: https://github.com/microsoft/compose-language-service)
   #   autotools_ls       : Makefile                (reference: https://github.com/Freed-Wu/autotools-language-server)
   #   mdx_analyzer       : MDX                     (reference: https://github.com/mdx-js/mdx-analyzer)
+  #   texlab             : LaTeX                   (reference: https://github.com/latex-lsp/texlab)
   #   asm_lsp            : Assembly (NASM/GAS)     (reference: https://github.com/bergercookie/asm-lsp)
   plugins.lsp = {
     enable = true;
@@ -177,6 +178,8 @@ in
         package = mdx-language-server;
         extraOptions.init_options.typescript.tsdk = "${pkgs.typescript}/lib/node_modules/typescript/lib";
       };
+      # LaTeX language server
+      texlab.enable = true;
       # Assembly (NASM/GAS) language server
       asm_lsp.enable = true;
       # Rust language server

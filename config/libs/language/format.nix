@@ -39,6 +39,8 @@
     pkgs.mbake
     # required by Makefile linter
     pkgs.checkmake
+    # required by LaTeX formatter (latexindent) and TeX compilation toolchain
+    pkgs.texliveFull
   ];
 
   # conform-nvim
@@ -103,6 +105,8 @@
         mdx = [ "oxfmt" ];
         # Astro formatter (oxfmt does not support Astro yet)
         astro = [ "prettier" ];
+        # LaTeX formatter
+        tex = [ "latexindent" ];
         # Makefile formatter
         make = [ "bake" ];
       };

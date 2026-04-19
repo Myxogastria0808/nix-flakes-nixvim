@@ -54,10 +54,10 @@ Configuration is split into three categories under `config/libs/`:
 
 | File             | Contents                                              |
 | ---------------- | ----------------------------------------------------- |
-| `lsp.nix`        | nvim-lspconfig (26 language servers) + lean.nvim      |
+| `lsp.nix`        | nvim-lspconfig (27 language servers) + lean.nvim      |
 | `lspsaga.nix`    | lspsaga.nvim rich LSP UI + floating terminal          |
 | `format.nix`     | conform.nvim format-on-save (oxfmt for JS/TS/JSON/YAML/HTML/CSS/Markdown/MDX, prettier for Astro) + nvim-lint async linting |
-| `treesitter.nix` | nvim-treesitter syntax highlighting (34 parsers, MDX built from source) |
+| `treesitter.nix` | nvim-treesitter syntax highlighting (35 parsers, MDX built from source) |
 
 ### `action/` — Editing and workflow plugins
 
@@ -67,7 +67,7 @@ Configuration is split into three categories under `config/libs/`:
 | `completion.nix` | nvim-cmp completion engine (LSP / buffer / path sources) |
 | `commentout.nix` | Comment.nvim + ts-context-commentstring (JSX/TSX-aware)  |
 | `emmet.nix`      | emmet-vim HTML/CSS abbreviation expansion                |
-| `utils.nix`      | nvim-autopairs, jumpcursor.vim, markdown-preview.nvim    |
+| `utils.nix`      | nvim-autopairs, jumpcursor.vim, markdown-preview.nvim, typst-preview.nvim |
 | `keymaps.nix`    | Global keymaps and leader key (`<Space>`)                |
 
 ## Adding Plugins Not in nixpkgs
