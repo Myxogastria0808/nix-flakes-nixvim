@@ -66,7 +66,7 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | GitHub Actions      | yamlls (schema)                 | oxfmt                            | —          | [actionlint](https://github.com/rhysd/actionlint) linter enabled for `.github/workflows/`                                                                                                                                                                                        |
 | Lean 4              | lean.nvim                       | —                                | —          | Dedicated plugin with interactive infoview panel; nvim-treesitter has no Lean grammar (lean.nvim handles its own syntax support)                                                                                                                                                 |
 | MDX                 | mdx_analyzer                    | oxfmt                            | ✓          | Custom-built LSP from npm tarball ([mdx-analyzer](https://github.com/mdx-js/mdx-analyzer)); custom-built treesitter grammar from [srazzak/tree-sitter-mdx](https://github.com/srazzak/tree-sitter-mdx)                                                                          |
-| LaTeX               | texlab                          | latexindent                      | ✓          |                                                                                                                                                                                                                                                                                  |
+| LaTeX               | texlab                          | latexindent                      | ✓          | Full TeX Live distribution (`texliveFull`); build to PDF via `Space b` (`latexmk -lualatex`, Japanese support)                                                                                                                                                                   |
 | Astro               | astro                           | prettier                         | ✓          |                                                                                                                                                                                                                                                                                  |
 | Dockerfile          | dockerls                        | dockerls (LSP fallback, limited) | ✓          | conform has no Dockerfile formatter; `lsp_format = "fallback"` delegates to dockerls's built-in formatting (limited capability). [hadolint](https://github.com/hadolint/hadolint) linter enabled                                                                                 |
 | Docker Compose      | docker_compose_language_service | oxfmt                            | ✓          | `docker-compose.yml` is detected as `yaml` filetype; Treesitter `yaml` grammar applies (no dedicated docker-compose grammar). conform's `yaml = ["oxfmt"]` applies for formatting                                                                                                |
@@ -274,6 +274,12 @@ Additionally, the bundled `emmet_utils.lua` requires `nvim-treesitter.ts_utils`,
 | ------- | ------ | ---------------------------------- |
 | `Alt+m` | Normal | Toggle Markdown preview in browser |
 | `Alt+p` | Normal | Toggle Typst preview in browser    |
+
+### LaTeX
+
+| Key       | Mode   | Action                                          |
+| --------- | ------ | ----------------------------------------------- |
+| `Space b` | Normal | Build LaTeX to PDF (`latexmk -lualatex`)        |
 
 ### Lean (active in `.lean` buffers, `Space` = LocalLeader)
 
@@ -509,7 +515,7 @@ If you want to use GitHub Copilot, run `:Copilot auth` inside Neovim after the f
 │           ├── completion.nix       # nvim-cmp + LSP / buffer / path sources
 │           ├── commentout.nix       # Comment.nvim + ts-context-commentstring
 │           ├── emmet.nix            # Emmet abbreviation expansion (emmet-vim)
-│           ├── utils.nix            # autopairs / jumpcursor / markdown-preview / typst-preview
+│           ├── utils.nix            # autopairs / jumpcursor / markdown-preview / typst-preview / LaTeX build
 │           └── keymaps.nix          # Global keymaps and leader key
 ├── .envrc                           # direnv integration
 └── .gitignore

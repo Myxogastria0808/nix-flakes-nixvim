@@ -2,6 +2,7 @@
 # Plugins: nvim-autopairs (auto-close brackets/quotes), jumpcursor.vim (jump to any location),
 #          markdown-preview.nvim (live browser preview with Mermaid support),
 #          typst-preview.nvim (live browser preview for Typst documents).
+# Also provides a LaTeX build keymap (<leader>b) using latexmk with lualatex.
 { pkgs, ... }:
 {
   # nvim-autopairs
@@ -65,6 +66,15 @@
       key = "<A-p>";
       action = "<cmd>TypstPreviewToggle<CR>";
       options.desc = "Toggle Typst preview";
+    }
+    # Build the current LaTeX file to PDF using latexmk with lualatex engine.
+    # latexmk handles BibTeX, cross-references, and recompilation automatically.
+    # keybind: Space + B
+    {
+      mode = "n";
+      key = "<leader>b";
+      action = "<cmd>!latexmk -lualatex %<CR>";
+      options.desc = "Build LaTeX to PDF (lualatex)";
     }
   ];
 }
