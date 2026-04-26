@@ -58,6 +58,11 @@
       color = "#eab308";
       name = "LeanToolchain";
     };
+    settings.override_by_extension.typ = {
+      icon = "𝐭";
+      color = "#239dad";
+      name = "Typst";
+    };
     settings.override_by_filename.".envrc" = {
       icon = "$";
       color = "#f59e0b";
