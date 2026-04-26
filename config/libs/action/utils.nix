@@ -18,7 +18,8 @@
   # <A-j> : jump cursor to any location in the file (Normal)
   extraPlugins = [
     (pkgs.vimUtils.buildVimPlugin {
-      name = "jumpcursor-vim";
+      pname = "jumpcursor-vim";
+      version = "unstable";
       src = pkgs.fetchFromGitHub {
         owner = "skanehira";
         repo = "jumpcursor.vim";
