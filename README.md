@@ -19,7 +19,7 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | **Indent**         | [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim)                                                                       | Rainbow indent guide lines                                                                                                                                                                     |
 | **Keybind help**   | [which-key.nvim](https://github.com/folke/which-key.nvim)                                                                                             | Keybinding popup on prefix key                                                                                                                                                                 |
 | **Scrolling**      | [neoscroll.nvim](https://github.com/karb94/neoscroll.nvim)                                                                                            | Smooth scrolling for `C-u/d/f/b/e/y`, `zt/zz/zb`                                                                                                                                               |
-| **Syntax**         | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                                                                                 | 35-parser set — highlighting + indent                                                                                                                                                          |
+| **Syntax**         | [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)                                                                                 | 36-parser set — highlighting + indent                                                                                                                                                          |
 | **LSP**            | nvim-lspconfig via NixVim                                                                                                                             | See [Language Support](#language-support)                                                                                                                                                      |
 | **LSP UI**         | [lspsaga.nvim](https://github.com/nvimdev/lspsaga.nvim)                                                                                               | Rich float UI for hover, diagnostics, finder, rename, code action, outline, breadcrumbs, call hierarchy, float terminal                                                                        |
 | **Completion**     | [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)                                                                                                       | LSP, buffer word, and file path sources                                                                                                                                                        |
@@ -71,6 +71,7 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | Dockerfile          | dockerls                        | dockerls (LSP fallback, limited) | ✓          | conform has no Dockerfile formatter; `lsp_format = "fallback"` delegates to dockerls's built-in formatting (limited capability). [hadolint](https://github.com/hadolint/hadolint) linter enabled                                                                                 |
 | Docker Compose      | docker_compose_language_service | oxfmt                            | ✓          | `docker-compose.yml` is detected as `yaml` filetype; Treesitter `yaml` grammar applies (no dedicated docker-compose grammar). conform's `yaml = ["oxfmt"]` applies for formatting                                                                                                |
 | Makefile            | autotools_ls                    | bake (mbake)                     | ✓          | [checkmake](https://github.com/mrtazz/checkmake) linter enabled                                                                                                                                                                                                                  |
+| Agda                | cornelis                        | —                                | ✓          | Interactive development via [cornelis](https://github.com/isovector/cornelis); no LSP — communicates with Agda directly. Keymaps use `a` prefix (see [Agda keybindings](#agda-cornelis))       |
 | Assembly (GAS/NASM) | asm_lsp                         | —                                | ✓          | `asm` + `nasm` grammars. No formatter: [klauspost/asmfmt](https://github.com/klauspost/asmfmt) is Go Assembly only; [HSMF/asmfmt](https://github.com/HSMF/asmfmt) is NASM only and not registered in conform.nvim. No general-purpose GAS/NASM formatter exists in conform.nvim. |
 
 > [!NOTE]
@@ -311,6 +312,24 @@ Additionally, the bundled `emmet_utils.lua` requires `nvim-treesitter.ts_utils`,
 | `gD`          | Go to declaration                  |
 | `gy`          | Go to type                         |
 
+### Agda (cornelis)
+
+Active in `.agda` buffers. Keymaps use `a` prefix: `a` + lspsaga-style key for LSP-equivalent features, `a` + mnemonic for cornelis-specific features.
+
+| Key   | Mode   | Action                                 |
+| ----- | ------ | -------------------------------------- |
+| `aK`  | Normal | Show type context (≈ lspsaga `K`)      |
+| `agd` | Normal | Go to definition (≈ lspsaga `gd`)      |
+| `a]d` | Normal | Jump to next goal (≈ lspsaga `]d`)     |
+| `a[d` | Normal | Jump to previous goal (≈ lspsaga `[d`) |
+| `al`  | Normal | Load / type-check file                 |
+| `ar`  | Normal | Refine hole                            |
+| `ac`  | Normal | Case split                             |
+| `aa`  | Normal | Auto-solve hole                        |
+| `aG`  | Normal | Give solution to hole                  |
+| `a.`  | Normal | Infer type                             |
+| `an`  | Normal | Normalize expression                   |
+
 ## Neo-tree Git Status Symbols
 
 | Symbol | Meaning   |
@@ -506,10 +525,10 @@ If you want to use GitHub Copilot, run `:Copilot auth` inside Neovim after the f
 │       │   ├── notify.nix           # nvim-notify + noice.nvim (notification routing)
 │       │   └── utils.nix            # swapfile off + undofile on / telescope + telescope-undo / indent-blankline / which-key / neoscroll / todo-comments
 │       ├── language/
-│       │   ├── lsp.nix              # LSP servers (27 languages) + lean.nvim
+│       │   ├── lsp.nix              # LSP servers (27 languages) + lean.nvim + cornelis (Agda)
 │       │   ├── lspsaga.nix          # lspsaga.nvim (rich LSP UI + float terminal)
 │       │   ├── format.nix           # conform.nvim (format-on-save) + nvim-lint
-│       │   └── treesitter.nix       # Syntax highlighting (nvim-treesitter)
+│       │   └── treesitter.nix       # Syntax highlighting (nvim-treesitter, 36 parsers)
 │       └── action/
 │           ├── copilot.nix          # GitHub Copilot
 │           ├── completion.nix       # nvim-cmp + LSP / buffer / path sources

@@ -1,5 +1,6 @@
-# lsp.nix — Language Server Protocol configuration.
-# Enables 27 language servers via nvim-lspconfig (NixVim) and lean.nvim for Lean 4.
+# lsp.nix — Language Server Protocol and language-specific plugin configuration.
+# Enables 27 language servers via nvim-lspconfig (NixVim), lean.nvim for Lean 4,
+# and cornelis for interactive Agda development.
 # r_language_server and julials use package = null (external dependencies required).
 # mdx_analyzer is built from the npm tarball using buildNpmPackage.
 { pkgs, ... }:
@@ -237,14 +238,86 @@ in
     };
   };
 
-  # Set commentstring for Lean so Comment.nvim works correctly.
+  # cornelis
+  # reference: https://github.com/isovector/cornelis
+  #
+  # A modern Agda plugin for Neovim that provides interactive development
+  # features similar to agda-mode in Emacs.
+  #
+  # Keymaps in Agda files (buffer-local, set via FileType autocmd):
+  # Prefix "a" + lspsaga-style key for features with LSP equivalents,
+  # prefix "a" + mnemonic key for cornelis-specific features.
+  #
+  # lspsaga-equivalent keymaps:
+  # aK                     : show type context (≈ lspsaga K hover)
+  # agd                    : go to definition (≈ lspsaga gd)
+  # a]d                    : jump to next goal (≈ lspsaga ]d next diagnostic)
+  # a[d                    : jump to previous goal (≈ lspsaga [d prev diagnostic)
+  #
+  # cornelis-specific keymaps:
+  # al                     : load / type-check the current file
+  # ar                     : refine the current hole
+  # ac                     : case split on the variable in the hole
+  # aa                     : auto-solve the current hole
+  # aG                     : give the expression in the hole
+  # a.                     : infer type of the expression in the hole
+  # an                     : normalize the expression in the hole
+  extraPlugins = [
+    pkgs.vimPlugins.cornelis
+  ];
+
+  extraPackages = [
+    # cornelis binary (Haskell server that communicates with Agda)
+    pkgs.cornelis
+    # Agda compiler
+    pkgs.agda
+  ];
+
+  extraConfigLua = ''
+    require("cornelis").setup({})
+  '';
+
+  # Set commentstring for Lean and Agda so Comment.nvim works correctly.
   # Lean line comment: -- comment
   # Lean block comment: /- comment -/
-  # ts-context-commentstring has no Lean parser, so we set it manually.
+  # Agda line comment: -- comment
+  # Agda block comment: {- comment -}
+  # ts-context-commentstring has no Lean/Agda parser, so we set it manually.
   autoCmd = [
     {
       event = "FileType";
       pattern = "lean";
+      command = "setlocal commentstring=--\\ %s";
+    }
+    # Buffer-local keymaps for Agda files.
+    {
+      event = "FileType";
+      pattern = "agda";
+      callback.__raw = ''
+        function()
+          local buf = vim.api.nvim_get_current_buf()
+          local opts = function(desc)
+            return { buffer = buf, noremap = true, silent = true, desc = desc }
+          end
+          -- lspsaga-equivalent keymaps (a + lspsaga key)
+          vim.keymap.set("n", "aK", "<cmd>CornelisTypeContext<CR>", opts("Agda: type context"))
+          vim.keymap.set("n", "agd", "<cmd>CornelisGoToDefinition<CR>", opts("Agda: go to definition"))
+          vim.keymap.set("n", "a]d", "<cmd>CornelisNextGoal<CR>", opts("Agda: next goal"))
+          vim.keymap.set("n", "a[d", "<cmd>CornelisPrevGoal<CR>", opts("Agda: previous goal"))
+          -- cornelis-specific keymaps (a + mnemonic)
+          vim.keymap.set("n", "al", "<cmd>CornelisLoad<CR>", opts("Agda: load file"))
+          vim.keymap.set("n", "ar", "<cmd>CornelisRefine<CR>", opts("Agda: refine hole"))
+          vim.keymap.set("n", "ac", "<cmd>CornelisMakeCase<CR>", opts("Agda: case split"))
+          vim.keymap.set("n", "aa", "<cmd>CornelisAuto<CR>", opts("Agda: auto-solve"))
+          vim.keymap.set("n", "aG", "<cmd>CornelisGive<CR>", opts("Agda: give solution"))
+          vim.keymap.set("n", "a.", "<cmd>CornelisTypeContextInfer<CR>", opts("Agda: infer type"))
+          vim.keymap.set("n", "an", "<cmd>CornelisNormalize<CR>", opts("Agda: normalize"))
+        end
+      '';
+    }
+    {
+      event = "FileType";
+      pattern = "agda";
       command = "setlocal commentstring=--\\ %s";
     }
   ];

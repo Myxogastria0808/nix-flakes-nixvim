@@ -54,10 +54,10 @@ Configuration is split into three categories under `config/libs/`:
 
 | File             | Contents                                              |
 | ---------------- | ----------------------------------------------------- |
-| `lsp.nix`        | nvim-lspconfig (27 language servers) + lean.nvim      |
+| `lsp.nix`        | nvim-lspconfig (27 language servers) + lean.nvim + cornelis (Agda) |
 | `lspsaga.nix`    | lspsaga.nvim rich LSP UI + floating terminal          |
 | `format.nix`     | conform.nvim format-on-save (oxfmt for JS/TS/JSON/YAML/HTML/CSS/Markdown/MDX, prettier for Astro, latexindent for LaTeX) + nvim-lint async linting + texliveFull |
-| `treesitter.nix` | nvim-treesitter syntax highlighting (35 parsers, MDX built from source) |
+| `treesitter.nix` | nvim-treesitter syntax highlighting (36 parsers, MDX built from source) |
 
 ### `action/` — Editing and workflow plugins
 

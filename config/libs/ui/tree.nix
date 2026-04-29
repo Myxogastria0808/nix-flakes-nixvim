@@ -63,6 +63,11 @@
       color = "#239dad";
       name = "Typst";
     };
+    settings.override_by_extension.agda = {
+      icon = "󱗆";
+      color = "#3b82f6";
+      name = "Agda";
+    };
     settings.override_by_filename.".envrc" = {
       icon = "$";
       color = "#f59e0b";
