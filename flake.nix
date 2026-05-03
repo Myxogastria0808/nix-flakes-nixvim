@@ -1,7 +1,7 @@
 # flake.nix — Nix flake definition for nix-flakes-nixvim.
-# Produces two outputs targeting x86_64-linux:
-#   packages.x86_64-linux.default  : standalone Neovim package built with NixVim (makeNixvimWithModule)
-#   devShells.x86_64-linux.default : development shell that includes the Neovim package
+# Produces two outputs targeting multiple systems:
+#   packages.<system>.default  : standalone Neovim package built with NixVim (makeNixvimWithModule)
+#   devShells.<system>.default : development shell that includes the Neovim package
 # Inputs: nixpkgs (nixos-unstable) + nixvim (follows nixpkgs).
 {
   description = "nix-flakes-nixvim";
@@ -17,12 +17,20 @@
   outputs =
     inputs:
     let
-      systems = "x86_64-linux";
+      systems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+      forAllSystems = f:
+        builtins.listToAttrs (
+          map (system: { name = system; value = f system; }) systems
+        );
     in
     {
-      packages.x86_64-linux =
+      packages = forAllSystems (
+        system:
         let
-          system = systems;
           pkgs = import inputs.nixpkgs {
             inherit system;
             config.allowUnfree = true;
@@ -35,21 +43,22 @@
             module = import ./config;
           };
         in
-        {
-          default = nixvimConfig;
-        };
+        { default = nixvimConfig; }
+      );
 
-      devShells.x86_64-linux =
+      devShells = forAllSystems (
+        system:
         let
-          pkgs = inputs.nixpkgs.legacyPackages.${systems};
+          pkgs = inputs.nixpkgs.legacyPackages.${system};
         in
         {
           default = pkgs.mkShell {
             packages = [
-              inputs.self.packages.${systems}.default
+              inputs.self.packages.${system}.default
             ];
           };
-        };
+        }
+      );
     };
 }
 
