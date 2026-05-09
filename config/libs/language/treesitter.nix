@@ -1,6 +1,7 @@
 # treesitter.nix — Syntax highlighting and indent using nvim-treesitter.
-# Enables 36 language parsers with highlight and indent support.
+# Enables 37 language parsers with highlight and indent support.
 # MDX grammar is built from source (not in nixpkgs builtGrammars).
+# Mermaid grammar is available in nixpkgs builtGrammars; .mmd is registered as "mermaid" filetype.
 { pkgs, ... }:
 let
   # tree-sitter-mdx
@@ -31,11 +32,11 @@ in
   # Provides accurate syntax highlighting and structural code analysis
   # using language-specific parsers.
   #
-  # Enabled parsers (36 total):
+  # Enabled parsers (37 total):
   #   nix, bash, python, javascript, typescript, tsx, rust, c, go, java,
   #   haskell, ocaml, elm, r, julia, typst, html, css, json, yaml, toml,
   #   markdown, markdown_inline, lua, vim, vimdoc, regex, comment,
-  #   astro, dockerfile, make, asm, nasm, latex, agda, mdx
+  #   astro, dockerfile, make, asm, nasm, latex, agda, mdx, mermaid
   plugins.treesitter = {
     enable = true;
     settings = {
@@ -78,6 +79,7 @@ in
       nasm
       latex
       agda
+      mermaid
     ] ++ [
       # Append the custom-built MDX grammar to the list of built-in grammars.
       # This makes treesitter aware of the MDX parser so it can parse .mdx files.
@@ -99,5 +101,10 @@ in
   # this registration the buffer filetype would remain empty when opening
   # an MDX file, and none of treesitter / LSP / conform would activate.
   filetype.extension.mdx = "mdx";
+
+  # Register .mmd as the "mermaid" filetype.
+  # Neovim does not recognise .mmd by default; this wires treesitter
+  # syntax highlighting to Mermaid diagram files.
+  filetype.extension.mmd = "mermaid";
 }
 

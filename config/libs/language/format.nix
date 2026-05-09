@@ -2,7 +2,41 @@
 # conform.nvim: formats on BufWritePre (500 ms timeout, lsp_format fallback) with per-filetype formatters.
 # A BufWritePre autocmd also enforces exactly one trailing newline on every save.
 # nvim-lint: runs actionlint (GitHub Actions), hadolint (Dockerfile), checkmake (Makefile) asynchronously.
+# mermaid-formatter is built from the npm tarball via stdenv.mkDerivation (no runtime deps, dist pre-compiled).
 { pkgs, ... }:
+let
+  # mermaid-formatter
+  # reference: https://github.com/chenyanchen/mermaid-formatter
+  #
+  # Formatter for Mermaid diagram syntax (.mmd files).
+  # The npm tarball ships pre-compiled JS with zero runtime dependencies,
+  # so we use stdenv.mkDerivation with makeWrapper instead of buildNpmPackage,
+  # avoiding the need for a vendored package-lock.json and npmDepsHash.
+  #
+  # mermaidfmt reads from stdin and writes formatted output to stdout when
+  # invoked without arguments, which is the mode conform.nvim uses.
+  mermaidFormatter = pkgs.stdenv.mkDerivation {
+    pname = "mermaid-formatter";
+    version = "0.3.0";
+    src = pkgs.fetchurl {
+      url = "https://registry.npmjs.org/mermaid-formatter/-/mermaid-formatter-0.3.0.tgz";
+      hash = "sha256-PKv0cFTu7lr8U5raoGhF/xbjEx1cQEvZ9xhSY51jFHQ=";
+    };
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    dontBuild = true;
+    installPhase = ''
+      mkdir -p $out/bin $out/lib/node_modules/mermaid-formatter
+      cp -r . $out/lib/node_modules/mermaid-formatter/
+      makeWrapper ${pkgs.nodejs}/bin/node $out/bin/mermaidfmt \
+        --add-flags "$out/lib/node_modules/mermaid-formatter/dist/cli.js"
+    '';
+    meta = {
+      description = "A formatter for Mermaid diagram syntax";
+      homepage = "https://github.com/chenyanchen/mermaid-formatter";
+      mainProgram = "mermaidfmt";
+    };
+  };
+in
 {
   extraPackages = [
     # required by Astro formatter
@@ -41,6 +75,8 @@
     pkgs.checkmake
     # required by LaTeX formatter (latexindent) and TeX compilation toolchain
     pkgs.texliveFull
+    # required by Mermaid formatter
+    mermaidFormatter
   ];
 
   # conform-nvim
@@ -109,6 +145,14 @@
         tex = [ "latexindent" ];
         # Makefile formatter
         make = [ "bake" ];
+        # Mermaid formatter
+        mermaid = [ "mermaidfmt" ];
+      };
+      # mermaidfmt is not a built-in conform formatter, so define it here.
+      # It reads from stdin and writes formatted output to stdout.
+      formatters.mermaidfmt = {
+        command = "mermaidfmt";
+        stdin = true;
       };
     };
   };

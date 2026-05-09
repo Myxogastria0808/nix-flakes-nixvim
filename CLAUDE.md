@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-A Nix flakes project that builds a standalone Neovim package with declarative configuration using [NixVim](https://nix-community.github.io/nixvim/). Targets `x86_64-linux` only, using `nixos-unstable` channel.
+A Nix flakes project that builds a standalone Neovim package with declarative configuration using [NixVim](https://nix-community.github.io/nixvim/). Targets `x86_64-linux` (manually verified), `aarch64-darwin`, and `x86_64-darwin` (declared but unverified — no macOS machine available for testing), using `nixos-unstable` channel.
 
 ## Commands
 
@@ -26,9 +26,9 @@ Direnv is configured (`.envrc` with `use flake`), so `direnv allow` will auto-lo
 
 ## Architecture
 
-- **`flake.nix`** — Defines two outputs:
-  - `packages.x86_64-linux.default`: Neovim built via `nixvim.makeNixvimWithModule` importing `./config`
-  - `devShells.x86_64-linux.default`: Shell containing the built Neovim package
+- **`flake.nix`** — Defines two outputs for each of `x86_64-linux`, `aarch64-darwin`, `x86_64-darwin` (Darwin targets declared but unverified — no macOS machine available for testing):
+  - `packages.<system>.default`: Neovim built via `nixvim.makeNixvimWithModule` importing `./config`
+  - `devShells.<system>.default`: Shell containing the built Neovim package
 - **`config/default.nix`** — Root NixVim module that imports all sub-modules below.
 
 The `makeNixvimWithModule` function from NixVim takes a `module` parameter pointing to `config/default.nix`. All Neovim customization should be added there using [NixVim module options](https://nix-community.github.io/nixvim/).
@@ -56,8 +56,8 @@ Configuration is split into three categories under `config/libs/`:
 | ---------------- | ----------------------------------------------------- |
 | `lsp.nix`        | nvim-lspconfig (27 language servers) + lean.nvim + cornelis (Agda) |
 | `lspsaga.nix`    | lspsaga.nvim rich LSP UI + floating terminal          |
-| `format.nix`     | conform.nvim format-on-save (oxfmt for JS/TS/JSON/YAML/HTML/CSS/Markdown/MDX, prettier for Astro, latexindent for LaTeX) + nvim-lint async linting + texliveFull |
-| `treesitter.nix` | nvim-treesitter syntax highlighting (36 parsers, MDX built from source) |
+| `format.nix`     | conform.nvim format-on-save (oxfmt for JS/TS/JSON/YAML/HTML/CSS/Markdown/MDX, prettier for Astro, latexindent for LaTeX, mermaidfmt for Mermaid) + nvim-lint async linting + texliveFull |
+| `treesitter.nix` | nvim-treesitter syntax highlighting (37 parsers, MDX built from source, Mermaid from nixpkgs builtGrammars) |
 
 ### `action/` — Editing and workflow plugins
 
@@ -119,6 +119,7 @@ Some tools are not available in nixpkgs and are built from source within this fl
 | ---------------------- | ---------------------------------- | ---------------- | --------------------------------------------------------------------- |
 | tree-sitter-mdx        | `pkgs.tree-sitter.buildGrammar`    | `treesitter.nix` | MDX grammar from [srazzak/tree-sitter-mdx](https://github.com/srazzak/tree-sitter-mdx) |
 | mdx-language-server    | `pkgs.buildNpmPackage` (npm tarball) | `lsp.nix`        | Requires a vendored `package-lock.json` and `init_options.typescript.tsdk` pointing to the TypeScript SDK |
+| mermaid-formatter      | `pkgs.stdenv.mkDerivation` (npm tarball) | `format.nix` | No runtime deps; dist pre-compiled; binary `mermaidfmt` wrapped via `makeWrapper` around Node.js |
 
 ## File Editing Rules
 

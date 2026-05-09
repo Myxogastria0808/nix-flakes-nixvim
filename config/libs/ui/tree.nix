@@ -1,6 +1,7 @@
 # tree.nix — File explorer using neo-tree.nvim + nvim-web-devicons.
 # neo-tree opens on the left (width 30), follows the current file, and shows git status symbols.
-# nvim-web-devicons adds custom icons for Lean, lean-toolchain, .envrc, .bashrc, and .zshrc.
+# nvim-web-devicons adds custom icons for Lean, lean-toolchain, Typst, Agda, Mermaid (.mmd),
+# .envrc, .bashrc, and .zshrc.
 {
   # neo-tree.nvim
   # reference: https://github.com/nvim-neo-tree/neo-tree.nvim
@@ -45,7 +46,8 @@
   # reference: https://github.com/nvim-tree/nvim-web-devicons
   #
   # Provides file-type icons used by neo-tree and other plugins.
-  # Custom icons added for Lean, lean-toolchain, .envrc, .bashrc, and .zshrc.
+  # Custom icons added for Lean (∀), lean-toolchain (∃), Typst (𝐭), Agda (󱗆),
+  # Mermaid / .mmd (󰒪), .envrc/.bashrc/.zshrc ($).
   plugins.web-devicons = {
     enable = true;
     settings.override_by_extension.lean = {
@@ -67,6 +69,11 @@
       icon = "󱗆";
       color = "#3b82f6";
       name = "Agda";
+    };
+    settings.override_by_extension.mmd = {
+      icon = "󰒪";
+      color = "#ff3670";
+      name = "Mermaid";
     };
     settings.override_by_filename.".envrc" = {
       icon = "$";
