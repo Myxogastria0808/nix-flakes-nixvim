@@ -3,6 +3,12 @@
 # nvim-web-devicons adds custom icons for Lean, lean-toolchain, Typst, Agda, Mermaid (.mmd),
 # .envrc, .bashrc, and .zshrc.
 {
+  # Disable netrw so neo-tree handles all directory opening (including `nvim .`).
+  # Without this, netrw activates first and shows "Press any key to continue"
+  # before neo-tree's BufEnter hijack can take over.
+  globals.loaded_netrw = 1;
+  globals.loaded_netrwPlugin = 1;
+
   # neo-tree.nvim
   # reference: https://github.com/nvim-neo-tree/neo-tree.nvim
   #
@@ -16,6 +22,14 @@
     settings.git_status_async = true;
     settings = {
       close_if_last_window = true;
+      # Prevent neo-tree / terminal / quickfix windows from being used as the
+      # file-open target. When no valid editor window is found neo-tree opens a
+      # new split instead of replacing its own panel.
+      open_files_do_not_replace_types = [
+        "neo-tree"
+        "qf"
+        "sagaoutline"
+      ];
       filesystem.follow_current_file.enabled = true;
       filesystem.filtered_items.visible = true;
       default_component_configs.git_status = {

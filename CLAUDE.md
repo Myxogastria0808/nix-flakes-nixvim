@@ -39,36 +39,36 @@ Configuration is split into three categories under `config/libs/`:
 
 ### `ui/` — Visual and interface plugins
 
-| File             | Contents                                                                                                            |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------- |
-| `theme.nix`      | tokyonight colorscheme (night style)                                                                                |
-| `dashboard.nix`  | alpha-nvim startup screen with lambda logo                                                                          |
-| `tree.nix`       | neo-tree file explorer + nvim-web-devicons custom icons                                                             |
-| `status-bar.nix` | lualine statusline (hidden in neo-tree windows)                                                                     |
-| `tab.nix`        | bufferline buffer tabs                                                                                              |
-| `gitsigns.nix`   | gitsigns sign-column git indicators                                                                                 |
-| `notify.nix`     | nvim-notify + noice.nvim floating notifications and UI                                                              |
-| `utils.nix`      | swapfile off + undofile on, telescope + telescope-undo, indent-blankline, which-key, neoscroll, todo-comments, opts |
+| File             | Contents                                                                                                                                                                   |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `theme.nix`      | tokyonight colorscheme (night style)                                                                                                                                       |
+| `dashboard.nix`  | alpha-nvim startup screen with lambda logo                                                                                                                                 |
+| `tree.nix`       | neo-tree file explorer + nvim-web-devicons custom icons; `open_files_do_not_replace_types` guards neo-tree / qf / sagaoutline windows from being used as file-open targets |
+| `status-bar.nix` | lualine statusline (hidden in neo-tree windows)                                                                                                                            |
+| `tab.nix`        | bufferline buffer tabs                                                                                                                                                     |
+| `gitsigns.nix`   | gitsigns sign-column git indicators                                                                                                                                        |
+| `notify.nix`     | nvim-notify + noice.nvim floating notifications and UI                                                                                                                     |
+| `utils.nix`      | swapfile off + undofile on, telescope + telescope-undo, indent-blankline, which-key, neoscroll, todo-comments, opts                                                        |
 
 ### `language/` — LSP, formatting, and syntax
 
-| File             | Contents                                              |
-| ---------------- | ----------------------------------------------------- |
-| `lsp.nix`        | nvim-lspconfig (27 language servers) + lean.nvim + cornelis (Agda) |
-| `lspsaga.nix`    | lspsaga.nvim rich LSP UI + floating terminal          |
+| File             | Contents                                                                                                                                                                                 |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `lsp.nix`        | nvim-lspconfig (27 language servers) + lean.nvim + cornelis (Agda)                                                                                                                       |
+| `lspsaga.nix`    | lspsaga.nvim rich LSP UI + floating terminal                                                                                                                                             |
 | `format.nix`     | conform.nvim format-on-save (oxfmt for JS/TS/JSON/YAML/HTML/CSS/Markdown/MDX, prettier for Astro, latexindent for LaTeX, mermaidfmt for Mermaid) + nvim-lint async linting + texliveFull |
-| `treesitter.nix` | nvim-treesitter syntax highlighting (37 parsers, MDX built from source, Mermaid from nixpkgs builtGrammars) |
+| `treesitter.nix` | nvim-treesitter syntax highlighting (37 parsers, MDX built from source, Mermaid from nixpkgs builtGrammars)                                                                              |
 
 ### `action/` — Editing and workflow plugins
 
-| File             | Contents                                                 |
-| ---------------- | -------------------------------------------------------- |
-| `copilot.nix`    | copilot.lua inline AI suggestions                        |
-| `completion.nix` | nvim-cmp completion engine (LSP / buffer / path sources) |
-| `commentout.nix` | Comment.nvim + ts-context-commentstring (JSX/TSX-aware)  |
-| `emmet.nix`      | emmet-vim HTML/CSS abbreviation expansion                |
+| File             | Contents                                                                                                    |
+| ---------------- | ----------------------------------------------------------------------------------------------------------- |
+| `copilot.nix`    | copilot.lua inline AI suggestions                                                                           |
+| `completion.nix` | nvim-cmp completion engine (LSP / buffer / path sources)                                                    |
+| `commentout.nix` | Comment.nvim + ts-context-commentstring (JSX/TSX-aware)                                                     |
+| `emmet.nix`      | emmet-vim HTML/CSS abbreviation expansion                                                                   |
 | `utils.nix`      | nvim-autopairs, jumpcursor.vim, markdown-preview.nvim, typst-preview.nvim, LaTeX build keymap (`<leader>b`) |
-| `keymaps.nix`    | Global keymaps and leader key (`<Space>`)                |
+| `keymaps.nix`    | Global keymaps and leader key (`<Space>`)                                                                   |
 
 ## Adding Plugins Not in nixpkgs
 
@@ -115,11 +115,11 @@ These are configured with `package = null` in `lsp.nix` so NixVim does not attem
 
 Some tools are not available in nixpkgs and are built from source within this flake:
 
-| Package                | Build method                       | Used by          | Notes                                                                 |
-| ---------------------- | ---------------------------------- | ---------------- | --------------------------------------------------------------------- |
-| tree-sitter-mdx        | `pkgs.tree-sitter.buildGrammar`    | `treesitter.nix` | MDX grammar from [srazzak/tree-sitter-mdx](https://github.com/srazzak/tree-sitter-mdx) |
-| mdx-language-server    | `pkgs.buildNpmPackage` (npm tarball) | `lsp.nix`        | Requires a vendored `package-lock.json` and `init_options.typescript.tsdk` pointing to the TypeScript SDK |
-| mermaid-formatter      | `pkgs.stdenv.mkDerivation` (npm tarball) | `format.nix` | No runtime deps; dist pre-compiled; binary `mermaidfmt` wrapped via `makeWrapper` around Node.js |
+| Package             | Build method                             | Used by          | Notes                                                                                                     |
+| ------------------- | ---------------------------------------- | ---------------- | --------------------------------------------------------------------------------------------------------- |
+| tree-sitter-mdx     | `pkgs.tree-sitter.buildGrammar`          | `treesitter.nix` | MDX grammar from [srazzak/tree-sitter-mdx](https://github.com/srazzak/tree-sitter-mdx)                    |
+| mdx-language-server | `pkgs.buildNpmPackage` (npm tarball)     | `lsp.nix`        | Requires a vendored `package-lock.json` and `init_options.typescript.tsdk` pointing to the TypeScript SDK |
+| mermaid-formatter   | `pkgs.stdenv.mkDerivation` (npm tarball) | `format.nix`     | No runtime deps; dist pre-compiled; binary `mermaidfmt` wrapped via `makeWrapper` around Node.js          |
 
 ## File Editing Rules
 
