@@ -1,7 +1,12 @@
 # tree.nix — File explorer using neo-tree.nvim + nvim-web-devicons; netrw disabled.
 # netrw disabled (loaded_netrw = 1 / loaded_netrwPlugin = 1) to prevent netrw's own
-# "Press any key to continue" prompt.  The argdelete guard in extraConfigLua handles
-# the remaining case (Neovim ≥ 0.12.2 reading the directory as a regular file).
+# "Press any key to continue" prompt.  The two-phase guard in extraConfigLua handles
+# the remaining case (Neovim ≥ 0.12.2 reading the directory as a regular file):
+#   Phase 1 (init.lua): set buftype=nofile on the pre-created directory buffer to block
+#   the file-read that generates error messages.  argdelete is intentionally deferred.
+#   Phase 2 (VimEnter): run argdelete so alpha-nvim's earlier VimEnter still sees
+#   argc() > 0 and skips the startup dashboard (prevents a brief flash), then cd and
+#   open neo-tree.
 # neo-tree: left panel (width 30), follows current file, git status symbols,
 # open_files_do_not_replace_types guards neo-tree / qf / sagaoutline from file-open overwrites.
 # nvim-web-devicons: custom icons for Lean (∀), lean-toolchain (∃), Typst (𝐭), Agda (󱗆),
@@ -116,11 +121,17 @@
   # In Neovim ≥ 0.12.2 the `msg_show.return_prompt` UI event was removed, so noice
   # can no longer auto-dismiss that prompt.
   #
-  # Fix: at init.lua time (before Neovim opens the arglist), scan argv() for directories.
-  # For each one: remove it from the arglist with :argdelete (so Neovim never reads it)
-  # and set buftype=nofile on the pre-created buffer (so rendering the initial window
-  # does not trigger a file read either).  When all args were directories, cd into the
-  # first one and open neo-tree on VimEnter.
+  # Fix (two-phase):
+  #   Phase 1 — init.lua time: scan argv() for directories and set buftype=nofile on
+  #   each pre-created buffer so that rendering the initial window does not trigger a
+  #   file read.  :argdelete is intentionally deferred to Phase 2 so that alpha-nvim's
+  #   VimEnter autocmd (registered earlier, fires first) still sees argc() > 0 and
+  #   skips its dashboard — preventing the brief flash of the startup screen.
+  #
+  #   Phase 2 — VimEnter: remove each directory from the arglist with :argdelete, then
+  #   if argc() is now 0 (all args were directories), cd into the first directory and
+  #   open neo-tree.  Because our VimEnter is registered after alpha's, it fires second,
+  #   so alpha has already decided not to show the dashboard before argdelete runs.
   extraConfigLua = ''
     do
       local dir_args = {}
@@ -132,23 +143,27 @@
         end
       end
       if #dir_args > 0 then
+        -- Phase 1: block the file-read that would produce error messages.
         for _, d in ipairs(dir_args) do
-          pcall(vim.cmd, "argdelete " .. vim.fn.fnameescape(d.raw))
           local bufnr = vim.fn.bufnr(d.raw)
           if bufnr ~= -1 then
             vim.bo[bufnr].buftype = "nofile"
           end
         end
-        if vim.fn.argc() == 0 then
-          local target = dir_args[1].full
-          vim.api.nvim_set_current_dir(target)
-          vim.api.nvim_create_autocmd("VimEnter", {
-            once = true,
-            callback = function()
+        -- Phase 2: defer argdelete until VimEnter so alpha-nvim's earlier VimEnter
+        -- still sees argc() > 0 and skips the dashboard (avoids a brief flash).
+        vim.api.nvim_create_autocmd("VimEnter", {
+          once = true,
+          callback = function()
+            for _, d in ipairs(dir_args) do
+              pcall(vim.cmd, "argdelete " .. vim.fn.fnameescape(d.raw))
+            end
+            if vim.fn.argc() == 0 then
+              vim.api.nvim_set_current_dir(dir_args[1].full)
               vim.cmd("Neotree toggle")
-            end,
-          })
-        end
+            end
+          end,
+        })
       end
     end
   '';
