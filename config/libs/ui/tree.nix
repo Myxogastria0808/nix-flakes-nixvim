@@ -109,27 +109,31 @@
     };
   };
 
-  # Without netrw, Neovim has no BufReadCmd handler for directories and falls back to
-  # reading the directory as a regular file (runs a shell `ls`), producing a blocking
-  # "Press any key to continue" prompt before noice is attached (noice defers to VimEnter).
-  # On BufNew for a directory, we register a buffer-local BufReadCmd that does nothing;
-  # its mere existence tells Neovim the read is handled, preventing the shell command.
-  # Neo-tree's BufEnter autocmd still fires afterward and hijacks the buffer normally.
+  # Neovim 0.12.2 removed `msg_show.return_prompt` from ui-messages, so noice can no
+  # longer auto-dismiss the hit-enter prompt. Without netrw, Neovim tries to read
+  # directory buffers as regular files, producing that prompt before VimEnter.
+  # Fix: at init time, register a pattern-based BufReadCmd for each directory in argv().
+  # Pattern-based BufReadCmd is what Neovim's read code actually checks (buffer-local
+  # BufReadCmd is not looked up by the C-level read path). Using `once = true` keeps
+  # the autocmd scoped to startup; later directory opens are hijacked by neo-tree's
+  # BufEnter autocmd as normal.
   extraConfigLua = ''
-    vim.api.nvim_create_autocmd("BufNew", {
-      group = vim.api.nvim_create_augroup("directory_read_guard", { clear = true }),
-      callback = function(args)
-        if vim.fn.isdirectory(vim.fn.expand(args.file)) == 1 then
+    do
+      local guard_group = vim.api.nvim_create_augroup("directory_read_guard", { clear = true })
+      for i = 0, vim.fn.argc() - 1 do
+        local arg = vim.fn.argv(i) --[[@as string]]
+        if vim.fn.isdirectory(arg) == 1 then
           vim.api.nvim_create_autocmd("BufReadCmd", {
-            buffer = args.buf,
+            group = guard_group,
+            pattern = arg,
             once = true,
-            callback = function()
-              vim.bo[args.buf].buftype = "nofile"
+            callback = function(ev)
+              vim.bo[ev.buf].buftype = "nofile"
             end,
           })
         end
-      end,
-    })
+      end
+    end
   '';
 
   keymaps = [
