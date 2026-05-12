@@ -34,6 +34,8 @@
   };
 
   keymaps = [
+    # Toggle line comment on the current line.
+    # keybind: Ctrl + /
     {
       mode = [
         "n"
@@ -43,6 +45,8 @@
       action.__raw = "function() require('Comment.api').toggle.linewise.current() end";
       options.desc = "Toggle line comment";
     }
+    # Toggle line comment on the visual selection.
+    # keybind: Ctrl + /
     {
       mode = "x";
       key = "<C-/>";

@@ -50,18 +50,24 @@
   '';
 
   keymaps = [
+    # Jump the cursor to any location in the current file using jumpcursor.vim.
+    # keybind: Alt + J
     {
       mode = "n";
       key = "<A-j>";
       action = "<Plug>(jumpcursor-jump)";
       options.desc = "Jump cursor";
     }
+    # Toggle live Markdown (and Mermaid) preview in the browser.
+    # keybind: Alt + M
     {
       mode = "n";
       key = "<A-m>";
       action = "<cmd>MarkdownPreviewToggle<CR>";
       options.desc = "Toggle Markdown preview";
     }
+    # Toggle live Typst preview in the browser.
+    # keybind: Alt + P
     {
       mode = "n";
       key = "<A-p>";

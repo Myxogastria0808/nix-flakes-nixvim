@@ -1,7 +1,10 @@
-# tree.nix — File explorer using neo-tree.nvim + nvim-web-devicons.
-# neo-tree opens on the left (width 30), follows the current file, and shows git status symbols.
-# nvim-web-devicons adds custom icons for Lean, lean-toolchain, Typst, Agda, Mermaid (.mmd),
-# .envrc, .bashrc, and .zshrc.
+# tree.nix — File explorer using neo-tree.nvim + nvim-web-devicons; netrw disabled.
+# netrw is disabled (loaded_netrw = 1 / loaded_netrwPlugin = 1) so neo-tree handles all directory
+# opening (including `nvim .`) without "Press any key to continue" interference.
+# neo-tree: left panel (width 30), follows current file, git status symbols,
+# open_files_do_not_replace_types guards neo-tree / qf / sagaoutline from file-open overwrites.
+# nvim-web-devicons: custom icons for Lean (∀), lean-toolchain (∃), Typst (𝐭), Agda (󱗆),
+# Mermaid / .mmd (󰒪), .envrc / .bashrc / .zshrc ($).
 {
   # Disable netrw so neo-tree handles all directory opening (including `nvim .`).
   # Without this, netrw activates first and shows "Press any key to continue"
@@ -107,6 +110,8 @@
   };
 
   keymaps = [
+    # Toggle the neo-tree file explorer panel open or closed.
+    # keybind: Space + E
     {
       mode = "n";
       key = "<leader>e";

@@ -46,6 +46,8 @@
   };
 
   keymaps = [
+    # Expand the Emmet abbreviation at the cursor position.
+    # keybind: Alt + Z
     {
       mode = "i";
       key = "<A-z>";

@@ -43,7 +43,7 @@ Configuration is split into three categories under `config/libs/`:
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `theme.nix`      | tokyonight colorscheme (night style)                                                                                                                                       |
 | `dashboard.nix`  | alpha-nvim startup screen with lambda logo                                                                                                                                 |
-| `tree.nix`       | neo-tree file explorer + nvim-web-devicons custom icons; `open_files_do_not_replace_types` guards neo-tree / qf / sagaoutline windows from being used as file-open targets |
+| `tree.nix`       | neo-tree file explorer + nvim-web-devicons custom icons; netrw disabled (`loaded_netrw` / `loaded_netrwPlugin` = 1); `open_files_do_not_replace_types` guards neo-tree / qf / sagaoutline windows from being used as file-open targets |
 | `status-bar.nix` | lualine statusline (hidden in neo-tree windows)                                                                                                                            |
 | `tab.nix`        | bufferline buffer tabs                                                                                                                                                     |
 | `gitsigns.nix`   | gitsigns sign-column git indicators                                                                                                                                        |
