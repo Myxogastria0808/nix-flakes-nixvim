@@ -273,6 +273,10 @@ in
     pkgs.agda
   ];
 
+  # pkgs.vimPlugins.cornelis ships only Vimscript files (autoload/, ftplugin/, etc.)
+  # and has no lua/ directory, so require("cornelis") always fails at runtime.
+  # Wrapping in pcall prevents a hard E5113 error that would otherwise terminate
+  # init.lua execution before any subsequent configuration code runs.
   extraConfigLua = ''
     local ok, cornelis = pcall(require, "cornelis")
     if ok then cornelis.setup({}) end

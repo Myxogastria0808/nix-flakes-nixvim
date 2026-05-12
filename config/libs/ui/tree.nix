@@ -1,14 +1,14 @@
 # tree.nix — File explorer using neo-tree.nvim + nvim-web-devicons; netrw disabled.
-# netrw is disabled (loaded_netrw = 1 / loaded_netrwPlugin = 1) so neo-tree handles all directory
-# opening (including `nvim .`) without "Press any key to continue" interference.
+# netrw disabled (loaded_netrw = 1 / loaded_netrwPlugin = 1) to prevent netrw's own
+# "Press any key to continue" prompt.  The argdelete guard in extraConfigLua handles
+# the remaining case (Neovim ≥ 0.12.2 reading the directory as a regular file).
 # neo-tree: left panel (width 30), follows current file, git status symbols,
 # open_files_do_not_replace_types guards neo-tree / qf / sagaoutline from file-open overwrites.
 # nvim-web-devicons: custom icons for Lean (∀), lean-toolchain (∃), Typst (𝐭), Agda (󱗆),
 # Mermaid / .mmd (󰒪), .envrc / .bashrc / .zshrc ($).
 {
-  # Disable netrw so neo-tree handles all directory opening (including `nvim .`).
-  # Without this, netrw activates first and shows "Press any key to continue"
-  # before neo-tree's BufEnter hijack can take over.
+  # Disable netrw to prevent it from showing "Press any key to continue" when
+  # it handles a directory buffer before neo-tree's BufEnter autocmd fires.
   globals.loaded_netrw = 1;
   globals.loaded_netrwPlugin = 1;
 
@@ -109,21 +109,24 @@
     };
   };
 
-  # Neovim 0.12.2 removed `msg_show.return_prompt` from ui-messages, so noice can no
-  # longer auto-dismiss the hit-enter prompt that appears when Neovim tries to read a
-  # directory argument as a regular file (no netrw BufReadCmd handler exists).
+  # `nvim .` hit-enter guard for Neovim ≥ 0.12.2
   #
-  # Fix strategy: During init.lua (before Neovim processes the arglist), scan argv() for
-  # directory arguments and remove them with :argdelete. Neovim never creates the directory
-  # buffer, so no file-read error and no hit-enter prompt. A VimEnter autocmd then opens
-  # neo-tree for the removed directory and cd's into it so the tree shows the right root.
-  # This handles `nvim .`, `nvim ./subdir`, and `nvim /abs/path/to/dir`.
+  # Problem: without netrw, Neovim reads the directory argument as a regular file,
+  # producing error messages that accumulate into a "Press any key to continue" prompt.
+  # In Neovim ≥ 0.12.2 the `msg_show.return_prompt` UI event was removed, so noice
+  # can no longer auto-dismiss that prompt.
+  #
+  # Fix: at init.lua time (before Neovim opens the arglist), scan argv() for directories.
+  # For each one: remove it from the arglist with :argdelete (so Neovim never reads it)
+  # and set buftype=nofile on the pre-created buffer (so rendering the initial window
+  # does not trigger a file read either).  When all args were directories, cd into the
+  # first one and open neo-tree on VimEnter.
   extraConfigLua = ''
     do
       local dir_args = {}
       for i = 0, vim.fn.argc() - 1 do
         local raw = vim.fn.argv(i)
-        local full = vim.fn.fnamemodify(raw, ":p"):gsub("[/\\]+$", "")
+        local full = vim.fn.fnamemodify(raw, ":p"):gsub("/+$", "")
         if vim.fn.isdirectory(full) == 1 then
           table.insert(dir_args, { raw = raw, full = full })
         end
@@ -131,8 +134,6 @@
       if #dir_args > 0 then
         for _, d in ipairs(dir_args) do
           pcall(vim.cmd, "argdelete " .. vim.fn.fnameescape(d.raw))
-          -- Mark the buffer as nofile so Neovim does not attempt to read
-          -- the directory as a regular file when it renders the initial window.
           local bufnr = vim.fn.bufnr(d.raw)
           if bufnr ~= -1 then
             vim.bo[bufnr].buftype = "nofile"

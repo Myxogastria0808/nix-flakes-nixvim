@@ -146,6 +146,17 @@ Press `Alt+u` to open the undo history browser. The right pane shows a diff prev
 | --------- | ------ | --------------- |
 | `Space e` | Normal | Toggle neo-tree |
 
+> [!NOTE]
+> **`nvim .` — how "Press any key to continue" is suppressed**
+>
+> Running `nvim <directory>` without netrw would normally trigger a hit-enter prompt:
+>
+> 1. **netrw disabled** (`loaded_netrw = 1`): without this, netrw itself produces the prompt when it opens a directory buffer. Disabling it removes netrw's interference.
+> 2. **Without netrw**, Neovim has no directory handler. It falls back to reading the directory path as a regular file, which generates error messages. In Neovim ≥ 0.12.2 the `msg_show.return_prompt` UI event was removed, so noice can no longer auto-dismiss the resulting hit-enter prompt.
+> 3. **argdelete guard** (`config/libs/ui/tree.nix`): during `init.lua` execution — before Neovim opens the arglist — `argv()` is scanned for directory arguments. Each directory is removed from the arglist with `:argdelete` (preventing the file-read attempt) and its pre-created buffer is marked `buftype=nofile` (preventing a read if the buffer is rendered in the initial window). When all arguments were directories, Neovim `cd`s into the first one and a `VimEnter` autocmd opens neo-tree.
+>
+> The guard also fixed a secondary bug: `pkgs.vimPlugins.cornelis` ships no Lua module, so `require("cornelis")` in `config/libs/language/lsp.nix` was an uncaught error that terminated `init.lua` at line 1031 — before the argdelete code could run. Wrapping it in `pcall` ensures `init.lua` always executes completely.
+
 ### Buffer (bufferline.nvim)
 
 | Key     | Mode                     | Action                |
