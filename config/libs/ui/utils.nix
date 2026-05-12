@@ -94,6 +94,8 @@
   };
 
   keymaps = [
+    # Open the undo history browser in a telescope floating window.
+    # keybind: Alt + U
     {
       mode = "n";
       key = "<A-u>";
