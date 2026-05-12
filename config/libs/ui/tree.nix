@@ -109,6 +109,22 @@
     };
   };
 
+  # Without netrw, Neovim has no BufReadCmd handler for directories and falls back to
+  # reading the directory as a regular file (via a shell `ls`), which produces a
+  # blocking "Press any key to continue" prompt. This BufNew autocmd marks any
+  # directory buffer as nofile before Neovim attempts the read, suppressing the prompt.
+  # Neo-tree's BufEnter autocmd still fires afterward and hijacks the buffer normally.
+  extraConfigLua = ''
+    vim.api.nvim_create_autocmd("BufNew", {
+      group = vim.api.nvim_create_augroup("directory_nofile_guard", { clear = true }),
+      callback = function(args)
+        if vim.fn.isdirectory(args.file) == 1 then
+          vim.bo[args.buf].buftype = "nofile"
+        end
+      end,
+    })
+  '';
+
   keymaps = [
     # Toggle the neo-tree file explorer panel open or closed.
     # keybind: Space + E
