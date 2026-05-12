@@ -110,25 +110,41 @@
   };
 
   # Neovim 0.12.2 removed `msg_show.return_prompt` from ui-messages, so noice can no
-  # longer auto-dismiss the hit-enter prompt. Without netrw, Neovim tries to read
-  # directory buffers as regular files, producing that prompt before VimEnter.
-  # Fix: at init time, register a pattern-based BufReadCmd for each directory in argv().
-  # Pattern-based BufReadCmd is what Neovim's read code actually checks (buffer-local
-  # BufReadCmd is not looked up by the C-level read path). Using `once = true` keeps
-  # the autocmd scoped to startup; later directory opens are hijacked by neo-tree's
-  # BufEnter autocmd as normal.
+  # longer auto-dismiss the hit-enter prompt that appears when Neovim tries to read a
+  # directory argument as a regular file (no netrw BufReadCmd handler exists).
+  #
+  # Fix strategy: During init.lua (before Neovim processes the arglist), scan argv() for
+  # directory arguments and remove them with :argdelete. Neovim never creates the directory
+  # buffer, so no file-read error and no hit-enter prompt. A VimEnter autocmd then opens
+  # neo-tree for the removed directory and cd's into it so the tree shows the right root.
+  # This handles `nvim .`, `nvim ./subdir`, and `nvim /abs/path/to/dir`.
   extraConfigLua = ''
     do
-      local guard_group = vim.api.nvim_create_augroup("directory_read_guard", { clear = true })
+      local dir_args = {}
       for i = 0, vim.fn.argc() - 1 do
-        local arg = vim.fn.argv(i) --[[@as string]]
-        if vim.fn.isdirectory(arg) == 1 then
-          vim.api.nvim_create_autocmd("BufReadCmd", {
-            group = guard_group,
-            pattern = arg,
+        local raw = vim.fn.argv(i)
+        local full = vim.fn.fnamemodify(raw, ":p"):gsub("[/\\]+$", "")
+        if vim.fn.isdirectory(full) == 1 then
+          table.insert(dir_args, { raw = raw, full = full })
+        end
+      end
+      if #dir_args > 0 then
+        for _, d in ipairs(dir_args) do
+          pcall(vim.cmd, "argdelete " .. vim.fn.fnameescape(d.raw))
+          -- Mark the buffer as nofile so Neovim does not attempt to read
+          -- the directory as a regular file when it renders the initial window.
+          local bufnr = vim.fn.bufnr(d.raw)
+          if bufnr ~= -1 then
+            vim.bo[bufnr].buftype = "nofile"
+          end
+        end
+        if vim.fn.argc() == 0 then
+          local target = dir_args[1].full
+          vim.api.nvim_set_current_dir(target)
+          vim.api.nvim_create_autocmd("VimEnter", {
             once = true,
-            callback = function(ev)
-              vim.bo[ev.buf].buftype = "nofile"
+            callback = function()
+              vim.cmd("Neotree toggle")
             end,
           })
         end

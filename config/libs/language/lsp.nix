@@ -274,7 +274,8 @@ in
   ];
 
   extraConfigLua = ''
-    require("cornelis").setup({})
+    local ok, cornelis = pcall(require, "cornelis")
+    if ok then cornelis.setup({}) end
   '';
 
   # Set commentstring for Lean and Agda so Comment.nvim works correctly.
