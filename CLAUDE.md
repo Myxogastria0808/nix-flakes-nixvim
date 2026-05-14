@@ -39,25 +39,25 @@ Configuration is split into three categories under `config/libs/`:
 
 ### `ui/` — Visual and interface plugins
 
-| File             | Contents                                                                                                                                                                   |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `theme.nix`      | tokyonight colorscheme (night style)                                                                                                                                       |
-| `dashboard.nix`  | alpha-nvim startup screen with geometric ASCII art logo                                                                                                                    |
+| File             | Contents                                                                                                                                                                                                                               |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `theme.nix`      | tokyonight colorscheme (night style)                                                                                                                                                                                                   |
+| `dashboard.nix`  | alpha-nvim startup screen with geometric ASCII art logo                                                                                                                                                                                |
 | `tree.nix`       | neo-tree file explorer + nvim-web-devicons custom icons; netrw disabled (`loaded_netrw` / `loaded_netrwPlugin` = 1); `open_files_do_not_replace_types` guards neo-tree / qf / sagaoutline windows from being used as file-open targets |
-| `status-bar.nix` | lualine statusline (hidden in neo-tree windows)                                                                                                                            |
-| `tab.nix`        | bufferline buffer tabs                                                                                                                                                     |
-| `gitsigns.nix`   | gitsigns sign-column git indicators                                                                                                                                        |
-| `notify.nix`     | nvim-notify + noice.nvim floating notifications and UI                                                                                                                     |
-| `utils.nix`      | swapfile off + undofile on, telescope + telescope-undo, indent-blankline, which-key, neoscroll, todo-comments, opts                                                        |
+| `status-bar.nix` | lualine statusline (hidden in neo-tree windows)                                                                                                                                                                                        |
+| `tab.nix`        | bufferline buffer tabs                                                                                                                                                                                                                 |
+| `gitsigns.nix`   | gitsigns sign-column git indicators                                                                                                                                                                                                    |
+| `notify.nix`     | nvim-notify + noice.nvim floating notifications and UI                                                                                                                                                                                 |
+| `utils.nix`      | swapfile off + undofile on, telescope + telescope-undo, indent-blankline, which-key, neoscroll, todo-comments, opts                                                                                                                    |
 
 ### `language/` — LSP, formatting, and syntax
 
 | File             | Contents                                                                                                                                                                                 |
 | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `lsp.nix`        | nvim-lspconfig (27 language servers) + lean.nvim + cornelis (Agda)                                                                                                                       |
+| `lsp.nix`        | nvim-lspconfig (28 language servers) + lean.nvim + cornelis (Agda)                                                                                                                       |
 | `lspsaga.nix`    | lspsaga.nvim rich LSP UI + floating terminal                                                                                                                                             |
 | `format.nix`     | conform.nvim format-on-save (oxfmt for JS/TS/JSON/YAML/HTML/CSS/Markdown/MDX, prettier for Astro, latexindent for LaTeX, mermaidfmt for Mermaid) + nvim-lint async linting + texliveFull |
-| `treesitter.nix` | nvim-treesitter syntax highlighting (37 parsers, MDX built from source, Mermaid from nixpkgs builtGrammars)                                                                              |
+| `treesitter.nix` | nvim-treesitter syntax highlighting (38 parsers, MDX built from source, Mermaid and dot from nixpkgs builtGrammars)                                                                      |
 
 ### `action/` — Editing and workflow plugins
 
