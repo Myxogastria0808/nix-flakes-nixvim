@@ -2,7 +2,8 @@
 # conform.nvim: formats on BufWritePre (500 ms timeout, lsp_format fallback) with per-filetype formatters.
 # A BufWritePre autocmd also enforces exactly one trailing newline on every save.
 # nvim-lint: runs actionlint (GitHub Actions), hadolint (Dockerfile), checkmake (Makefile) asynchronously.
-# mermaid-formatter is built from the npm tarball via stdenv.mkDerivation (no runtime deps, dist pre-compiled).
+# Custom formatters: mermaid-formatter (npm tarball, stdenv.mkDerivation, no runtime deps) for Mermaid;
+# dot_canon (graphviz dot -Tcanon) for Graphviz DOT files.
 { pkgs, ... }:
 let
   # mermaid-formatter
@@ -77,6 +78,8 @@ in
     pkgs.texliveFull
     # required by Mermaid formatter
     mermaidFormatter
+    # required by Graphviz DOT formatter (dot -Tcanon)
+    pkgs.graphviz
   ];
 
   # conform-nvim
@@ -147,11 +150,18 @@ in
         make = [ "bake" ];
         # Mermaid formatter
         mermaid = [ "mermaidfmt" ];
+        # Graphviz DOT formatter
+        dot = [ "dot_canon" ];
       };
       # mermaidfmt is not a built-in conform formatter, so define it here.
       # It reads from stdin and writes formatted output to stdout.
       formatters.mermaidfmt = {
         command = "mermaidfmt";
+        stdin = true;
+      };
+      formatters.dot_canon = {
+        command = "dot";
+        args = [ "-Tcanon" ];
         stdin = true;
       };
     };

@@ -1,7 +1,7 @@
 # treesitter.nix — Syntax highlighting and indent using nvim-treesitter.
-# Enables 37 language parsers with highlight and indent support.
+# Enables 38 language parsers with highlight and indent support.
 # MDX grammar is built from source (not in nixpkgs builtGrammars).
-# Mermaid grammar is available in nixpkgs builtGrammars; .mmd is registered as "mermaid" filetype.
+# Mermaid and dot grammars are available in nixpkgs builtGrammars; .mmd is registered as "mermaid" filetype.
 { pkgs, ... }:
 let
   # tree-sitter-mdx
@@ -32,11 +32,11 @@ in
   # Provides accurate syntax highlighting and structural code analysis
   # using language-specific parsers.
   #
-  # Enabled parsers (37 total):
+  # Enabled parsers (38 total):
   #   nix, bash, python, javascript, typescript, tsx, rust, c, go, java,
   #   haskell, ocaml, elm, r, julia, typst, html, css, json, yaml, toml,
   #   markdown, markdown_inline, lua, vim, vimdoc, regex, comment,
-  #   astro, dockerfile, make, asm, nasm, latex, agda, mdx, mermaid
+  #   astro, dockerfile, make, asm, nasm, latex, agda, mdx, mermaid, dot
   plugins.treesitter = {
     enable = true;
     settings = {
@@ -80,6 +80,7 @@ in
       latex
       agda
       mermaid
+      dot
     ] ++ [
       # Append the custom-built MDX grammar to the list of built-in grammars.
       # This makes treesitter aware of the MDX parser so it can parse .mdx files.

@@ -22,9 +22,13 @@
         "aarch64-darwin"
         "x86_64-darwin"
       ];
-      forAllSystems = f:
+      forAllSystems =
+        f:
         builtins.listToAttrs (
-          map (system: { name = system; value = f system; }) systems
+          map (system: {
+            name = system;
+            value = f system;
+          }) systems
         );
     in
     {
@@ -43,7 +47,9 @@
             module = import ./config;
           };
         in
-        { default = nixvimConfig; }
+        {
+          default = nixvimConfig;
+        }
       );
 
       devShells = forAllSystems (

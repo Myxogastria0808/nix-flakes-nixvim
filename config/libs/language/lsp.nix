@@ -1,5 +1,5 @@
 # lsp.nix — Language Server Protocol and language-specific plugin configuration.
-# Enables 27 language servers via nvim-lspconfig (NixVim), lean.nvim for Lean 4,
+# Enables 28 language servers via nvim-lspconfig (NixVim), lean.nvim for Lean 4,
 # and cornelis for interactive Agda development.
 # r_language_server and julials use package = null (external dependencies required).
 # mdx_analyzer is built from the npm tarball using buildNpmPackage.
@@ -82,6 +82,7 @@ in
   #   mdx_analyzer       : MDX                     (reference: https://github.com/mdx-js/mdx-analyzer)
   #   texlab             : LaTeX                   (reference: https://github.com/latex-lsp/texlab)
   #   asm_lsp            : Assembly (NASM/GAS)     (reference: https://github.com/bergercookie/asm-lsp)
+  #   dotls              : Graphviz DOT            (reference: https://github.com/nikeee/dot-language-server)
   plugins.lsp = {
     enable = true;
     servers = {
@@ -183,6 +184,8 @@ in
       texlab.enable = true;
       # Assembly (NASM/GAS) language server
       asm_lsp.enable = true;
+      # Graphviz DOT language server
+      dotls.enable = true;
       # Rust language server
       rust_analyzer = {
         enable = true;

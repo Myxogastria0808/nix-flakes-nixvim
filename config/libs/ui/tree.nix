@@ -10,7 +10,7 @@
 # neo-tree: left panel (width 30), follows current file, git status symbols,
 # open_files_do_not_replace_types guards neo-tree / qf / sagaoutline from file-open overwrites.
 # nvim-web-devicons: custom icons for Lean (∀), lean-toolchain (∃), Typst (𝐭), Agda (󱗆),
-# Mermaid / .mmd (󰒪), .envrc / .bashrc / .zshrc ($).
+# Mermaid / .mmd (󰒪), Graphviz / .dot (󱁉), .envrc / .bashrc / .zshrc ($).
 {
   # Disable netrw to prevent it from showing "Press any key to continue" when
   # it handles a directory buffer before neo-tree's BufEnter autocmd fires.
@@ -69,7 +69,7 @@
   #
   # Provides file-type icons used by neo-tree and other plugins.
   # Custom icons added for Lean (∀), lean-toolchain (∃), Typst (𝐭), Agda (󱗆),
-  # Mermaid / .mmd (󰒪), .envrc/.bashrc/.zshrc ($).
+  # Mermaid / .mmd (󰒪), Graphviz / .dot (󱁉), .envrc/.bashrc/.zshrc ($).
   plugins.web-devicons = {
     enable = true;
     settings.override_by_extension.lean = {
@@ -96,6 +96,11 @@
       icon = "󰒪";
       color = "#ff3670";
       name = "Mermaid";
+    };
+    settings.override_by_extension.dot = {
+      icon = "󱁉";
+      color = "#a5b4fc";
+      name = "Graphviz";
     };
     settings.override_by_filename.".envrc" = {
       icon = "$";
