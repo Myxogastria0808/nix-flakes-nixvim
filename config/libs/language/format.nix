@@ -1,5 +1,5 @@
 # format.nix — Format-on-save and async linting.
-# conform.nvim: formats on BufWritePre (500 ms timeout, lsp_format fallback) with per-filetype formatters.
+# conform.nvim: formats on BufWritePre (2000 ms timeout, lsp_format fallback) with per-filetype formatters.
 # A BufWritePre autocmd also enforces exactly one trailing newline on every save.
 # nvim-lint: runs actionlint (GitHub Actions), hadolint (Dockerfile), checkmake (Makefile) asynchronously.
 # Custom formatters: mermaid-formatter (npm tarball, stdenv.mkDerivation, no runtime deps) for Mermaid;
@@ -91,7 +91,7 @@ in
     settings = {
       format_on_save = {
         lsp_format = "fallback";
-        timeout_ms = 500;
+        timeout_ms = 2000;
       };
       formatters_by_ft = {
         # nix formatter
