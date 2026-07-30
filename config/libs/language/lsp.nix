@@ -1,7 +1,7 @@
 # lsp.nix — Language Server Protocol and language-specific plugin configuration.
 # Enables 28 language servers via nvim-lspconfig (NixVim), lean.nvim for Lean 4,
 # and cornelis for interactive Agda development.
-# r_language_server and julials use package = null (external dependencies required).
+# r_language_server, julials, and ocamllsp use package = null (external dependencies required).
 # mdx_analyzer is built from the npm tarball using buildNpmPackage.
 { pkgs, ... }:
 let
@@ -108,7 +108,15 @@ in
         package = null;
       };
       # OCaml language server
-      ocamllsp.enable = true;
+      # package = null: relies on ocaml-lsp-server provided by the project's
+      # own opam switch (e.g. BER MetaOCaml's patched compiler-libs, needed
+      # to understand `.< >.` bracket syntax and the `code` type). Using
+      # nixvim's own nixpkgs-pinned ocaml-lsp-server here would prefix it
+      # onto $PATH ahead of the switch's binary and silently shadow it.
+      ocamllsp = {
+        enable = true;
+        package = null;
+      };
       # Haskell language server
       hls = {
         enable = true;
