@@ -2,8 +2,18 @@
 # When an image file of a format chafa's loaders support (AVIF, GIF, JPEG,
 # JXL, PNG, QOI, SVG, TIFF, WebP, XWD — per `chafa --version`) is opened, a
 # BufReadPost autocmd swaps the window to a scratch terminal buffer running
-# `chafa <path> --size <win-width>x<win-height>`, rendering it as ANSI art
-# in the same pane normal file contents appear in (no floating window).
+# chafa, rendering it as character art in the same pane normal file contents
+# appear in (no floating window).
+#
+# --format symbols/--probe off pin chafa to character-art output instead of
+# letting it auto-probe the surrounding terminal for pixel protocols (Kitty,
+# Sixel, iTerm2): the probe targets the *outer* terminal, but this runs
+# inside a Neovim :terminal buffer backed by libvterm, which understands
+# none of those protocols — left on, chafa can stall for its ~5s probe
+# timeout and then dump raw protocol bytes into the buffer as garbage.
+# --symbols sextant selects glyphs with 2x3 sub-cells (vs. the 1x2 of the
+# default half-block set), tripling vertical resolution; -c full forces
+# 24-bit truecolor instead of a guessed, possibly-downsampled palette.
 { pkgs, ... }:
 {
   # chafa — CLI that converts images to terminal-printable ANSI art.
@@ -44,10 +54,20 @@
           local width = vim.api.nvim_win_get_width(win)
           local height = vim.api.nvim_win_get_height(win)
 
-          vim.fn.jobstart(
-            { "chafa", path, "--size", width .. "x" .. height },
-            { term = true }
-          )
+          vim.fn.jobstart({
+            "chafa",
+            path,
+            "--size",
+            width .. "x" .. height,
+            "--format",
+            "symbols",
+            "--symbols",
+            "sextant",
+            "-c",
+            "full",
+            "--probe",
+            "off",
+          }, { term = true })
 
           -- jobstart(..., {term = true}) renames the buffer to term://...
           -- itself, so the friendlier name has to be applied afterwards.
