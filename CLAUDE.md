@@ -49,6 +49,7 @@ Configuration is split into three categories under `config/libs/`:
 | `gitsigns.nix`   | gitsigns sign-column git indicators                                                                                                                                                                                                    |
 | `notify.nix`     | nvim-notify + noice.nvim floating notifications and UI                                                                                                                                                                                 |
 | `utils.nix`      | swapfile off + undofile on, telescope + telescope-undo, indent-blankline, which-key, neoscroll, todo-comments, opts                                                                                                                    |
+| `image-preview.nix` | auto-preview images chafa's loaders support (AVIF/GIF/JPEG/JXL/PNG/QOI/SVG/TIFF/WebP/XWD) in the file-open pane via a `BufReadPost` autocmd running `chafa` in a scratch terminal buffer                                          |
 
 ### `language/` — LSP, formatting, and syntax
 

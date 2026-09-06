@@ -14,6 +14,7 @@
     ./libs/ui/utils.nix
     ./libs/ui/notify.nix
     ./libs/ui/dashboard.nix
+    ./libs/ui/image-preview.nix
     # language
     ./libs/language/lsp.nix
     ./libs/language/lspsaga.nix
