@@ -1,7 +1,9 @@
 # flake.nix — Nix flake definition for nix-flakes-nixvim.
-# Produces two outputs for x86_64-linux (manually verified), aarch64-darwin, and x86_64-darwin (unverified — no macOS machine):
-#   packages.<system>.default  : standalone Neovim package built with NixVim (makeNixvimWithModule)
-#   devShells.<system>.default : development shell that includes the Neovim package
+# Produces four outputs for x86_64-linux (manually verified), aarch64-darwin, and x86_64-darwin (unverified — no macOS machine):
+#   packages.<system>.default  : standalone Neovim package (config/default.nix) — works in any terminal; image previews render as chafa character art
+#   packages.<system>.kitty    : standalone Neovim package (config/kitty.nix) — for terminals that speak the Kitty Graphics Protocol (kitty, WezTerm, ghostty); image previews render as real per-pixel images via image.nvim
+#   devShells.<system>.default : development shell that includes packages.<system>.default
+#   devShells.<system>.kitty   : development shell that includes packages.<system>.kitty
 # Inputs: nixpkgs (nixos-unstable) + nixvim (follows nixpkgs).
 {
   description = "nix-flakes-nixvim";
@@ -41,14 +43,17 @@
           };
           # `makeNixvimWithModule` is used to create a standalone Neovim package that includes my custom configuration module.
           # Reference: https://nix-community.github.io/nixvim/user-guide/install.html#standalone-usage
-          nixvimConfig = inputs.nixvim.legacyPackages.${system}.makeNixvimWithModule {
-            # `makeNixvimWithModule` accepts `pkgs`, `extraSpecialArgs`, `module`
-            inherit pkgs;
-            module = import ./config;
-          };
+          makeConfig =
+            module:
+            inputs.nixvim.legacyPackages.${system}.makeNixvimWithModule {
+              # `makeNixvimWithModule` accepts `pkgs`, `extraSpecialArgs`, `module`
+              inherit pkgs;
+              inherit module;
+            };
         in
         {
-          default = nixvimConfig;
+          default = makeConfig (import ./config);
+          kitty = makeConfig (import ./config/kitty.nix);
         }
       );
 
@@ -61,6 +66,11 @@
           default = pkgs.mkShell {
             packages = [
               inputs.self.packages.${system}.default
+            ];
+          };
+          kitty = pkgs.mkShell {
+            packages = [
+              inputs.self.packages.${system}.kitty
             ];
           };
         }

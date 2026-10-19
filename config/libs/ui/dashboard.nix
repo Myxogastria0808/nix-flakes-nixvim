@@ -4,6 +4,8 @@
 {
   # alpha-nvim
   # reference: https://github.com/goolord/alpha-nvim
+  #
+  # Startup screen with a geometric ASCII art logo and the current Neovim version.
   plugins.alpha = {
     enable = true;
     settings.layout = [

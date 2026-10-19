@@ -32,6 +32,7 @@ A standalone Neovim distribution built entirely with [Nix Flakes](https://wiki.n
 | **Comments**       | [Comment.nvim](https://github.com/numToStr/Comment.nvim) + [ts-context-commentstring](https://github.com/JoosepAlviste/nvim-ts-context-commentstring) | Context-aware commenting (JSX/TSX support)                                                                                                                                                     |
 | **Terminal**       | [lspsaga.nvim](https://github.com/nvimdev/lspsaga.nvim) (`term_toggle`)                                                                               | Floating terminal toggle (via lspsaga)                                                                                                                                                         |
 | **Preview**        | [markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim), [typst-preview.nvim](https://github.com/chomosuke/typst-preview.nvim)       | Live Markdown + Mermaid preview in browser; live Typst preview in browser                                                                                                                      |
+| **Image preview**  | [chafa](https://github.com/hpjansson/chafa) (`default` package) / [image.nvim](https://github.com/3rd/image.nvim) (`kitty` package)                   | `default`: AVIF/GIF/JPEG/JXL/PNG/QOI/SVG/TIFF/WebP/XWD images render as chafa character art in the buffer on open; `kitty`: real per-pixel previews via the Kitty Graphics Protocol — direct file opens plus inline images in Markdown/Typst/Neorg/AsciiDoc-reST/HTML/CSS documents |
 | **Navigation**     | [jumpcursor.vim](https://github.com/skanehira/jumpcursor.vim)                                                                                         | Jump cursor to any location in the file                                                                                                                                                        |
 | **Annotations**    | [todo-comments.nvim](https://github.com/folke/todo-comments.nvim)                                                                                     | Highlight `TODO`, `FIXME`, `HACK`, `WARN`, `NOTE`, `PERF`, `TEST` and aliases                                                                                                                  |
 | **Undo history**   | [telescope-undo.nvim](https://github.com/debugloop/telescope-undo.nvim)                                                                               | Browse undo history in a floating window with live diff preview (`Alt+u`)                                                                                                                      |
@@ -383,6 +384,14 @@ nix build github:Myxogastria0808/nix-flakes-nixvim#default
 nix run github:Myxogastria0808/nix-flakes-nixvim#default
 ```
 
+> [!NOTE]
+> Two package variants are published: `default` (works in any terminal; image
+> files preview as `chafa` character art) and `kitty` (for terminals that
+> speak the Kitty Graphics Protocol — kitty, WezTerm, ghostty — where image
+> files, and images referenced from Markdown/Typst/Neorg/AsciiDoc-reST/HTML/CSS,
+> preview as real pixel graphics instead). Swap `#default` for `#kitty` above
+> to use it.
+
 ### Local development
 
 ```bash
@@ -390,10 +399,10 @@ git clone https://github.com/Myxogastria0808/nix-flakes-nixvim.git
 cd nix-flakes-nixvim
 
 # Build and run
-nix run .#default
+nix run .#default   # or .#kitty, see the note above
 
 # Or enter a dev shell that includes the built Neovim
-nix develop
+nix develop          # or `nix develop .#kitty`
 ```
 
 If you have [direnv](https://direnv.net/) installed, simply run `direnv allow` and the dev shell will be loaded automatically.
@@ -402,6 +411,22 @@ If you have [direnv](https://direnv.net/) installed, simply run `direnv allow` a
 
 You can consume this Neovim package as an input in your own `flake.nix`.
 There are three typical patterns depending on how you manage your system.
+
+#### Choosing a package variant
+
+Every pattern below references `nixvim-config.packages.${system}.default`.
+Swap `.default` for `.kitty` to get the other variant instead — both are
+plain flake output attributes, selected the same way you'd select any other
+package:
+
+```nix
+# default — works in any terminal; images preview as chafa character art
+nixvim-config.packages.${system}.default
+
+# kitty — for terminals that speak the Kitty Graphics Protocol
+# (kitty, WezTerm, ghostty); images preview as real per-pixel graphics
+nixvim-config.packages.${system}.kitty
+```
 
 > [!IMPORTANT]
 > A Nerd Font must be installed separately on each host that uses this config.
@@ -429,6 +454,7 @@ Useful for per-project environments or quick experimentation.
       devShells.${system}.default = pkgs.mkShell {
         packages = [
           nixvim-config.packages.${system}.default
+          # or nixvim-config.packages.${system}.kitty — see "Choosing a package variant" above
         ];
       };
     };
@@ -468,6 +494,7 @@ Add the Neovim package and Nerd Font to your Home Manager configuration.
             {
               home.packages = [
                 nixvim-config.packages."x86_64-linux".default
+                # or nixvim-config.packages."x86_64-linux".kitty — see "Choosing a package variant" above
                 pkgs.nerd-fonts.jetbrains-mono # required for icons
               ];
               # Required to make user-installed fonts discoverable
@@ -502,6 +529,7 @@ Add the Neovim package to `environment.systemPackages` and the Nerd Font to `fon
             {
               environment.systemPackages = [
                 nixvim-config.packages."x86_64-linux".default
+                # or nixvim-config.packages."x86_64-linux".kitty — see "Choosing a package variant" above
               ];
               fonts.packages = [
                 pkgs.nerd-fonts.jetbrains-mono # required for icons
@@ -526,7 +554,9 @@ If you want to use GitHub Copilot, run `:Copilot auth` inside Neovim after the f
 ├── flake.nix                        # Flake definition (packages & devShell)
 ├── flake.lock
 ├── config/
-│   ├── default.nix                  # Root NixVim module — imports all modules below
+│   ├── base.nix                     # Shared root module — imports all modules below except image preview
+│   ├── default.nix                  # Root module for the `default` package — base.nix + image-chafa.nix
+│   ├── kitty.nix                    # Root module for the `kitty` package — base.nix + image-kitty.nix
 │   └── libs/
 │       ├── ui/
 │       │   ├── theme.nix            # Colorscheme (tokyonight)
@@ -536,7 +566,9 @@ If you want to use GitHub Copilot, run `:Copilot auth` inside Neovim after the f
 │       │   ├── tab.nix              # Buffer tabs (bufferline)
 │       │   ├── gitsigns.nix         # Git gutter signs
 │       │   ├── notify.nix           # nvim-notify + noice.nvim (notification routing)
-│       │   └── utils.nix            # swapfile off + undofile on / telescope + telescope-undo / indent-blankline / which-key / neoscroll / todo-comments
+│       │   ├── utils.nix            # swapfile off + undofile on / telescope + telescope-undo / indent-blankline / which-key / neoscroll / todo-comments
+│       │   ├── image-chafa.nix      # Image preview via chafa character art (`default` package)
+│       │   └── image-kitty.nix      # Image preview via Kitty Graphics Protocol (`kitty` package)
 │       ├── language/
 │       │   ├── lsp.nix              # LSP servers (28 languages) + lean.nvim + cornelis (Agda)
 │       │   ├── lspsaga.nix          # lspsaga.nvim (rich LSP UI + float terminal)

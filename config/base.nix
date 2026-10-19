@@ -1,0 +1,30 @@
+# config/base.nix — Shared NixVim module list, imported by every variant.
+# Everything except the image-preview feature, which differs per variant
+# (see config/default.nix and config/kitty.nix) because it needs to know at
+# build time whether the target terminal speaks the Kitty Graphics Protocol.
+{
+  imports = [
+    # ui
+    ./libs/ui/theme.nix
+    ./libs/ui/tree.nix
+    ./libs/ui/status-bar.nix
+    ./libs/ui/tab.nix
+    ./libs/ui/gitsigns.nix
+    ./libs/ui/utils.nix
+    ./libs/ui/notify.nix
+    ./libs/ui/dashboard.nix
+    # language
+    ./libs/language/lsp.nix
+    ./libs/language/lspsaga.nix
+    ./libs/language/format.nix
+    ./libs/language/treesitter.nix
+    # action
+    ./libs/action/copilot.nix
+    ./libs/action/completion.nix
+    ./libs/action/commentout.nix
+    ./libs/action/emmet.nix
+    ./libs/action/utils.nix
+    ./libs/action/keymaps.nix
+  ];
+}
+

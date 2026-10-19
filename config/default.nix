@@ -1,32 +1,13 @@
-# config/default.nix — Root NixVim module.
-# Imports all sub-modules from config/libs/ organised into three categories:
-#   ui/       : visual and interface plugins (theme, dashboard, tree, statusline, tabs, gitsigns, notifications, utils)
-#   language/ : LSP servers, LSP UI, formatting/linting, treesitter syntax
-#   action/   : editing workflow plugins (copilot, completion, comments, emmet, autopairs, keymaps)
+# config/default.nix — Root NixVim module for the `default` package: works
+# in any terminal. Image previews render as chafa character art (see
+# libs/ui/image-chafa.nix). For real per-pixel image previews on a
+# terminal that speaks the Kitty Graphics Protocol (kitty, WezTerm,
+# ghostty), build the `kitty` package instead (config/kitty.nix) — it's the
+# same config plus libs/ui/image-kitty.nix in place of image-chafa.nix.
 {
   imports = [
-    # ui
-    ./libs/ui/theme.nix
-    ./libs/ui/tree.nix
-    ./libs/ui/status-bar.nix
-    ./libs/ui/tab.nix
-    ./libs/ui/gitsigns.nix
-    ./libs/ui/utils.nix
-    ./libs/ui/notify.nix
-    ./libs/ui/dashboard.nix
-    ./libs/ui/image-preview.nix
-    # language
-    ./libs/language/lsp.nix
-    ./libs/language/lspsaga.nix
-    ./libs/language/format.nix
-    ./libs/language/treesitter.nix
-    # action
-    ./libs/action/copilot.nix
-    ./libs/action/completion.nix
-    ./libs/action/commentout.nix
-    ./libs/action/emmet.nix
-    ./libs/action/utils.nix
-    ./libs/action/keymaps.nix
+    ./base.nix
+    ./libs/ui/image-chafa.nix
   ];
 }
 

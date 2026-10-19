@@ -14,6 +14,8 @@
   # jumpcursor.vim
   # reference: https://github.com/skanehira/jumpcursor.vim
   #
+  # Jump the cursor directly to any visible location in the window.
+  #
   # Keymaps:
   # <A-j> : jump cursor to any location in the file (Normal)
   extraPlugins = [
@@ -33,6 +35,8 @@
   # markdown-preview.nvim
   # reference: https://github.com/iamcco/markdown-preview.nvim
   #
+  # Live Markdown (and Mermaid diagram) preview rendered in the browser.
+  #
   # Keymaps:
   # <A-m> : toggle Markdown preview in browser (Normal)
   plugins.markdown-preview = {
@@ -42,6 +46,8 @@
 
   # typst-preview.nvim
   # reference: https://github.com/chomosuke/typst-preview.nvim
+  #
+  # Live Typst document preview rendered in the browser.
   #
   # Keymaps:
   # <A-p> : toggle Typst preview in browser (Normal)

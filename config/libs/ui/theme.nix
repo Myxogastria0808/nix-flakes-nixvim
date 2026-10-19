@@ -3,6 +3,8 @@
 {
   # tokyonight.nvim
   # reference: https://github.com/folke/tokyonight.nvim
+  #
+  # Colorscheme for the editor UI and syntax highlighting.
   colorschemes.tokyonight = {
     enable = true;
     # available styles: moon | storm | night | day
